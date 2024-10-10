@@ -8,7 +8,7 @@ type CheckBoxProps = Omit<
   large?: boolean;
 };
 
-export default function CustomCheckBox(props: CheckBoxProps) {
+const CustomCheckBox = (props: CheckBoxProps) => {
   const { className, children, large, ...rest } = props;
 
   const uuid = useId();
@@ -28,4 +28,6 @@ export default function CustomCheckBox(props: CheckBoxProps) {
       <label htmlFor={uuid}>{children}</label>
     </div>
   );
-}
+};
+
+export default CustomCheckBox;

@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 type ToggleProps = Omit<React.ComponentPropsWithoutRef<"input">, "type" | "id">;
 
-export default function CustomToggle(props: ToggleProps) {
+const CustomToggle = (props: ToggleProps) => {
   const { className, children, disabled, ...rest } = props;
 
   const uuid = useId();
@@ -29,4 +29,6 @@ export default function CustomToggle(props: ToggleProps) {
       </label>
     </div>
   );
-}
+};
+
+export default CustomToggle;

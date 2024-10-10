@@ -8,7 +8,7 @@ type RadioProps = Omit<
   large?: boolean;
 };
 
-export default function CustomRadio(props: RadioProps) {
+const CustomRadio = (props: RadioProps) => {
   const { className, children, large, ...rest } = props;
 
   const uuid = useId();
@@ -28,4 +28,6 @@ export default function CustomRadio(props: RadioProps) {
       <label htmlFor={uuid}>{children}</label>
     </div>
   );
-}
+};
+
+export default CustomRadio;
