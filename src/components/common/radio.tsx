@@ -13,7 +13,7 @@ export default function Radio() {
           htmlFor="default-radio-1"
           className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
-          Default radio
+          Default radio1
         </label>
       </div>
     </div>
