@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { FONT_SIZE } from "./src/css/fonts";
 
 const config: Config = {
   content: [
@@ -11,6 +12,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      fontFamily: {
+        pretendard: ["Pretendard"],
+      },
+      fontSize: {
+        ...FONT_SIZE,
       },
     },
   },
