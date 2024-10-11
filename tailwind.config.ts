@@ -1,3 +1,4 @@
+import { COLORS } from "@/css/color";
 import type { Config } from "tailwindcss";
 import { FONT_SIZE } from "./src/css/fonts";
 
@@ -10,8 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        ...COLORS,
       },
       fontFamily: {
         pretendard: ["Pretendard"],
@@ -23,4 +23,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;
