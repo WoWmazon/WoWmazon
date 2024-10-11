@@ -1,5 +1,5 @@
-import { COLORS } from "@/css/color";
 import type { Config } from "tailwindcss";
+import { COLORS } from "./src/css/color";
 import { FONT_SIZE } from "./src/css/fonts";
 
 const config: Config = {
