@@ -6,6 +6,22 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .bi-check-sm {
+    background-image: url("../assets/icons/check-sm.svg");
+  }
+
+  .bi-check-lg {
+    background-image: url("../assets/icons/check-lg.svg");
+  }
+
+  .bi-circle-sm {
+    background-image: url("../assets/icons/circle-sm.svg");
+  }
+
+  .bi-circle-lg {
+    background-image: url("../assets/icons/circle-lg.svg");
+  }
 }
 
 @layer base {
