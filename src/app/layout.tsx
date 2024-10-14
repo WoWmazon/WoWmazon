@@ -1,5 +1,6 @@
 import "../css/index.css";
 import type { Metadata } from "next";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +14,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"font-pretendard"}>{children}</body>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <body className={"font-pretendard"}>
+        <div className="min-h-screen flex justify-center items-center bg-gray-300">
+          <div className="w-full sm:w-[375px] min-h-screen md:min-h-[738px] bg-white">
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
