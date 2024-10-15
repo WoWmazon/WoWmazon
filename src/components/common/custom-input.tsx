@@ -66,4 +66,6 @@ const CustomInput = forwardRef<
   );
 });
 
+CustomInput.displayName = "Input";
+
 export default CustomInput;
