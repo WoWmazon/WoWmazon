@@ -1,5 +1,3 @@
-"use client";
-import { useState } from "react";
 import Image from "next/image";
 
 const IconButton = ({
@@ -7,14 +5,11 @@ const IconButton = ({
   activeIcon,
   size,
   alt,
+  isActive = false,
   onClick,
-  defaultActive = false,
   ...buttonProps
 }: IconButtonProps) => {
-  const [isActive, setIsActive] = useState<boolean>(defaultActive);
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsActive((prev) => !prev);
     if (onClick) onClick(e);
   };
 

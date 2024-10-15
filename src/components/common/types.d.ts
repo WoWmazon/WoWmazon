@@ -4,5 +4,5 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   activeIcon?: string;
   size: number;
   alt: string;
-  defaultActive?: boolean;
+  isActive?: boolean;
 };
