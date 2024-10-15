@@ -1,3 +1,4 @@
+import LocaleButton from "@/components/locale-button";
 import "../css/index.css";
 import type { Metadata } from "next";
 import Head from "next/head";
@@ -13,12 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <body className={"font-pretendard"}>
+        <LocaleButton />
         <div className="min-h-screen flex justify-center items-center bg-gray-300">
+          <br />
           <div className="w-full sm:w-[375px] min-h-screen md:min-h-[738px] bg-white">
             {children}
           </div>
