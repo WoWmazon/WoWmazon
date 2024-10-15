@@ -22,7 +22,7 @@ i18next
   )
   .init({
     ...getOptions(),
-    lng: undefined, 
+    lng: undefined,
     detection: {
       order: ["path"],
     },
@@ -36,6 +36,7 @@ export const useTranslation = (lng: LocaleTypes, ns: string) => {
   if (runsOnServerSide && lng) {
     i18n.changeLanguage(lng);
   } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useCustomTranslationImplem(i18n, lng);
   }
   return translator;
