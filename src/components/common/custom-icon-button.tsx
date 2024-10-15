@@ -19,7 +19,7 @@ const IconButton = ({
   };
 
   return (
-    <button onClick={handleClick} {...buttonProps} className="cursor-pointer">
+    <button onClick={handleClick} {...buttonProps}>
       <Image
         src={isActive && activeIcon ? activeIcon : icon}
         width={size}
