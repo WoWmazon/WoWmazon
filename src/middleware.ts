@@ -1,35 +1,25 @@
-// middleware.ts
 import { NextResponse, NextRequest } from "next/server";
-import { fallbackLng, locales } from "./utils/localization/settings";
+import {
+  fallbackLng,
+  locales,
+  LocaleTypes,
+} from "./utils/localization/settings";
 
 export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-
-  // 기본 언어 경로 처리
-  if (
-    pathname.startsWith(`/${fallbackLng}/`) ||
-    pathname === `/${fallbackLng}`
-  ) {
-    return NextResponse.redirect(
-      new URL(
-        pathname.replace(
-          `/${fallbackLng}`,
-          pathname === `/${fallbackLng}` ? "/" : ""
-        ),
-        request.url
-      )
-    );
+  const { pathname } = request.nextUrl;
+  const pathSegments = pathname.split("/");
+  const currentLocale = pathSegments[1] as LocaleTypes; // 첫번째 경로 세그먼트가 언어인지
+  if (currentLocale === fallbackLng) {
+    const newPathName = pathSegments.slice(2).join("/") || "/";
+    return NextResponse.redirect(new URL(newPathName, request.url));
   }
-// 경로에 언어가 없는 경우 처리
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
-
-  if (pathnameIsMissingLocale) {
+  const pathnameIsMossingLocale = !locales.includes(currentLocale);
+  if (pathnameIsMossingLocale) {
     return NextResponse.rewrite(
       new URL(`/${fallbackLng}${pathname}`, request.url)
     );
   }
+  return NextResponse.next();
 }
 // 특정경로에서 middleware 실행되지않도록 설정
 export const config = {

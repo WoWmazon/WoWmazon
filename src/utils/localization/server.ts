@@ -8,7 +8,8 @@ const initI18next = async (lang: LocaleTypes, ns: string) => {
   await i18nInstance
     .use(initReactI18next) // react-i18next 초기화
     .use(
-      resourcesToBackend(//동적으로 언어와 네임스페이스에따라 JSON번역파일가져옴
+      resourcesToBackend(
+        // 동적으로 언어와 네임스페이스에 따라 JSON 번역 파일 가져옴
         (language: string, namespace: typeof ns) =>
           import(`./locales/${language}/${namespace}.json`)
       )
@@ -18,10 +19,10 @@ const initI18next = async (lang: LocaleTypes, ns: string) => {
   return i18nInstance;
 };
 
-export async function createTranslation(lang: LocaleTypes, ns: string) {
+export const createTranslation = async (lang: LocaleTypes, ns: string) => {
   const i18nextInstance = await initI18next(lang, ns);
 
   return {
     t: i18nextInstance.getFixedT(lang, Array.isArray(ns) ? ns[0] : ns),
   };
-}
+};

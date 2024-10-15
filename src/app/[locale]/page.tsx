@@ -6,7 +6,7 @@ export default async function Home({
 }: {
   params: { locale: LocaleTypes };
 }) {
-  const { t } = await createTranslation(locale, "home");
+  const { t } = await createTranslation(locale, "common");
 
   return (
     <div className="test-container">
