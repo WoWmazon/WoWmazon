@@ -2,5 +2,8 @@
   "greeting": "안녕하세요",
   "description": "와우마존에 오신 것을 환영합니다!",
   "english": "영어(EN)",
-  "korean": "한국어(KR)"
+  "korean": "한국어(KR)",
+  "notice": "안내",
+  "lowestPrice": "역대 최저가",
+  "highestPrice": "역대 최고가"
 }

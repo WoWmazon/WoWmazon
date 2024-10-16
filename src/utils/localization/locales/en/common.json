@@ -2,5 +2,8 @@
   "greeting": "Hello",
   "description": "Welcome to our website!",
   "english": "English(EN)",
-  "korean": "korean(KR)"
+  "korean": "korean(KR)",
+  "'notice": "Notice",
+  "lowestPrice": "Lowest Price",
+  "highestPrice": "Highest Price"
 }
