@@ -7,3 +7,11 @@ type ToastProps = {
   error?: boolean;
   autoHideDuration?: number;
 };
+
+type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  icon: string;
+  activeIcon?: string;
+  size: number;
+  alt: string;
+  isActive?: boolean;
+};
