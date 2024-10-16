@@ -49,7 +49,7 @@ const CustomInput = forwardRef<
       <input
         type={type}
         ref={inputRef}
-        className="w-full h-11 p-4 pr-9 bg-transparent rounded-sm font-normal text-ELSE-33 text-lg placeholder:text-ELSE-AE focus:outline-none"
+        className="w-full h-11 p-4 pr-9 bg-transparent rounded-sm text-ELSE-33 text-lg placeholder:text-ELSE-AE focus:outline-none"
         value={value}
         onChange={onChange}
         {...rest}
