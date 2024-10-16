@@ -24,7 +24,7 @@ const CustomInput = forwardRef<
   // 외부에서 받은 ref와 로컬 ref를 연결
   useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
-  const deleteValue = () => {
+  const handleDeleteValue = () => {
     if (onChange) {
       if (inputRef.current) {
         inputRef.current.value = "";
@@ -55,7 +55,10 @@ const CustomInput = forwardRef<
         {...rest}
       />
       {hasDelBtn && value && (
-        <div className="absolute right-5 cursor-pointer" onClick={deleteValue}>
+        <div
+          className="absolute right-5 cursor-pointer"
+          onClick={handleDeleteValue}
+        >
           <Image
             src={InputDeleteButton}
             alt="input-delete"
