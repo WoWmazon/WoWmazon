@@ -6,6 +6,9 @@ import Head from "next/head";
 export const metadata: Metadata = {
   title: "Nito",
   description: "Amazon Lowest Price Monitoring Service",
+  icons: {
+    icon: [{ rel: "icon", url: "/favicon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
