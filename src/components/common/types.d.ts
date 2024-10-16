@@ -2,6 +2,7 @@ type InputProps = Omit<React.ComponentPropsWithoutRef<"input">, "type" | "id">;
 
 type ModalProps = {
   isShow: boolean;
+  handleClose: () => void;
   title: string;
   content: string;
   btnText: string; // filled button text

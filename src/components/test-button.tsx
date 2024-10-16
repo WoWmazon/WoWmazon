@@ -54,6 +54,7 @@ const TestButton = () => {
       {networkIsOpen && (
         <Modal
           isShow={networkIsOpen}
+          handleClose={() => setNetworkIsOpen(false)}
           title="네트워크 연결상태가 불안정해요"
           content="네트워크 연결상태를 확인하거나 아래 버튼 클릭후 다시 접속을 시도해주시기 바랍니다"
           btnText={t("retry")}
@@ -64,6 +65,7 @@ const TestButton = () => {
       {updateIsOpen && (
         <Modal
           isShow={updateIsOpen}
+          handleClose={() => setUpdateIsOpen(false)}
           title="NITO 앱 버전 업데이트 안내"
           content="안정적인 서비스 사용을 위해 최신 버전으로 업데이트 해주세요"
           btnText={t("update")}

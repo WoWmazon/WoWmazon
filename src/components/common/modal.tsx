@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
+import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 const Modal = (props: ModalProps) => {
   const {
     isShow,
+    handleClose,
     title,
     content,
     btnText,
@@ -15,13 +17,33 @@ const Modal = (props: ModalProps) => {
   } = props;
   const textAlign = icon ? "text-center" : ""; // icon 있으면 text-align: center 적용
 
+  // 모달 열릴 때 외부 스크롤 차단
+  useEffect(() => {
+    if (isShow) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // 컴포넌트 언마운트 시 복원
+    };
+  }, [isShow]);
+
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      handleClose(); // 모달 외부를 클릭했을 때 모달 닫기
+    }
+  };
+
   return (
     <div>
       {isShow && (
         <div
           id="common-popup-modal"
           tabIndex={-1}
-          className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50"
+          className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-ELSE-A1 bg-opacity-50"
+          onClick={handleOutsideClick} // 외부 클릭 시 모달 닫기
         >
           <div
             className={twMerge(
