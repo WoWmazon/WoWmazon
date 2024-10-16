@@ -19,6 +19,20 @@ const config: Config = {
       fontSize: {
         ...FONT_SIZE,
       },
+      keyframes: {
+        slideUp: {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        slideDown: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+      },
+      animation: {
+        slideUp: "slideUp .5s ease-out",
+        slideDown: "slideDown .5s ease-out",
+      },
     },
   },
   plugins: [],
