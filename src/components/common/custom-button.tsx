@@ -24,7 +24,7 @@ const CustomButton = ({
     className
   );
 
-  return <button className={buttonClass} {...props}></button>;
+  return <button className={buttonClass} {...props} />;
 };
 
 export default CustomButton;
