@@ -3,11 +3,18 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
+const toastPosition = {
+  left: "left-4",
+  right: "right-4",
+  center: "",
+};
+
 const Toast = ({
   message,
   open,
   onChange,
   type,
+  position = "right",
   autoHideDuration = 3000,
 }: ToastProps) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -23,12 +30,13 @@ const Toast = ({
   }, []);
 
   return (
-    <div className="fixed flex justify-center bottom-0 left-1/2 w-full -translate-x-1/2">
+    <div className="fixed flex justify-center bottom-0 left-1/2 w-full sm:w-[375px] -translate-x-1/2">
       <div
         className={twMerge(
-          "fixed bottom-0 h-[52px] w-[96%] sm:w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-[9999]",
+          "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-[9999]",
           open && isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",
+          toastPosition[position],
           `${type && type === "error" ? "bg-ELSE-FF2 text-ELSE-F60" : ""}`
         )}
         role="alert"
