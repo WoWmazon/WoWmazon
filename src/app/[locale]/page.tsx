@@ -1,3 +1,4 @@
+import TestButton from "../../components/test-button";
 import { createTranslation } from "../../utils/localization/server";
 import { LocaleTypes } from "../../utils/localization/settings";
 
@@ -12,6 +13,7 @@ export default async function Home({
     <div className="test-container">
       <h1>{t("greeting")}</h1>
       <h3>{t("description")}</h3>
+      <TestButton />
     </div>
   );
 }
