@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 
-const CustomToggle = (props: InputProps) => {
+const CustomToggle = (props: InputOmitProps) => {
   const { className, children, disabled, ...rest } = props;
 
   const uuid = useId();

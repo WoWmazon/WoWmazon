@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 
-const CustomCheckBox = (props: InputProps & { large?: boolean }) => {
+const CustomCheckBox = (props: InputOmitProps & { large?: boolean }) => {
   const { className, children, large, ...rest } = props;
 
   const uuid = useId();
