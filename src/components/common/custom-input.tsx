@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const CustomInput = forwardRef<
   HTMLInputElement,
-  React.ComponentPropsWithoutRef<"input"> & { hasDelBtn?: boolean }
+  InputProps & { hasDelBtn?: boolean }
 >((props, ref) => {
   const {
     type = "text",
@@ -40,14 +40,16 @@ const CustomInput = forwardRef<
   };
 
   return (
-    <div className="relative flex flex-row items-center w-fit">
+    <div
+      className={twMerge(
+        "relative flex flex-row items-center w-full h-fit bg-ELSE-F5",
+        className
+      )}
+    >
       <input
         type={type}
         ref={inputRef}
-        className={twMerge(
-          "w-full h-11 bg-ELSE-F5 p-4 font-normal text-ELSE-33 text-lg placeholder:text-ELSE-AE focus:outline-none",
-          className
-        )}
+        className="w-full h-11 p-4 pr-9 bg-transparent rounded-sm font-normal text-ELSE-33 text-lg placeholder:text-ELSE-AE focus:outline-none"
         value={value}
         onChange={onChange}
         {...rest}
