@@ -4,7 +4,6 @@ type ToastProps = {
   message: string;
   open: boolean;
   onChange: (isOpen: boolean) => void;
-  position?: "left" | "right" | "center";
-  type?: "error";
+  error?: boolean;
   autoHideDuration?: number;
 };
