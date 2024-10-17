@@ -30,6 +30,16 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isActive?: boolean;
 };
 
+type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  size: "large" | "small";
+  variant: "filled" | "disabled" | "outline" | "outlineColor";
+};
+
+type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  size: "large" | "small";
+  variant: "filled" | "disabled" | "outline" | "outlineColor";
+};
+
 type ModalProps = {
   isShow: boolean;
   handleClose: () => void;
