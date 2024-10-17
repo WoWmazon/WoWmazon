@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
+import CustomButton from "./custom-button";
 
 const Modal = (props: ModalProps) => {
   const {
@@ -62,19 +63,17 @@ const Modal = (props: ModalProps) => {
             <h3 className="mb-5 text-lg text-ELSE-55">{content}</h3>
             <div className="flex w-full h-14">
               {optionalBtnText && (
-                <button
+                <CustomButton
+                  variant="outline"
+                  className="mr-3"
                   onClick={handleOptional}
-                  className="mr-3 p-[15px] text-lg font-bold text-ELSE-F8 bg-white border border-ELSE-EC rounded-sm hover:bg-gray-100 hover:text-gray-500 flex-1"
                 >
                   {optionalBtnText}
-                </button>
+                </CustomButton>
               )}
-              <button
-                onClick={handleAction}
-                className="p-[15px] text-lg font-bold text-white bg-SYSTEM-main rounded-sm hover:bg-red-500 flex-1"
-              >
+              <CustomButton variant="filled" onClick={handleAction}>
                 {btnText}
-              </button>
+              </CustomButton>
             </div>
           </div>
         </div>
