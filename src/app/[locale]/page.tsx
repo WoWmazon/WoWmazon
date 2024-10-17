@@ -14,16 +14,16 @@ export default async function Home({
       <h1>{t("greeting")}</h1>
       <h3>{t("description")}</h3>
       <div className="flex flex-col gap-2">
-        <CustomButton height="large" variant="disabled" fontWeight="bold">
+        <CustomButton size="large" variant="disabled">
           disabled button
         </CustomButton>
-        <CustomButton height="large" variant="filled" fontWeight="bold">
+        <CustomButton size="large" variant="filled">
           filled button
         </CustomButton>
-        <CustomButton height="large" variant="outline" fontWeight="bold">
+        <CustomButton size="small" variant="outline">
           outline button
         </CustomButton>
-        <CustomButton height="large" variant="outlineColor" fontWeight="bold">
+        <CustomButton size="small" variant="outlineColor">
           filled button
         </CustomButton>
       </div>
@@ -33,7 +33,7 @@ export default async function Home({
           placeholder="닉네임을 입력해주세요"
           className="border border-bg-black h-14 px-4 py-[14px] bg-SYSTEM-white"
         />
-        <CustomButton height="large" variant="outlineColor" fontWeight="bold">
+        <CustomButton size="large" variant="outlineColor">
           중복확인
         </CustomButton>
       </div>
