@@ -1,26 +1,28 @@
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
+const variantStyles = {
+  filled: "bg-SYSTEM-main text-SYSTEM-white hover:bg-red-500",
+  disabled: "bg-ELSE-D9 text-SYSTEM-white ",
+  outline:
+    "bg-SYSTEM-white border border-ELSE-D9 text-ELSE-D9 hover:bg-gray-100 hover:text-gray-400",
+  outlineColor:
+    "bg-SYSTEM-white border border-SYSTEM-main text-SYSTEM-main hover:bg-red-100",
+};
+const sizeStyles = {
+  small: "h-11 font-normal",
+  large: "h-14 font-bold",
+};
 
 const CustomButton = ({
-  height,
+  size = "large",
   variant = "filled",
-  fontWeight = "normal",
   className,
   ...props
 }: CustomButtonProps) => {
-  const buttonClass = clsx(
-    "rounded-sm cursor-pointer  w-full text-lg flex  justify-center items-center", // 공통 스타일
-    {
-      " h-11": height === "small",
-      "h-14": height === "large",
-      "bg-SYSTEM-main text-SYSTEM-white": variant === "filled",
-      "bg-ELSE-D9 text-SYSTEM-white ": variant === "disabled",
-      "bg-SYSTEM-white border border-ELSE-D9 text-ELSE-D9":
-        variant === "outline",
-      "bg-SYSTEM-white border border-SYSTEM-main text-SYSTEM-main":
-        variant === "outlineColor",
-      "font-bold": fontWeight === "bold",
-      "font-normal": fontWeight === "normal",
-    },
+  const buttonClass = twMerge(
+    "rounded-sm cursor-pointer w-full text-lg flex justify-center items-center",
+    variantStyles[variant as keyof typeof variantStyles],
+    sizeStyles[size as keyof typeof sizeStyles],
     className
   );
 

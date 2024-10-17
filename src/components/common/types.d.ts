@@ -21,7 +21,6 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  height: "large" | "small";
+  size: "large" | "small";
   variant: "filled" | "disabled" | "outline" | "outlineColor";
-  fontWeight: "bold" | "normal";
 };
