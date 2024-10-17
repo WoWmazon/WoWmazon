@@ -9,12 +9,12 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const pathSegments = pathname.split("/");
   const currentLocale = pathSegments[1] as LocaleTypes; // 첫번째 경로 세그먼트가 언어인지
-  if (currentLocale === fallbackLng) {
-    const newPathName = pathSegments.slice(2).join("/") || "/";
-    return NextResponse.redirect(new URL(newPathName, request.url));
-  }
-  const pathnameIsMossingLocale = !locales.includes(currentLocale);
-  if (pathnameIsMossingLocale) {
+  // if (currentLocale === fallbackLng) {
+  //   const newPathName = pathSegments.slice(2).join("/") || "/";
+  //   return NextResponse.redirect(new URL(newPathName, request.url));
+  // }
+  const pathnameIsMissingLocale = !locales.includes(currentLocale);
+  if (pathnameIsMissingLocale) {
     return NextResponse.rewrite(
       new URL(`/${fallbackLng}${pathname}`, request.url)
     );
