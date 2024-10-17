@@ -17,21 +17,19 @@ export default async function Home({
       <h3>{t("description")}</h3>
       {/* modal button */}
       <TestButton />
+      <br />
       {/* custom button */}
       <div className="flex flex-col gap-2">
-        <CustomButton size="large" variant="disabled">
-          disabled button
-        </CustomButton>
-        <CustomButton size="large" variant="filled">
-          filled button
-        </CustomButton>
-        <CustomButton size="small" variant="outline">
+        <CustomButton variant="disabled">disabled button</CustomButton>
+        <CustomButton variant="filled">filled button</CustomButton>
+        <CustomButton smallSize variant="outline">
           outline button
         </CustomButton>
-        <CustomButton size="small" variant="outlineColor">
+        <CustomButton smallSize variant="outlineColor">
           filled button
         </CustomButton>
       </div>
+      <br />
       <div className="grid grid-cols-[250px_auto] gap-1">
         {/* 첫번째열 250px 고정너비 가지고 두번째열은 남는 공간 차지 */}
         <input
