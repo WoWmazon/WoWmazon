@@ -26,6 +26,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       onChange,
       hasDelBtn = false,
       className,
+      error = false,
       ...rest
     } = props;
 
@@ -55,6 +56,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           "relative flex flex-row items-center w-full rounded-sm",
           inputStyles[variant as keyof typeof inputStyles],
           inputSizes[size as keyof typeof inputSizes],
+          error && "border border-solid border-SYSTEM-main",
           className
         )}
       >

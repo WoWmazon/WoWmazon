@@ -38,4 +38,5 @@ type CustomInputProps = Omit<InputProps, "size"> & {
   size: "large" | "small";
   variant: "outline" | "filled";
   hasDelBtn?: boolean;
+  error?: boolean;
 };
