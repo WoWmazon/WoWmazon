@@ -14,7 +14,7 @@ export const COLORS = {
     FF2: "#FFF2F2",
     EC: "#ECECEC",
     F0: "#F0FFF6",
-    FF3: "#F0FFF6",
+    FF3: "#FFF3ED",
     FA: "#FAFAFA",
     29: "#292A2E",
     48: "#4850FF",

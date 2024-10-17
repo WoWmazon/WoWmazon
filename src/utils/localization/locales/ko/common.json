@@ -5,5 +5,8 @@
   "korean": "한국어(KR)",
   "cancel": "취소",
   "update": "업데이트",
-  "retry": "재시도"
+  "retry": "재시도",
+  "notice": "안내",
+  "lowestPrice": "역대 최저가",
+  "highestPrice": "역대 최고가"
 }
