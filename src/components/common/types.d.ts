@@ -29,3 +29,8 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   alt: string;
   isActive?: boolean;
 };
+
+type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  size: "large" | "small";
+  variant: "filled" | "disabled" | "outline" | "outlineColor";
+};

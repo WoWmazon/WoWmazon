@@ -22,7 +22,7 @@ export default function RootLayout({
         <LocaleButton />
         <div className="min-h-screen flex justify-center items-center bg-gray-300">
           <br />
-          <div className="w-full sm:w-[375px] min-h-screen md:min-h-[738px] bg-white">
+          <div className="w-full sm:w-[375px] min-h-screen md:min-h-[738px] bg-white p-4">
             {children}
           </div>
         </div>
