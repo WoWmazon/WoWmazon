@@ -7,12 +7,11 @@ type BadgeProps = {
   hasIcon: boolean;
   iconSrc?: string;
   iconWidth?: number;
-}
+};
+
 type InputProps = React.ComponentPropsWithoutRef<"input">;
-type InputOmitProps = Omit<
-  React.ComponentPropsWithoutRef<"input">,
-  "type" | "id"
->;
+
+type InputOmitProps = Omit<InputProps, "type" | "id">;
 
 type ToastProps = {
   message: string;
@@ -33,6 +32,13 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   smallSize?: boolean;
   variant: "filled" | "disabled" | "outline" | "outlineColor";
+};
+
+type CustomInputProps = Omit<InputProps, "size"> & {
+  size: "large" | "small";
+  variant: "outline" | "filled";
+  hasDelBtn?: boolean;
+  error?: boolean;
 };
 
 type ModalProps = {
