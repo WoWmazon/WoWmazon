@@ -1,7 +1,11 @@
-import LocaleButton from "@/components/locale-button";
-import "../css/index.css";
 import type { Metadata } from "next";
-import Head from "next/head";
+import Image from "next/image";
+import LocaleButton from "@/components/locale-button";
+
+import MainImage from "@/assets/images/main-mid.png";
+import "../css/index.css";
+import MobileHeader from "@/components/layout/mobile-header";
+import MobileFooter from "@/components/layout/mobile-footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,15 +19,26 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <body className={"font-pretendard"}>
-        <LocaleButton />
-        <div className="min-h-screen flex justify-center items-center bg-gray-300">
-          <br />
-          <div className="w-full sm:w-[375px] min-h-screen md:min-h-[738px] bg-white p-4">
-            {children}
+        <div className="absolute z-50">
+          <LocaleButton />
+        </div>
+        <div className="max-h-screen bg-SYSTEM-main overflow-hidden">
+          <div className="relative px-0 sm:px-6 md:px-10">
+            <div className="flex justify-center lg:justify-around">
+              <div className=" hidden lg:flex flex-col">
+                <Image src={MainImage} alt="nito-main" width={400} />
+              </div>
+              <div className="grid grid-rows-[44px_auto_30px] w-full max-w-[375px] h-screen bg-SYSTEM-white">
+                <div className="sticky z-40 w-full">
+                  <MobileHeader />
+                </div>
+                <div className="relative p-4">{children}</div>
+                <div className="z-40 bg-SYSTEM-white">
+                  <MobileFooter />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </body>
