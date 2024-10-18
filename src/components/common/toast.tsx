@@ -24,7 +24,7 @@ const Toast = ({
     <div className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px]">
       <div
         className={twMerge(
-          "bottom-0 h-[52px] w-[343px] text-center content-center right-4 bg-ELSE-33 text-SYSTEM-white text-md z-30",
+          "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
           open && isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",
           error && "bg-ELSE-FF2 text-ELSE-F60"
