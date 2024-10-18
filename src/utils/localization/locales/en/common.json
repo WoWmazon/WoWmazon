@@ -3,7 +3,10 @@
   "description": "Welcome to our website!",
   "english": "English(EN)",
   "korean": "korean(KR)",
-  "'notice": "Notice",
+  "cancel": "Cancel",
+  "update": "Update",
+  "retry": "Retry",
+  "notice": "Notice",
   "lowestPrice": "Lowest Price",
   "highestPrice": "Highest Price"
 }

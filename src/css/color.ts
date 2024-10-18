@@ -20,5 +20,6 @@ export const COLORS = {
     48: "#4850FF",
     C1: "#1CCA62",
     F60: "#FF6060",
+    A1: "#1A1A1A",
   },
 };
