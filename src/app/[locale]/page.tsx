@@ -2,6 +2,7 @@ import CustomButton from "@/components/common/custom-button";
 import TestButton from "../../components/test-button";
 import { createTranslation } from "../../utils/localization/server";
 import { LocaleTypes } from "../../utils/localization/settings";
+import TestComponents from "@/components/test/test-components";
 
 export default async function Home({
   params: { locale },
@@ -40,6 +41,7 @@ export default async function Home({
           중복확인
         </CustomButton>
       </div>
+      <TestComponents />
     </div>
   );
 }
