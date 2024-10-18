@@ -30,7 +30,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  size: "large" | "small";
+  smallSize?: boolean;
   variant: "filled" | "disabled" | "outline" | "outlineColor";
 };
 
@@ -39,4 +39,16 @@ type CustomInputProps = Omit<InputProps, "size"> & {
   variant: "outline" | "filled";
   hasDelBtn?: boolean;
   error?: boolean;
+};
+
+type ModalProps = {
+  isShow: boolean;
+  handleClose: () => void;
+  title: string;
+  content: string;
+  btnText: string; // filled button text
+  handleAction: () => void; // filled button action
+  icon?: string; // icon svg 파일 넘기기, icon 있으면 css textAlignCenter 적용
+  optionalBtnText?: string; // modal optional outline button text
+  handleOptional?: () => void; // modal optional outline button action
 };

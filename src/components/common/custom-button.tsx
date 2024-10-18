@@ -14,11 +14,12 @@ const sizeStyles = {
 };
 
 const CustomButton = ({
-  size = "large",
+  smallSize,
   variant = "filled",
   className,
   ...props
 }: CustomButtonProps) => {
+  const size = smallSize ? "small" : "large";
   const buttonClass = twMerge(
     "rounded-sm cursor-pointer w-full text-lg flex justify-center items-center",
     variantStyles[variant as keyof typeof variantStyles],
