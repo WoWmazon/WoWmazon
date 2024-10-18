@@ -4,8 +4,6 @@ import LocaleButton from "@/components/locale-button";
 
 import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
-import MobileHeader from "@/components/layout/mobile-header";
-import MobileFooter from "@/components/layout/mobile-footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,13 +27,9 @@ export default function RootLayout({
               <div className=" hidden lg:flex flex-col">
                 <Image src={MainImage} alt="nito-main" width={400} />
               </div>
-              <div className="grid grid-rows-[44px_auto_30px] w-full max-w-[375px] h-screen bg-SYSTEM-white">
-                <div className="sticky z-40 w-full">
-                  <MobileHeader />
-                </div>
-                <div className="relative p-4">{children}</div>
-                <div className="z-40 bg-SYSTEM-white">
-                  <MobileFooter />
+              <div className="w-full max-w-[375px] h-screen bg-SYSTEM-white">
+                <div className="relative p-4 h-full overflow-y-auto">
+                  {children}
                 </div>
               </div>
             </div>
