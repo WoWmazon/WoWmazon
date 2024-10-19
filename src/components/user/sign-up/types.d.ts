@@ -15,3 +15,5 @@ type FormInput = {
   checkService: boolean;
   checkMarketing: boolean;
 };
+
+type LanguageType = "kr" | "en";
