@@ -1,0 +1,20 @@
+{
+  "authorization": {
+    "title1": "To conveniently use the",
+    "title2": "service, please grant the acces rights below.",
+    "title3": "You must allow it.",
+    "sub-title1": {
+      "title": "Device and app history",
+      "required": "(required)",
+      "description": "Optimize app services and improve usability"
+    },
+    "sub-title2": {
+      "title": "Notifications",
+      "required": "(optional)",
+      "description": "App notifications"
+    },
+    "description1": "You can use the service even if you do not grant permission, but there may be restrictions on the use of some services.",
+    "description2": "Access permissions can be changed in Device Settings > NITO."
+  },
+  "check": "Check"
+}
