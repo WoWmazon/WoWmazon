@@ -8,5 +8,11 @@
   "retry": "Retry",
   "notice": "Notice",
   "lowestPrice": "Lowest Price",
-  "highestPrice": "Highest Price"
+  "highestPrice": "Highest Price",
+  "wishList": "Wishlist",
+  "discountRateOrder": "Discount rate order",
+  "lowToHigh": "Low to High",
+  "edit": "Edit",
+  "wishListNoContents": "There are no desired products yet.",
+  "wishLostNoContentsDescription": "Click the + button below to include the product you want to be notified of the lowest price!"
 }
