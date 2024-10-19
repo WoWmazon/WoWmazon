@@ -16,5 +16,11 @@
     "description1": "You can use the service even if you do not grant permission, but there may be restrictions on the use of some services.",
     "description2": "Access permissions can be changed in Device Settings > NITO."
   },
+  "modal": {
+    "title": "Would you like to cancel your membership?",
+    "content": "When you quit, all ongoing content will be lost and you will have to start again from the beginning.",
+    "button1": "Continue",
+    "button2": "Cancel"
+  },
   "check": "Check"
 }

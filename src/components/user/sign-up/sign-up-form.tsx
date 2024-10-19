@@ -8,9 +8,17 @@ import CheckFields from "./check-fields";
 import CustomButton from "@/components/common/custom-button";
 
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
+import Modal from "@/components/common/modal";
+import { useTranslation } from "@/utils/localization/client";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/utils/localization/settings";
 
 const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { locale } = useParams();
+  const { t } = useTranslation(locale as LocaleTypes, "user");
 
   const {
     register,
@@ -54,14 +62,28 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
 
   return (
     <div className="h-full">
-      <div className="flex mb-6 ml-auto w-6 h-6 content-center justify-center">
+      {isModalOpen && (
+        <Modal
+          isShow={isModalOpen}
+          handleClose={() => setIsModalOpen(false)}
+          title={t("modal.title")}
+          content={t("modal.content")}
+          btnText={t("modal.button1")}
+          handleAction={() => setIsModalOpen(false)}
+          optionalBtnText={t("modal.button2")}
+          handleOptional={() => console.log("cancel")}
+        />
+      )}
+      <div
+        className="flex mb-6 ml-auto w-6 h-6 content-center justify-center cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
+      >
         <Image
           src={CloseButtonIcon}
           alt="sign-up-close"
           width={16}
           height={16}
           priority
-          style={{ width: "auto", height: "auto" }}
         />
       </div>
       <form
