@@ -1,5 +1,3 @@
 type WishListNoContentsProps = {
-  params: {
-    locale: LocaleTypes;
-  };
+  locale: LocaleTypes;
 };
