@@ -46,8 +46,18 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   // submit 가능 유무
   const canSubmit = () => isAvailableNickname && isValid;
 
-  const onSubmit: SubmitHandler<FormInput> = (data) =>
-    isAvailableNickname && console.log(data);
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    if (!isAvailableNickname) return;
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/register`,
+      {
+        method: "POST",
+        cache: "no-store",
+        body: JSON.stringify({ ...data, lang: locale }),
+      }
+    ).then((res) => res.json());
+    console.log(res);
+  };
 
   // 사용 가능한 닉네임인지 확인
   const handleCheckNickname = async (nickname: string) => {
