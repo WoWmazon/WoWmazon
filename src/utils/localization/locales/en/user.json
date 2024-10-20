@@ -5,22 +5,43 @@
     "title3": "You must allow it.",
     "sub-title1": {
       "title": "Device and app history",
-      "required": "(required)",
       "description": "Optimize app services and improve usability"
     },
     "sub-title2": {
       "title": "Notifications",
-      "required": "(optional)",
       "description": "App notifications"
     },
     "description1": "You can use the service even if you do not grant permission, but there may be restrictions on the use of some services.",
-    "description2": "Access permissions can be changed in Device Settings > NITO."
+    "description2": "Access permissions can be changed in Device Settings > NITO.",
+    "required": "(required)",
+    "optional": "(optional)"
   },
   "modal": {
     "title": "Would you like to cancel your membership?",
     "content": "When you quit, all ongoing content will be lost and you will have to start again from the beginning.",
     "button1": "Continue",
     "button2": "Cancel"
+  },
+  "sign-up": {
+    "nickname": "Nickname",
+    "double-check": "Double check",
+    "info": "This is a nickname that can be used",
+    "validate1": "6 to 16 characters, English letters or a combination of English letters and numbers",
+    "validate2": "This nickname is already in use",
+    "all-check": "Terms and conditions",
+    "check1": {
+      "description": "Age 14 or older"
+    },
+    "check2": {
+      "description": " Agree to the service terms and conditions",
+      "sub-description": "Privacy Policy [View]"
+    },
+    "check3": {
+      "description": "Consent to receive marketing"
+    },
+    "required": "[Required]",
+    "optional": "[Optional]",
+    "complete": "Complete membership registration"
   },
   "check": "Check"
 }

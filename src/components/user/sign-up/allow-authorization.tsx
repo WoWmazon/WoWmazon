@@ -22,7 +22,7 @@ const AllowAuthorization = async ({ locale }: { locale: LocaleTypes }) => {
           <p className="font-bold">
             {getAuthorizationComment("sub-title1.title")}
             <strong className="text-SYSTEM-main">
-              {getAuthorizationComment("sub-title1.required")}
+              {getAuthorizationComment("required")}
             </strong>
           </p>
           <p className="text-ELSE-55">
@@ -32,7 +32,7 @@ const AllowAuthorization = async ({ locale }: { locale: LocaleTypes }) => {
         <div>
           <p className="font-bold">
             {getAuthorizationComment("sub-title2.title")}
-            {getAuthorizationComment("sub-title2.required")}
+            {getAuthorizationComment("optional")}
           </p>
           <p className="text-ELSE-55">
             {getAuthorizationComment("sub-title2.description")}

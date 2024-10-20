@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import NicknameFields from "./nickname-fields";
@@ -13,39 +13,91 @@ import { useTranslation } from "@/utils/localization/client";
 import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/utils/localization/settings";
 
+const inputMessageInit = {
+  info: "",
+  error: "",
+};
+
 const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAvailableNickname, setIsAvailableNickname] = useState(true);
+  const [inputMessage, setInputMessage] =
+    useState<InputMessageType>(inputMessageInit);
 
   const { locale } = useParams();
   const { t } = useTranslation(locale as LocaleTypes, "user");
 
   const {
     register,
-    reset,
     handleSubmit,
     control,
+    setValue,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormInput>({
     defaultValues: {
-      nickName: defaultNickname,
+      nickname: defaultNickname,
     },
   });
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => console.log(data);
+  // submit 가능 유무
+  const canSubmit = () => isAvailableNickname && isValid;
 
-  const handleChangeCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSubmit: SubmitHandler<FormInput> = (data) =>
+    isAvailableNickname && console.log(data);
+
+  // 사용 가능한 닉네임인지 확인
+  const handleCheckNickname = async (nickname: string) => {
+    if (nickname === "" || errors.nickname) {
+      return;
+    }
+    const { nickname: available, error } = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/validate/?nickname=${nickname}`,
+      {
+        cache: "no-store",
+      }
+    ).then((res) => res.json());
+    if (error) {
+      setIsAvailableNickname(false);
+      throw new Error(error);
+    }
+    if (available !== "available nickname") {
+      setInputMessage((prev) => ({
+        ...prev,
+        error: t("sign-up.validate2"),
+      }));
+      setIsAvailableNickname(false);
+      return;
+    }
+    setInputMessage({ info: t("sign-up.info"), error: "" });
+    setIsAvailableNickname(true);
+  };
+
+  // nickname 체인지 이벤트
+  const handleChangeNickname = (
+    e: ChangeEvent<HTMLInputElement>,
+    onChange: (...event: any[]) => void
+  ) => {
+    isAvailableNickname && setIsAvailableNickname(false);
+    if (!errors.nickname) {
+      setInputMessage(inputMessageInit);
+    }
+    onChange(e);
+  };
+
+  // 전체동의 클릭 이벤트
+  const handleChangeCheckAll = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
-    reset({
-      checkAge: checked,
-      checkService: checked,
-      checkMarketing: checked,
-    });
+    // setValue 시 shouldValidate: true 옵션이 있어야 validate에도 적용된다.
+    setValue("checkAge", checked, { shouldValidate: true });
+    setValue("checkService", checked, { shouldValidate: true });
+    setValue("checkMarketing", checked, { shouldValidate: true });
     setIsCheckAll(checked);
   };
 
-  const handleChangeChecks = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 동의 체크 제인지 이벤트
+  const handleChangeChecks = (e: ChangeEvent<HTMLInputElement>) => {
     const checkList = ["checkAge", "checkService", "checkMarketing"];
 
     if (!e.target.checked) {
@@ -59,6 +111,20 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
       e.target.checked &&
       setIsCheckAll(true);
   };
+
+  useEffect(() => {
+    if (!errors.nickname) {
+      setInputMessage(inputMessageInit);
+      return;
+    }
+    // nickname 에러일 시.
+    if (errors.nickname) {
+      setInputMessage({
+        info: "",
+        error: t("sign-up.validate1"),
+      });
+    }
+  }, [errors.nickname]);
 
   return (
     <div className="h-full">
@@ -95,16 +161,20 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
       >
         <Controller
           control={control}
-          name="nickName"
+          name="nickname"
           rules={{
             required: true,
             pattern: /^(?=.*[A-Za-z])[A-Za-z0-9]{6,16}$/,
           }}
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, ...rest } }) => (
             <NicknameFields
-              isError={!!errors.nickName}
-              onChange={onChange}
-              value={value}
+              message={inputMessage}
+              nicknameAvailable={isAvailableNickname}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                handleChangeNickname(e, onChange);
+              }}
+              onClickCheck={handleCheckNickname}
+              {...rest}
             />
           )}
         />
@@ -115,7 +185,9 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
           onChangeChecks={handleChangeChecks}
         />
         <div className="w-full py-5 mt-auto">
-          <CustomButton>회원가입 완료하기</CustomButton>
+          <CustomButton variant={canSubmit() ? "filled" : "disabled"}>
+            {t("sign-up.complete")}
+          </CustomButton>
         </div>
       </form>
     </div>
