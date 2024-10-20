@@ -31,7 +31,7 @@ export default function RootLayout({
                 <Image src={MainImage} alt="nito-main" width={400} />
               </div>
               <div className="w-full max-w-[375px] h-screen bg-SYSTEM-white">
-                <div className="relative p-4 h-full overflow-y-auto">
+                <div className="relative h-full overflow-y-auto">
                   {children}
                 </div>
               </div>
