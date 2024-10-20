@@ -31,4 +31,6 @@ const CustomCheckBox = forwardRef<
   );
 });
 
+CustomCheckBox.displayName = "Checkbox";
+
 export default CustomCheckBox;

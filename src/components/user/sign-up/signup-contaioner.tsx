@@ -10,7 +10,7 @@ import CustomButton from "@/components/common/custom-button";
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
 import Modal from "@/components/common/modal";
 import { useTranslation } from "@/utils/localization/client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { LocaleTypes } from "@/utils/localization/settings";
 
 const inputMessageInit = {
@@ -18,7 +18,7 @@ const inputMessageInit = {
   error: "",
 };
 
-const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
+const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
@@ -27,6 +27,8 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
 
   const { locale } = useParams();
   const { t } = useTranslation(locale as LocaleTypes, "user");
+
+  const router = useRouter();
 
   const {
     register,
@@ -77,9 +79,9 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
   // nickname 체인지 이벤트
   const handleChangeNickname = (
     e: ChangeEvent<HTMLInputElement>,
-    onChange: (...event: any[]) => void
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
   ) => {
-    isAvailableNickname && setIsAvailableNickname(false);
+    if (isAvailableNickname) setIsAvailableNickname(false);
     if (!errors.nickname) {
       setInputMessage(inputMessageInit);
     }
@@ -96,7 +98,7 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
     setIsCheckAll(checked);
   };
 
-  // 동의 체크 제인지 이벤트
+  // 동의 체크 체인지 이벤트
   const handleChangeChecks = (e: ChangeEvent<HTMLInputElement>) => {
     const checkList = ["checkAge", "checkService", "checkMarketing"];
 
@@ -105,11 +107,15 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
       return;
     }
 
-    checkList.every(
-      (check) => check === e.target.name || getValues(check as keyof FormInput)
-    ) &&
-      e.target.checked &&
+    if (
+      checkList.every(
+        (check) =>
+          check === e.target.name || getValues(check as keyof FormInput)
+      ) &&
+      e.target.checked
+    ) {
       setIsCheckAll(true);
+    }
   };
 
   useEffect(() => {
@@ -127,7 +133,7 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
   }, [errors.nickname]);
 
   return (
-    <div className="h-full">
+    <div className="h-full pt-4">
       {isModalOpen && (
         <Modal
           isShow={isModalOpen}
@@ -137,7 +143,7 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
           btnText={t("modal.button1")}
           handleAction={() => setIsModalOpen(false)}
           optionalBtnText={t("modal.button2")}
-          handleOptional={() => console.log("cancel")}
+          handleOptional={() => router.push("/")}
         />
       )}
       <div
@@ -154,10 +160,7 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col h-[calc(100%-2rem)]leading-7 text-ELSE-29"
-        style={{
-          height: "calc(100% - 2rem)",
-        }}
+        className="flex flex-col h-[calc(100%-3rem)] leading-7 text-ELSE-29"
       >
         <Controller
           control={control}
@@ -193,4 +196,4 @@ const SignUpForm = ({ defaultNickname }: { defaultNickname: string }) => {
     </div>
   );
 };
-export default SignUpForm;
+export default SignUpContainer;

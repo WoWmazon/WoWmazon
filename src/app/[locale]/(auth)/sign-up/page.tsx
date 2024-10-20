@@ -1,15 +1,15 @@
-import SignUpForm from "@/components/user/sign-up/sign-up-form";
+import SignUpForm from "@/components/user/sign-up/signup-contaioner";
 
 const SignUpPage = async () => {
-  const { nickname, error } = await fetch(
+  const { nickname, error: nicknameError } = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/nickname`,
     {
       cache: "no-store",
     }
   ).then((res) => res.json());
 
-  if (error) {
-    throw new Error(error);
+  if (nicknameError) {
+    throw new Error(nicknameError);
   }
 
   return (

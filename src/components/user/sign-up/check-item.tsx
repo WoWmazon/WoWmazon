@@ -1,3 +1,5 @@
+"use client";
+
 import CustomCheckBox from "@/components/common/custom-checkbox";
 import Image from "next/image";
 
@@ -14,7 +16,7 @@ const CheckItem = ({
   children,
   register,
   onChange,
-}: CheckProps & { onChange: React.ChangeEventHandler<HTMLInputElement> }) => {
+}: CheckItemProps) => {
   const { onChange: registerOnChange, ...rest } = register(name, { required });
   const handleChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     registerOnChange(e);

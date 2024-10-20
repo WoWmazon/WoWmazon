@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef } from "react";
 import { useParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
@@ -58,4 +60,7 @@ const NicknameFields = forwardRef<HTMLInputElement, NicknameFieldProps>(
     );
   }
 );
+
+NicknameFields.displayName = "Nickname Fields";
+
 export default NicknameFields;

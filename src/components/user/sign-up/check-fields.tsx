@@ -1,5 +1,6 @@
+"use client";
+
 import { useParams } from "next/navigation";
-import { UseFormRegister } from "react-hook-form";
 import CustomCheckBox from "@/components/common/custom-checkbox";
 import CheckItem from "./check-item";
 import { useTranslation } from "@/utils/localization/client";
@@ -10,12 +11,7 @@ const CheckFields = ({
   isCheckAll,
   onChangeCheckAll,
   onChangeChecks,
-}: {
-  register: UseFormRegister<FormInput>;
-  isCheckAll: boolean;
-  onChangeCheckAll: React.ChangeEventHandler<HTMLInputElement>;
-  onChangeChecks: React.ChangeEventHandler<HTMLInputElement>;
-}) => {
+}: CheckFieldsProps) => {
   const { locale } = useParams();
   const { t } = useTranslation(locale as LocaleTypes, "user");
 

@@ -1,9 +1,12 @@
-import CustomButton from "@/components/common/custom-button";
-import { createTranslation } from "@/utils/localization/server";
-import { LocaleTypes } from "@/utils/localization/settings";
+"use client";
 
-const AllowAuthorization = async ({ locale }: { locale: LocaleTypes }) => {
-  const { t } = await createTranslation(locale, "user");
+import { useTranslation } from "@/utils/localization/client";
+import { LocaleTypes } from "@/utils/localization/settings";
+import { useParams } from "next/navigation";
+
+const AllowAuthorization = () => {
+  const { locale }: { locale: LocaleTypes } = useParams();
+  const { t } = useTranslation(locale, "user");
   const getAuthorizationComment = (key: string) => {
     return t(`authorization.${key}`);
   };
@@ -50,9 +53,6 @@ const AllowAuthorization = async ({ locale }: { locale: LocaleTypes }) => {
             <p>{getAuthorizationComment("description2")}</p>
           </li>
         </ul>
-      </div>
-      <div className="w-full py-5 mt-auto z-10">
-        <CustomButton variant="filled">{t("check")}</CustomButton>
       </div>
     </div>
   );

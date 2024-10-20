@@ -1,7 +1,8 @@
-type CheckProps = {
+type CheckItemProps = {
   required: boolean;
   name: string;
   description: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   link?: string;
   children?: string;
   register?: UseFormRegister<FormInput>;
@@ -25,7 +26,14 @@ type NicknameFieldProps = Omit<
   ControllerRenderProps<FormInput, "nickname">,
   "onChange"
 > & {
-  message: any;
+  message: InputMessageType;
   nicknameAvailable: boolean;
   onClickCheck: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+type CheckFieldsProps = {
+  register: UseFormRegister<FormInput>;
+  isCheckAll: boolean;
+  onChangeCheckAll: React.ChangeEventHandler<HTMLInputElement>;
+  onChangeChecks: React.ChangeEventHandler<HTMLInputElement>;
 };
