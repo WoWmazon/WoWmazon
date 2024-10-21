@@ -15,8 +15,6 @@ type FormInput = {
   checkMarketing: boolean;
 };
 
-type LanguageType = "kr" | "en";
-
 type InputMessageType = {
   info: string;
   error: string;
@@ -36,4 +34,23 @@ type CheckFieldsProps = {
   isCheckAll: boolean;
   onChangeCheckAll: React.ChangeEventHandler<HTMLInputElement>;
   onChangeChecks: React.ChangeEventHandler<HTMLInputElement>;
+};
+
+type DeviceType = {
+  os: "android" | "ios";
+  uid: string;
+  token: string;
+};
+
+type UserRegisterType = {
+  lang: LocaleTypes;
+  isAlarm: boolean;
+  nickname: string;
+  agreement: {
+    isOverAge14: boolean;
+    isServiceAccept: boolean;
+    isInfoAccept: boolean;
+    isMarketing: boolean;
+  };
+  device: DeviceType;
 };

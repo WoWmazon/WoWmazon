@@ -2,31 +2,37 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import NicknameFields from "./nickname-fields";
 import CheckFields from "./check-fields";
 import CustomButton from "@/components/common/custom-button";
+import { useTranslation } from "@/utils/localization/client";
+import { LocaleTypes } from "@/utils/localization/settings";
+import CloseModal from "./close-modal";
 
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
-import Modal from "@/components/common/modal";
-import { useTranslation } from "@/utils/localization/client";
-import { useParams, useRouter } from "next/navigation";
-import { LocaleTypes } from "@/utils/localization/settings";
 
 const inputMessageInit = {
   info: "",
   error: "",
 };
 
-const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
+const SignUpContainer = ({
+  defaultNickname,
+  registerUser,
+}: {
+  defaultNickname: string;
+  registerUser: (data: FormInput) => void;
+}) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
   const [inputMessage, setInputMessage] =
     useState<InputMessageType>(inputMessageInit);
 
-  const { locale } = useParams();
-  const { t } = useTranslation(locale as LocaleTypes, "user");
+  const { locale }: { locale: LocaleTypes } = useParams();
+  const { t } = useTranslation(locale, "user");
 
   const router = useRouter();
 
@@ -48,15 +54,8 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (!isAvailableNickname) return;
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/register`,
-      {
-        method: "POST",
-        cache: "no-store",
-        body: JSON.stringify({ ...data, lang: locale }),
-      }
-    ).then((res) => res.json());
-    console.log(res);
+    await registerUser(data);
+    router.push("/");
   };
 
   // 사용 가능한 닉네임인지 확인
@@ -143,30 +142,13 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   }, [errors.nickname]);
 
   return (
-    <div className="h-full pt-4">
-      {isModalOpen && (
-        <Modal
-          isShow={isModalOpen}
-          handleClose={() => setIsModalOpen(false)}
-          title={t("modal.title")}
-          content={t("modal.content")}
-          btnText={t("modal.button1")}
-          handleAction={() => setIsModalOpen(false)}
-          optionalBtnText={t("modal.button2")}
-          handleOptional={() => router.push("/")}
-        />
-      )}
+    <div className="h-full pt-5">
+      <CloseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
       <div
-        className="flex mb-6 ml-auto w-6 h-6 content-center justify-center cursor-pointer"
+        className="flex mb-6 ml-auto w-4 h-4 content-center justify-center cursor-pointer"
         onClick={() => setIsModalOpen(true)}
       >
-        <Image
-          src={CloseButtonIcon}
-          alt="sign-up-close"
-          width={16}
-          height={16}
-          priority
-        />
+        <Image src={CloseButtonIcon} alt="signup-close" width={16} />
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -206,4 +188,5 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
     </div>
   );
 };
+
 export default SignUpContainer;
