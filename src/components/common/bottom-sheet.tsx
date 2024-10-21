@@ -54,7 +54,6 @@ export const BottomSheet = (props: BottomSheetProps) => {
       <div
         className={twMerge(
           "fixed bottom-0 px-4 pt-3 pb-5 w-[375px] text-center content-center max-h-full rounded-t-[20px] bg-SYSTEM-white text-md z-30",
-          className,
           show && "animate-slideUp",
           !show && "animate-slideDown",
           className
@@ -63,7 +62,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         <h1 className="mb-4 text-lg font-bold text-SYSTEM-black">{title}</h1>
         {hasDelBtn && (
           <div
-            className="cursor-pointer absolute top-3.5 right-4 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-5 h-5 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            className="cursor-pointer absolute top-3.5 right-4 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-6 h-6 inline-flex justify-center items-center"
             onClick={onClose}
           >
             <Image
