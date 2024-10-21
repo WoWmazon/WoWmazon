@@ -48,7 +48,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
     <div
       id="common-bottom-sheet"
       tabIndex={-1}
-      className="absolute flex justify-center bottom-0 inset-0 z-50 items-end w-full h-full bg-ELSE-A1 bg-opacity-50 scrollbar-none"
+      className="absolute flex justify-center top-0 inset-0 z-50 items-end w-full h-screen bg-ELSE-A1 bg-opacity-50 scrollbar-none"
       onClick={handleOutsideClick} // 외부 클릭 시 닫기
     >
       <div
