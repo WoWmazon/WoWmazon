@@ -18,6 +18,8 @@ const inputMessageInit = {
   error: "",
 };
 
+const nicknameRegex = /^(?=.*[A-Za-z])[A-Za-z0-9]{6,16}$/;
+
 const SignUpContainer = ({
   defaultNickname,
   registerUser,
@@ -60,9 +62,18 @@ const SignUpContainer = ({
 
   // 사용 가능한 닉네임인지 확인
   const handleCheckNickname = async (nickname: string) => {
-    if (nickname === "" || errors.nickname) {
+    if (errors.nickname) {
       return;
     }
+
+    if (!nicknameRegex.test(nickname)) {
+      setInputMessage((prev) => ({
+        ...prev,
+        error: t("sign-up.validate1"),
+      }));
+      return;
+    }
+
     const { nickname: available, error } = await fetch(
       `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/validate/?nickname=${nickname}`,
       {
@@ -159,7 +170,7 @@ const SignUpContainer = ({
           name="nickname"
           rules={{
             required: true,
-            pattern: /^(?=.*[A-Za-z])[A-Za-z0-9]{6,16}$/,
+            pattern: nicknameRegex,
           }}
           render={({ field: { onChange, ...rest } }) => (
             <NicknameFields
