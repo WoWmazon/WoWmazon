@@ -6,9 +6,14 @@ export const SimpleBottomSheet = (props: SimpleBottomSheetProps) => {
 
   // bottom sheet 열릴 때 외부 스크롤 차단
   useEffect(() => {
-    document.body.style.overflow = isShow ? "hidden" : "";
+    const wrapper = document.querySelector("#chidrenWrapper");
+    if (wrapper instanceof HTMLElement) {
+      wrapper.style.overflow = isShow ? "hidden" : "";
+    }
     return () => {
-      document.body.style.overflow = ""; // 컴포넌트 언마운트 시 복원
+      if (wrapper instanceof HTMLElement) {
+        wrapper.style.overflow = "";
+      }
     };
   }, [isShow]);
 
@@ -24,7 +29,7 @@ export const SimpleBottomSheet = (props: SimpleBottomSheetProps) => {
     <div
       id="common-simple-bottom-sheet"
       tabIndex={-1}
-      className="absolute flex justify-center bottom-0 left-0 items-end w-full h-full bg-ELSE-A1 bg-opacity-50"
+      className="absolute flex justify-center top-0 left-0 items-end w-full h-screen bg-ELSE-A1 bg-opacity-50"
       onClick={handleOutsideClick} // 외부 클릭 시 모달 닫기
     >
       <div
