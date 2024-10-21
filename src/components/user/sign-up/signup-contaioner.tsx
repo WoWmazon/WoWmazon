@@ -52,7 +52,7 @@ const SignUpContainer = ({
   });
 
   // submit 가능 유무
-  const canSubmit = () => isAvailableNickname && isValid;
+  const canSubmit = isAvailableNickname && isValid;
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (!isAvailableNickname) return;
@@ -191,7 +191,10 @@ const SignUpContainer = ({
           onChangeChecks={handleChangeChecks}
         />
         <div className="w-full py-5 mt-auto">
-          <CustomButton variant={canSubmit() ? "filled" : "disabled"}>
+          <CustomButton
+            variant={canSubmit ? "filled" : "disabled"}
+            disabled={canSubmit}
+          >
             {t("sign-up.complete")}
           </CustomButton>
         </div>
