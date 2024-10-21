@@ -45,12 +45,12 @@ export const BottomSheet = (props: BottomSheetProps) => {
       <div
         id="common-bottom-sheet"
         tabIndex={-1}
-        className="absolute inset-0 z-50 flex justify-center items-center w-full h-full bg-ELSE-A1 bg-opacity-50 bottom-0 left-1/2 -translate-x-1/2"
+        className="absolute flex justify-center bottom-0 inset-0 z-50 items-end w-full h-full bg-ELSE-A1 bg-opacity-50"
         onClick={handleOutsideClick} // 외부 클릭 시 닫기
       >
         <div
           className={twMerge(
-            "px-4 pt-3 pb-5 w-[375px] max-h-full bg-white rounded-t-[20px] fixed bottom-0 text-center content-center text-md z-[9999]",
+            "fixed bottom-0 px-4 pt-3 pb-5 w-[375px] text-center content-center max-h-full rounded-t-[20px] bg-SYSTEM-white text-md z-30",
             className,
             show && "animate-slideUp",
             !show && "animate-slideDown",
