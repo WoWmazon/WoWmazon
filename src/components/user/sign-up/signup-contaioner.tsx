@@ -193,7 +193,7 @@ const SignUpContainer = ({
         <div className="w-full py-5 mt-auto">
           <CustomButton
             variant={canSubmit ? "filled" : "disabled"}
-            disabled={canSubmit}
+            disabled={!canSubmit}
           >
             {t("sign-up.complete")}
           </CustomButton>
