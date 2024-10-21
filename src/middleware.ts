@@ -15,18 +15,21 @@ export async function middleware(request: NextRequest) {
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
 
-  const isAuth = pathname.includes("auth");
-  const isNotAuthorized = isUndefined(accessToken) && isUndefined(refreshToken);
-  const isExpired = isUndefined(accessToken);
+  const isAuth = pathname.includes("auth"); // auth 페이지 인지 체크
+  const isNotAuthorized = isUndefined(accessToken) && isUndefined(refreshToken); // 회원정보가 없는지 체크
+  const isExpired = isUndefined(accessToken); // access token이 만료되었는지 체크
 
+  // auth 페이지이고 회원정보가 있으면
   if (isAuth && !isNotAuthorized) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (isNotAuthorized && !isAuth) {
+  // auth 페이지가 아니고 회원정보가 없으면
+  if (!isAuth && isNotAuthorized) {
     return NextResponse.redirect(new URL("/auth/preference", request.url));
   }
 
+  // auth 페이지가 아니고 access token이 만료되었으면
   if (!isAuth && isExpired) {
     // 유저 리프레시
     const {
@@ -53,7 +56,7 @@ export async function middleware(request: NextRequest) {
 
     const response = NextResponse.redirect(new URL("/", request.url));
 
-    // 리프레시 성공
+    // 리프레시 성공, 쿠키 저장
     response.cookies.set("accessToken", newAccessToken);
     response.cookies.set("refreshToken", newRefreshToken);
 
