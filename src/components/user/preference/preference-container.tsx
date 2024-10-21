@@ -22,7 +22,7 @@ const PreferenceContainer = () => {
 
   const HandleClickCheckButton = () => {
     if (currentStep === "authorization") {
-      router.push("/auth/sign-up");
+      router.push(`/${selectedLanguage}/auth/sign-up`);
     }
     if (isNull(selectedLanguage)) {
       return;

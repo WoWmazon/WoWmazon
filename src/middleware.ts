@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/preference", request.url));
   }
 
-  if (isExpired) {
+  if (!isAuth && isExpired) {
     // 유저 리프레시
     const {
       accessToken: newAccessToken,
@@ -51,7 +51,7 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
-    const response = NextResponse.next();
+    const response = NextResponse.redirect(new URL("/", request.url));
 
     // 리프레시 성공
     response.cookies.set("accessToken", newAccessToken);
