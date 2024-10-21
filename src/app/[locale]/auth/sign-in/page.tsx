@@ -33,7 +33,7 @@ const SignInPage = async () => {
           <p className="text-sm leading-[18px]">
             Lowest price notification platform
           </p>
-          <p className="text-[26px] leading-[38px]">최저가 알림 플랫폼</p>
+          <p className="text-xxl leading-[38px]">최저가 알림 플랫폼</p>
         </div>
         <Image src={NitoLogo} alt="nito-logo" width={135} height={50} />
       </div>

@@ -14,7 +14,7 @@ const AllowAuthorization = () => {
   return (
     <div className="relative flex flex-col h-full gap-6">
       <div className="flex flex-col gap-1 mt-10">
-        <p className="font-bold text-[26px] leading-[38px] text-SYSTEM-black">
+        <p className="font-bold text-xxl leading-[38px] text-SYSTEM-black">
           {getAuthorizationComment("title1")} <br />
           {getAuthorizationComment("title2")} <br />
           {getAuthorizationComment("title3")}
