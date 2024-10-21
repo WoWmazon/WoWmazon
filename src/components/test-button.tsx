@@ -149,6 +149,8 @@ const TestButton = () => {
           hasDelBtn
         >
           <CustomInput
+            size="large"
+            variant="outline"
             value={value}
             placeholder="복사한 링크를 붙여넣으세요"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
