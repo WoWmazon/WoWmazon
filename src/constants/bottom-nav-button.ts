@@ -14,7 +14,7 @@ export const iconButtons = [
     icon: wish,
     activeIcon: wishActive,
     label: "찜한 상품",
-    path: "/",
+    path: "/wish-list",
   },
   {
     icon: product,
