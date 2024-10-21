@@ -10,23 +10,13 @@ import CustomButton from "@/components/common/custom-button";
 import { useTranslation } from "@/utils/localization/client";
 import { LocaleTypes } from "@/utils/localization/settings";
 import CloseModal from "./close-modal";
+import { fetchNicknameValidate } from "@/api/user/apis";
+import { registerUser } from "@/app/actions";
+import { inputMessageInit, nicknameRegex } from "@/constants/user";
 
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
 
-const inputMessageInit = {
-  info: "",
-  error: "",
-};
-
-const nicknameRegex = /^(?=.*[A-Za-z])[A-Za-z0-9]{6,16}$/;
-
-const SignUpContainer = ({
-  defaultNickname,
-  registerUser,
-}: {
-  defaultNickname: string;
-  registerUser: (data: FormInput) => void;
-}) => {
+const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
@@ -56,7 +46,7 @@ const SignUpContainer = ({
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (!isAvailableNickname) return;
-    await registerUser(data);
+    await registerUser(data, locale);
     router.push("/");
   };
 
@@ -74,17 +64,14 @@ const SignUpContainer = ({
       return;
     }
 
-    const { nickname: available, error } = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/validate/?nickname=${nickname}`,
-      {
-        cache: "no-store",
-      }
-    ).then((res) => res.json());
+    const { isValidated, error } = await fetchNicknameValidate(nickname);
+
     if (error) {
       setIsAvailableNickname(false);
       throw new Error(error);
     }
-    if (available !== "available nickname") {
+
+    if (!isValidated) {
       setInputMessage((prev) => ({
         ...prev,
         error: t("sign-up.validate2"),
@@ -97,15 +84,11 @@ const SignUpContainer = ({
   };
 
   // nickname 체인지 이벤트
-  const handleChangeNickname = (
-    e: ChangeEvent<HTMLInputElement>,
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  ) => {
+  const handleChangeNickname = () => {
     if (isAvailableNickname) setIsAvailableNickname(false);
     if (!errors.nickname) {
       setInputMessage(inputMessageInit);
     }
-    onChange(e);
   };
 
   // 전체동의 클릭 이벤트
@@ -121,21 +104,19 @@ const SignUpContainer = ({
   // 동의 체크 체인지 이벤트
   const handleChangeChecks = (e: ChangeEvent<HTMLInputElement>) => {
     const checkList = ["checkAge", "checkService", "checkMarketing"];
+    const { checked, name } = e.target;
 
-    if (!e.target.checked) {
+    if (!checked) {
       setIsCheckAll(false);
       return;
     }
 
-    if (
+    const AllCheck =
       checkList.every(
-        (check) =>
-          check === e.target.name || getValues(check as keyof FormInput)
-      ) &&
-      e.target.checked
-    ) {
-      setIsCheckAll(true);
-    }
+        (check) => check === name || getValues(check as keyof FormInput)
+      ) && checked;
+
+    if (AllCheck) setIsCheckAll(true);
   };
 
   useEffect(() => {
@@ -168,16 +149,14 @@ const SignUpContainer = ({
         <Controller
           control={control}
           name="nickname"
-          rules={{
-            required: true,
-            pattern: nicknameRegex,
-          }}
+          rules={{ required: true, pattern: nicknameRegex }}
           render={({ field: { onChange, ...rest } }) => (
             <NicknameFields
               message={inputMessage}
               nicknameAvailable={isAvailableNickname}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                handleChangeNickname(e, onChange);
+                handleChangeNickname();
+                onChange(e);
               }}
               onClickCheck={handleCheckNickname}
               {...rest}
