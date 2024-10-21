@@ -28,7 +28,7 @@ export default function RootLayout({
           <div className="relative px-0 sm:px-6 md:px-10">
             <div className="flex justify-center lg:justify-around">
               <div className=" hidden lg:flex flex-col">
-                <Image src={MainImage} alt="nito-main" width={400} />
+                <Image src={MainImage} alt="nito-main" width={400} priority />
               </div>
               <div className="w-full max-w-[375px] h-screen bg-SYSTEM-white">
                 <div className="relative h-full overflow-y-auto">

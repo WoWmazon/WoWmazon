@@ -2,7 +2,7 @@ import BottomNav from "@/components/layout/bottom-nav";
 import WishListHeader from "@/components/wish-list/wish-list-header";
 import WishListNoContents from "@/components/wish-list/wish-list-nonecontents";
 
-const page = ({ params: { locale } }: WishListNoContentsProps) => {
+const page = ({ params: { locale } }: PageProps) => {
   const number = 5; //예시
   return (
     <>

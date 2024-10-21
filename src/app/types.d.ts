@@ -1,4 +1,4 @@
-type WishListNoContentsProps = {
+type PageProps = {
   params: {
     locale: LocaleTypes;
   };
