@@ -79,6 +79,7 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
       setIsAvailableNickname(false);
       return;
     }
+
     setInputMessage({ info: t("sign-up.info"), error: "" });
     setIsAvailableNickname(true);
   };

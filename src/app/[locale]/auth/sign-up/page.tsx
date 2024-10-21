@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/user/sign-up/signup-contaioner";
+import SignUpForm from "@/components/user/sign-up/signup-container";
 const SignUpPage = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/nickname`,
