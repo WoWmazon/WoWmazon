@@ -11,7 +11,7 @@ type WishListHeaderProps = {
 };
 const WishListHeader = ({ wishListNumber }: WishListHeaderProps) => {
   const locale = useParams()?.locale as LocaleTypes;
-  const { t } = useTranslation(locale, "common");
+  const { t } = useTranslation(locale, "wish-list");
   const [isActive, setIsActive] = useState(false);
 
   const handleIconClick = () => {

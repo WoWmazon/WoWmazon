@@ -4,7 +4,8 @@ import { createTranslation } from "@/utils/localization/server";
 import { LocaleTypes } from "@/utils/localization/settings";
 
 const WishListNoContents = async ({ locale }: { locale: LocaleTypes }) => {
-  const { t } = await createTranslation(locale, "common");
+  const { t } = await createTranslation(locale, "wish-list");
+
   return (
     <div className="grid  place-items-center w-[343px] h-[478px]">
       <div className="grid  place-items-center w-[343px] h-[154px] ">
