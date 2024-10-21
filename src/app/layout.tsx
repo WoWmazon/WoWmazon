@@ -31,7 +31,10 @@ export default function RootLayout({
                 <Image src={MainImage} alt="nito-main" width={400} priority />
               </div>
               <div className="w-full max-w-[375px] h-screen bg-SYSTEM-white">
-                <div className="relative h-full overflow-y-auto">
+                <div
+                  id="chidrenWrapper"
+                  className="relative h-full overflow-y-auto scrollbar-none"
+                >
                   {children}
                 </div>
               </div>
