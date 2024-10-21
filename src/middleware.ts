@@ -32,15 +32,20 @@ export async function middleware(request: NextRequest) {
   // auth 페이지가 아니고 access token이 만료되었으면
   if (!isAuth && isExpired) {
     // 유저 리프레시
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/refresh`,
+      {
+        method: "POST",
+        cache: "no-store",
+        body: JSON.stringify({ refreshToken }),
+      }
+    );
+
     const {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
       error,
-    } = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/refresh`, {
-      method: "POST",
-      cache: "no-store",
-      body: JSON.stringify({ refreshToken }),
-    }).then((res) => res.json());
+    } = await res.json();
 
     if (!isUndefined(error)) {
       // 리프레시 실패
