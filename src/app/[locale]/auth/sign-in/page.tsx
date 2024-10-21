@@ -22,7 +22,7 @@ const SignInPage = async () => {
   if (!isUndefined(error)) {
     setCookie("accessToken", accessToken);
     setCookie("refreshToken", newRefreshToken);
-    console.log("signin");
+
     redirect("/");
   }
 

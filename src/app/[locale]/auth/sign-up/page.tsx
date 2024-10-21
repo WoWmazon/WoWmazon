@@ -1,13 +1,8 @@
 import SignUpForm from "@/components/user/sign-up/signup-contaioner";
 import { setCookie } from "@/utils/cookie";
-import { LocaleTypes } from "@/utils/localization/settings";
 import { randomUUID } from "crypto";
 
-const SignUpPage = async ({
-  params: { locale },
-}: {
-  params: { locale: LocaleTypes };
-}) => {
+const SignUpPage = async ({ params: { locale } }: PageProps) => {
   const { nickname, error: nicknameError } = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/nickname`,
     {
