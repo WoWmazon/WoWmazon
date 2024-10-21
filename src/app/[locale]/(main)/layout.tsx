@@ -6,7 +6,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="mb-[64px]">
       {children}
       <BottomNav />
     </div>

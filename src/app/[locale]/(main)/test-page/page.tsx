@@ -12,7 +12,7 @@ export default async function Home({
   const { t } = await createTranslation(locale, "common");
 
   return (
-    <div className="test-container relative h-full mb-[64px]">
+    <div className="test-container relative h-full">
       <div className="p-4">
         {/* 다국어 처리 테스트 */}
         <h1>{t("greeting")}</h1>
