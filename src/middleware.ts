@@ -6,6 +6,7 @@ import {
 } from "./utils/localization/settings";
 import { getCookie } from "./utils/cookie";
 import { isUndefined } from "./utils/type-guard";
+import { fetchRefreshUser } from "./api/user/apis";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -32,20 +33,11 @@ export async function middleware(request: NextRequest) {
   // auth 페이지가 아니고 access token이 만료되었으면
   if (!isAuth && isExpired) {
     // 유저 리프레시
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/refresh`,
-      {
-        method: "POST",
-        cache: "no-store",
-        body: JSON.stringify({ refreshToken }),
-      }
-    );
-
     const {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
       error,
-    } = await res.json();
+    } = await fetchRefreshUser(refreshToken || "");
 
     if (!isUndefined(error)) {
       // 리프레시 실패
@@ -70,12 +62,8 @@ export async function middleware(request: NextRequest) {
 
   const pathSegments = pathname.split("/");
   const currentLocale = pathSegments[1] as LocaleTypes; // 첫번째 경로 세그먼트가 언어인지
-  // if (currentLocale === fallbackLng) {
-  //   const newPathName = pathSegments.slice(2).join("/") || "/";
-  //   return NextResponse.redirect(new URL(newPathName, request.url));
-  // }
-
   const pathnameIsMissingLocale = !locales.includes(currentLocale);
+
   if (pathnameIsMissingLocale) {
     return NextResponse.rewrite(
       new URL(`/${fallbackLng}${newPathname}`, request.url)

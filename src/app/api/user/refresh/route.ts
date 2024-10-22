@@ -1,20 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import { NITO_USER_REFRESH_URL } from "@/constants/nito-urls";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_NITO_URL}/user/refresh/`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const response = await fetch(NITO_USER_REFRESH_URL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
     const data = await response.json();
 

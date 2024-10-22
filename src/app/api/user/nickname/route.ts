@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
+import { NITO_USER_NICKNAME_URL } from "@/constants/nito-urls";
 
 export async function GET() {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_NITO_URL}/user/nickname/`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
+    const response = await fetch(NITO_USER_NICKNAME_URL, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
 
     const data = await response.json();
 

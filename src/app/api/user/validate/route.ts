@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { NITO_USER_VALIDATE_URL } from "@/constants/nito-urls";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -15,7 +16,8 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_NITO_URL}/user/validate/?nickname=${nickname}`,
+      `${NITO_USER_VALIDATE_URL}?nickname=${nickname}`,
+
       {
         headers: {
           Accept: "application/json",
@@ -25,6 +27,7 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
 
+    // status === 400일 때 data: [nickname: "이미 사용중인 닉네임이에요"] 보냄.
     if (!response.ok && !(response.status === 400)) {
       console.error(`Error ${response.status}: ${data.detail || data}`);
       throw new Error(`Validation failed with status: ${response.status}`);
