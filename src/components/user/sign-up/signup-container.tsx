@@ -10,11 +10,11 @@ import CustomButton from "@/components/common/custom-button";
 import { useTranslation } from "@/utils/localization/client";
 import { LocaleTypes } from "@/utils/localization/settings";
 import CloseModal from "./close-modal";
-import { fetchNicknameValidate } from "@/api/user/apis";
 import { registerUser } from "@/app/actions";
 import { inputMessageInit, nicknameRegex } from "@/constants/user";
 
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
+import { handleDoubleCheckNickname } from "./handlers";
 
 const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
@@ -48,40 +48,6 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
     if (!isAvailableNickname) return;
     await registerUser(data, locale);
     router.push("/");
-  };
-
-  // 사용 가능한 닉네임인지 확인
-  const handleCheckNickname = async (nickname: string) => {
-    if (errors.nickname) {
-      return;
-    }
-
-    if (!nicknameRegex.test(nickname)) {
-      setInputMessage((prev) => ({
-        ...prev,
-        error: t("sign-up.validate1"),
-      }));
-      return;
-    }
-
-    const { isValidated, error } = await fetchNicknameValidate(nickname);
-
-    if (error) {
-      setIsAvailableNickname(false);
-      throw new Error(error);
-    }
-
-    if (!isValidated) {
-      setInputMessage((prev) => ({
-        ...prev,
-        error: t("sign-up.validate2"),
-      }));
-      setIsAvailableNickname(false);
-      return;
-    }
-
-    setInputMessage({ info: t("sign-up.info"), error: "" });
-    setIsAvailableNickname(true);
   };
 
   // nickname 체인지 이벤트
@@ -126,12 +92,10 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
       return;
     }
     // nickname 에러일 시.
-    if (errors.nickname) {
-      setInputMessage({
-        info: "",
-        error: t("sign-up.validate1"),
-      });
-    }
+    setInputMessage({
+      info: "",
+      error: t("sign-up.validate1"),
+    });
   }, [errors.nickname]);
 
   return (
@@ -159,7 +123,15 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
                 handleChangeNickname();
                 onChange(e);
               }}
-              onClickCheck={handleCheckNickname}
+              onClickCheck={(nickname: string) => {
+                // 사용 가능한 닉네임인지 확인
+                handleDoubleCheckNickname({
+                  nickname,
+                  setInputMessage,
+                  setIsAvailableNickname,
+                  t,
+                });
+              }}
               {...rest}
             />
           )}

@@ -26,7 +26,7 @@ type NicknameFieldProps = Omit<
 > & {
   message: InputMessageType;
   nicknameAvailable: boolean;
-  onClickCheck: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickCheck: (nickname: string) => void;
 };
 
 type CheckFieldsProps = {
@@ -53,4 +53,11 @@ type UserRegisterType = {
     isMarketing: boolean;
   };
   device: DeviceType;
+};
+
+type HandleDoubleCheckNicknameProps = {
+  nickname: string;
+  setInputMessage: Dispatch<SetStateAction<InputMessageType>>;
+  setIsAvailableNickname: Dispatch<SetStateAction<boolean>>;
+  t: TFunction<string, undefined>;
 };
