@@ -4,7 +4,7 @@ import TextButton from "./text-button";
 const RecentSearchKeyword = ({
   keywords,
 }: {
-  keywords: { id: string; keyword: string }[];
+  keywords: RecentSerchKeywordType[];
 }) => {
   return (
     <div className="flex flex-col gap-2 mt-3">

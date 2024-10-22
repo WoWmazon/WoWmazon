@@ -1,13 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import CustomButton from "../common/custom-button";
 
-const TextButton = ({
-  children,
-  isActive = true,
-}: {
-  children: React.ReactNode;
-  isActive?: boolean;
-}) => {
+const TextButton = ({ children, isActive = true }: TextButtonProps) => {
   return (
     <CustomButton
       className={twMerge(
