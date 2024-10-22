@@ -18,15 +18,19 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
 
-    if (response.status !== 200 && response.status !== 201) {
-      console.error(data);
-      throw new Error("register error");
+    if (!response.ok) {
+      console.error(`Error ${response.status}: ${data.detail || data}`);
+      throw new Error("Login failed");
     }
 
     return NextResponse.json(data);
   } catch (e) {
-    return NextResponse.json({
-      error: e instanceof Error ? e.message : "An error occurred",
-    });
+    console.error("Error during login:", e);
+    return NextResponse.json(
+      {
+        error: e instanceof Error ? e.message : "An unknown error occurred",
+      },
+      { status: 500 }
+    );
   }
 }

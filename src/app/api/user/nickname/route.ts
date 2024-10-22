@@ -11,14 +11,21 @@ export async function GET() {
       }
     );
 
-    if (!response.ok) {
-      throw new Error("An error occurred");
-    }
     const data = await response.json();
+
+    if (!response.ok) {
+      console.error(`Error ${response.status}: ${data.detail || data}"}`);
+      throw new Error("Failed to fetch nickname");
+    }
+
     return NextResponse.json(data);
   } catch (e) {
-    return NextResponse.json({
-      error: e instanceof Error ? e.message : "An error occurred",
-    });
+    console.error("Error during nickname fetch:", e);
+    return NextResponse.json(
+      {
+        error: e instanceof Error ? e.message : "An unknown error occurred",
+      },
+      { status: 500 } // 500 Internal Server Error
+    );
   }
 }
