@@ -1,48 +1,48 @@
 "use server";
 
 import { setCookie } from "@/utils/cookie";
+import { createDeviceInfo } from "@/utils/deviceUtils";
 import { LocaleTypes } from "@/utils/localization/settings";
-import { randomUUID } from "crypto";
+import { createRegisterBody } from "@/utils/registerUtils";
+import { isUndefined } from "@/utils/type-guard";
+import { API_USER_REGISTER_URL } from "@/constants/api-urls";
 
 export const registerUser = async (data: FormInput, locale: LocaleTypes) => {
-  const osList: ("android" | "ios")[] = ["android", "ios"];
+  try {
+    const deviceInfo = createDeviceInfo();
+    const registerBody = createRegisterBody({
+      ...data,
+      lang: locale,
+      deviceInfo,
+    });
 
-  const deviceInfo: DeviceType = {
-    os: osList[Math.round(Math.random())],
-    uid: "uid:" + randomUUID(),
-    token: "token:" + randomUUID(),
-  };
-
-  const { nickname, checkAge, checkService, checkMarketing } = data;
-
-  const registerBody = {
-    lang: locale,
-    isAlarm: true,
-    nickname: nickname,
-    agreement: {
-      isOverAge14: checkAge,
-      isServiceAccept: checkService,
-      isInfoAccept: checkService,
-      isMarketing: checkMarketing,
-    },
-    device: deviceInfo,
-  };
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/register`,
-    {
+    const res = await fetch(API_USER_REGISTER_URL, {
       method: "POST",
       cache: "no-store",
       body: JSON.stringify(registerBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to register: ${res.status} - ${res.statusText}`);
     }
-  );
 
-  const { accessToken, refreshToken } = await res.json();
+    const { accessToken, refreshToken, error } = await res.json();
 
-  setCookie("accessToken", accessToken, { httpOnly: true, secure: true });
-  setCookie("refreshToken", refreshToken, { httpOnly: true, secure: true });
-  setCookie("device", JSON.stringify(deviceInfo), {
-    httpOnly: true,
-    secure: true,
-  });
+    if (isUndefined(error)) {
+      setCookie("accessToken", accessToken, { httpOnly: true, secure: true });
+      setCookie("refreshToken", refreshToken, { httpOnly: true, secure: true });
+      setCookie("device", JSON.stringify(deviceInfo), {
+        httpOnly: true,
+        secure: true,
+      });
+    } else {
+      throw new Error(`Registration error: ${error}`);
+    }
+  } catch (e) {
+    console.error("Error during user registration:", e);
+    throw new Error(e instanceof Error ? e.message : "Unknown error occurred");
+  }
 };
