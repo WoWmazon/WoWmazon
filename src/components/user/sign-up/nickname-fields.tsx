@@ -46,16 +46,14 @@ const NicknameFields = forwardRef<HTMLInputElement, NicknameFieldProps>(
             {t("sign-up.double-check")}
           </CustomButton>
         </div>
-        {!isError && (
-          <div className="text-sm text-ELSE-48 leading-[18px]">
-            {message.info}
-          </div>
-        )}
-        {isError && (
-          <div className="text-sm text-SYSTEM-main leading-[18px]">
-            {message.error}
-          </div>
-        )}
+        <div
+          className={twMerge(
+            "text-sm text-SYSTEM-main leading-[18px]",
+            !isError && "text-ELSE-48"
+          )}
+        >
+          {isError ? message.error : message.info}
+        </div>
       </div>
     );
   }

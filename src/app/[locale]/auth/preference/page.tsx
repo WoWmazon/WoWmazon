@@ -1,10 +1,6 @@
 import PreferenceContainer from "@/components/user/preference/preference-container";
 
 const PreferencePage = () => {
-  return (
-    <>
-      <PreferenceContainer />
-    </>
-  );
+  return <PreferenceContainer />;
 };
 export default PreferencePage;

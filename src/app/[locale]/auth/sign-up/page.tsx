@@ -1,23 +1,10 @@
-import SignUpForm from "@/components/user/sign-up/signup-container";
+import { fetchRandomNickname } from "@/api/user/apis";
+import SignUpContainer from "@/components/user/sign-up/signup-container";
+
 const SignUpPage = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/nickname`,
-    {
-      cache: "no-store",
-    }
-  );
+  const defaultNickname = await fetchRandomNickname();
 
-  const { nickname, error: nicknameError } = await res.json();
-
-  if (nicknameError) {
-    throw new Error(nicknameError);
-  }
-
-  return (
-    <>
-      <SignUpForm defaultNickname={nickname} />
-    </>
-  );
+  return <SignUpContainer defaultNickname={defaultNickname} />;
 };
 
 export default SignUpPage;
