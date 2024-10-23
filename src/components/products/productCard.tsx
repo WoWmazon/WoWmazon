@@ -4,12 +4,16 @@ import IconButton from "../common/custom-icon-button";
 import addProduct from "@/assets/icons/addProduct.svg";
 import Badge from "../common/badge";
 import arrowDowm from "@/assets/icons/badge_arrow_down.svg";
+import { useRouter } from "next/navigation";
 
 const ProductCard = (productProps: productPostCardProps) => {
   const { image, title, presentPrice, price, discountRate } = productProps;
-
+  const router = useRouter();
   return (
-    <div className="w-[343px] h-[136px]  py-4 border-b-[1px] border-ELSE-EC">
+    <div
+      className="w-[343px] h-[136px]  py-4 border-b-[1px] border-ELSE-EC cursor-pointer"
+      onClick={() => router.push("/product-detail")}
+    >
       <div className="flex gap-3">
         {/* 상품이미지 */}
         <div className="w-20 h-20 flex justify-center items-center bg-ELSE-EC">
