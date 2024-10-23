@@ -11,6 +11,7 @@ const Badge = ({
   iconWidth = 12,
   iconSrc,
 }: BadgeProps) => {
+  const formattedText = typeof text === "number" ? `${text} %` : text;
   return (
     <div
       className={clsx(
@@ -27,7 +28,7 @@ const Badge = ({
           height={iconWidth}
         />
       )}
-      <span className={clsx(textColor, textSize)}>{text}</span>
+      <span className={clsx(textColor, textSize)}>{formattedText} </span>
     </div>
   );
 };
