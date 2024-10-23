@@ -9,7 +9,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = (await getProductList()) || [];
+        const data = await getProductList();
 
         const mappedProducts = data.map((items: productProps) => ({
           id: items.id,
