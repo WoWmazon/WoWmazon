@@ -15,16 +15,8 @@ type TabOption = "1개월" | "3개월";
 // 그래프 밑에 날짜 -> 탭 선택에 따라서 다르게 출력되어야 함
 
 const ProductDetailContent = async () => {
-  const [isActive, setIsActive] = useState(false);
 
-  const handleIconClick = () => {
-    setIsActive((prev) => !prev);
-  };
   const [selectedTab, setSelectedTab] = useState<TabOption>("1개월");
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTab(event.target.value as TabOption);
-  };
 
   return (
     <div className="bg-SYSTEM-white">

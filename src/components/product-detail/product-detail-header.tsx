@@ -7,7 +7,7 @@ import IconButton from "../common/custom-icon-button";
 import { useState } from "react";
 
 const ProductDetailHeader = () => {
-  const [isWished, setIsWished] = useState(true); // 임시 state / API 연결하면 isFavorite 값 사용
+  const isWished = true; // 임시, API 연결하면 isFavorite 값 사용
   const [isActive, setIsActive] = useState(false);
 
   const handleIconClick = () => {

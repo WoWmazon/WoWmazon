@@ -1,13 +1,4 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
-import IconButton from "../common/custom-icon-button";
-import arrowUp from "@/assets/icons/badge_arrow_up.svg";
-import Badge from "../common/badge";
-
 // 비슷한 상품 구현 필요
-
 const RelatedProduct = async () => {
   return (
     <div className="bg-SYSTEM-white">
