@@ -1,4 +1,4 @@
-import { fetchNicknameValidate } from "@/api/user/apis";
+import { getNicknameValidate } from "@/api/user/apis";
 import { nicknameRegex } from "@/constants/user";
 
 export const handleDoubleCheckNickname = async ({
@@ -15,7 +15,7 @@ export const handleDoubleCheckNickname = async ({
     return;
   }
 
-  const { isValidated, error } = await fetchNicknameValidate(nickname);
+  const { isValidated, error } = await getNicknameValidate(nickname);
 
   if (error) {
     setIsAvailableNickname(false);

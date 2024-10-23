@@ -4,7 +4,7 @@ import {
   API_USER_VALIDATE_URL,
 } from "@/constants/api-urls";
 
-export const fetchNicknameValidate = async (nickname: string) => {
+export const getNicknameValidate = async (nickname: string) => {
   try {
     const response = await fetch(
       `${API_USER_VALIDATE_URL}?nickname=${nickname}`,
@@ -30,7 +30,7 @@ export const fetchNicknameValidate = async (nickname: string) => {
   }
 };
 
-export const fetchRandomNickname = async () => {
+export const getRandomNickname = async () => {
   try {
     const response = await fetch(API_USER_NICKNAME_URL, {
       cache: "no-store",
@@ -56,7 +56,7 @@ export const fetchRandomNickname = async () => {
   }
 };
 
-export const fetchRefreshUser = async (refreshToken: string) => {
+export const postRefreshUser = async (refreshToken: string) => {
   try {
     const response = await fetch(API_USER_REFRESH_URL, {
       method: "POST",
@@ -81,7 +81,7 @@ export const fetchRefreshUser = async (refreshToken: string) => {
   }
 };
 
-export const fetchLogin = async (device: string, refreshToken: string) => {
+export const postLogin = async (device: string, refreshToken: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/login`,

@@ -10,7 +10,7 @@ import CustomButton from "@/components/common/custom-button";
 import { useTranslation } from "@/utils/localization/client";
 import { LocaleTypes } from "@/utils/localization/settings";
 import CloseModal from "./close-modal";
-import { registerUser } from "@/app/actions";
+import { postRegisterUser } from "@/app/actions";
 import { inputMessageInit, nicknameRegex } from "@/constants/user";
 
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
@@ -46,7 +46,7 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (!isAvailableNickname) return;
-    await registerUser(data, locale);
+    await postRegisterUser(data, locale);
     router.push("/");
   };
 

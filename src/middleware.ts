@@ -6,7 +6,7 @@ import {
 } from "./utils/localization/settings";
 import { getCookie } from "./utils/cookie";
 import { isUndefined } from "./utils/type-guard";
-import { fetchRefreshUser } from "./api/user/apis";
+import { postRefreshUser } from "./api/user/apis";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
       error,
-    } = await fetchRefreshUser(refreshToken || "");
+    } = await postRefreshUser(refreshToken || "");
 
     if (!isUndefined(error)) {
       // 리프레시 실패

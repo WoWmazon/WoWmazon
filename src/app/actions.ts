@@ -7,7 +7,10 @@ import { createRegisterBody } from "@/utils/registerUtils";
 import { isUndefined } from "@/utils/type-guard";
 import { API_USER_REGISTER_URL } from "@/constants/api-urls";
 
-export const registerUser = async (data: FormInput, locale: LocaleTypes) => {
+export const postRegisterUser = async (
+  data: FormInput,
+  locale: LocaleTypes
+) => {
   try {
     const deviceInfo = createDeviceInfo();
     const registerBody = createRegisterBody({
