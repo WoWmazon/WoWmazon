@@ -21,5 +21,6 @@ export const COLORS = {
     C1: "#1CCA62",
     F60: "#FF6060",
     A1: "#1A1A1A",
+    76: "#767676",
   },
 };
