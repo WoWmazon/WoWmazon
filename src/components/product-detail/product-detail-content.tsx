@@ -88,8 +88,8 @@ const ProductDetailContent = async () => {
                 inline-block w-full p-1 border border-gray-200 
                 ${
                   selectedTab === tab
-                    ? "bg-white text-ELSE-17"
-                    : "text-ELSE-F8 bg-ELSE-EC hover:bg-white hover:text-ELSE-17"
+                    ? "bg-white text-SYSTEM-black"
+                    : "text-ELSE-F8 bg-ELSE-EC hover:bg-white hover:text-SYSTEM-black"
                 } 
               `}
               >
