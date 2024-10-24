@@ -1,7 +1,10 @@
+import { useFormContext } from "react-hook-form";
 import CustomCheckBox from "../common/custom-checkbox";
 import TextButton from "./text-button";
 
 const SearchFilter = () => {
+  const { register } = useFormContext();
+
   return (
     <div className="flex flex-col gap-5 py-2">
       <div className="flex flex-row gap-2 items-center">
@@ -12,8 +15,12 @@ const SearchFilter = () => {
       <div className="flex flex-row justify-between text-md text-ELSE-F8">
         <p>전체(0)</p>
         <div className="flex flex-row gap-3">
-          <CustomCheckBox>역대 최저가</CustomCheckBox>
-          <CustomCheckBox>품절 제외</CustomCheckBox>
+          <CustomCheckBox {...register("is_lowest_price_ever")}>
+            역대 최저가
+          </CustomCheckBox>
+          <CustomCheckBox {...register("is_out_of_stock")}>
+            품절 제외
+          </CustomCheckBox>
         </div>
       </div>
     </div>

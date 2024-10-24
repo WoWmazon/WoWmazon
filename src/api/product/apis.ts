@@ -1,4 +1,5 @@
 "use server";
+import { createQueryString } from "@/utils/apiUtils";
 import { getCookie } from "@/utils/cookie";
 
 const NITO_BASE_URL = process.env.NEXT_PUBLIC_NITO_URL;
@@ -29,6 +30,28 @@ export const getProductList = async () => {
       throw new Error("에러가 발생했어요!");
     }
 
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("에러", error);
+  }
+};
+
+// 검색에서 사용하기 위해 임시로 생성
+export const getProductListBySearch = async (data: ProductParamsType) => {
+  const queryParams = createQueryString(data);
+  try {
+    const url = `${NITO_BASE_URL}/product/?${queryParams}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("에러가 발생했어요!");
+    }
     const data = await response.json();
     return data.results;
   } catch (error) {

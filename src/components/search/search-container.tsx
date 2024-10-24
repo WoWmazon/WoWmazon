@@ -1,22 +1,50 @@
-"use clinet";
+"use client";
 
-import RecentSearchKeyword from "@/components/search/recent-search-keyword";
+import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useProducts } from "@/api/product/queries";
 import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
 
 const SearchContainer = () => {
-  // 예시
-  const keywords = [
-    { id: "1", keyword: "우유" },
-    { id: "2", keyword: "모니터" },
-  ];
+  const method = useForm<SearchFormType>();
+  const { watch, handleSubmit } = method;
+
+  // debounce 적용할 객체
+  const formParams: SearchFormType = {
+    search: watch("search"),
+    is_out_of_stock: watch("is_out_of_stock"),
+    is_lowest_price_ever: watch("is_lowest_price_ever"),
+    ordering: "discount_rate", // 아직 미 적용.
+  };
+
+  // formParams에 debounce 적용
+  const debouncedParams = useDebounce(formParams);
+
+  // react-query로 데이터 페칭
+  const { data, isLoading, refetch } = useProducts(debouncedParams);
+
+  const onSubmit = handleSubmit(() => {
+    refetch();
+  });
+
+  useEffect(() => {
+    if (debouncedParams.search) {
+      refetch();
+    }
+  }, [debouncedParams]);
 
   return (
-    <div className="px-4 text-ELSE-33">
-      <SearchHeader />
-      <RecentSearchKeyword keywords={keywords} />
-      {/* <SearchResult /> */}
-    </div>
+    <FormProvider {...method}>
+      <form className="px-4 pt-14 text-ELSE-33" onSubmit={onSubmit}>
+        <SearchHeader />
+        {/* 미적용 */}
+        {/* <RecentSearchKeyword keywords={keywords} /> */}
+        <SearchResult data={data} isLoading={isLoading} />
+      </form>
+    </FormProvider>
   );
 };
+
 export default SearchContainer;
