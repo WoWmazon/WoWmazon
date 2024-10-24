@@ -1,8 +1,3 @@
-type RecentSerchKeywordType = {
-  id: string;
-  keyword: string;
-};
-
 type SearchFormType = {
   search: string;
   ordering: "present_price" | "-discount_rate";

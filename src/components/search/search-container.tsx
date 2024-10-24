@@ -6,6 +6,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useProducts } from "@/api/product/queries";
 import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
+import RecentSearch from "./recent-search";
 
 const SearchContainer = () => {
   const method = useForm<SearchFormType>({
@@ -13,7 +14,7 @@ const SearchContainer = () => {
       ordering: "-discount_rate",
     },
   });
-  const { watch, handleSubmit } = method;
+  const { watch, handleSubmit, getValues } = method;
 
   // debounce 적용할 객체
   const formParams: SearchFormType = {
@@ -30,6 +31,7 @@ const SearchContainer = () => {
   const { data, isLoading, refetch } = useProducts(debouncedParams);
 
   const onSubmit = handleSubmit(() => {
+    if (isLoading) return;
     refetch();
   });
 
@@ -43,9 +45,11 @@ const SearchContainer = () => {
     <FormProvider {...method}>
       <form className="px-4 pt-16 text-ELSE-33 " onSubmit={onSubmit}>
         <SearchHeader />
-        {/* 미적용 */}
-        {/* <RecentSearchKeyword keywords={keywords} /> */}
-        <SearchResult data={data} isLoading={isLoading} />
+        {!getValues("search") || getValues("search").trim() === "" ? (
+          <RecentSearch />
+        ) : (
+          <SearchResult data={data} isLoading={isLoading} />
+        )}
       </form>
     </FormProvider>
   );
