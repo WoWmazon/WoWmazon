@@ -8,7 +8,11 @@ import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
 
 const SearchContainer = () => {
-  const method = useForm<SearchFormType>();
+  const method = useForm<SearchFormType>({
+    defaultValues: {
+      ordering: "-discount_rate",
+    },
+  });
   const { watch, handleSubmit } = method;
 
   // debounce 적용할 객체
@@ -16,7 +20,7 @@ const SearchContainer = () => {
     search: watch("search"),
     is_out_of_stock: watch("is_out_of_stock"),
     is_lowest_price_ever: watch("is_lowest_price_ever"),
-    ordering: "discount_rate", // 아직 미 적용.
+    ordering: watch("ordering"),
   };
 
   // formParams에 debounce 적용
@@ -37,7 +41,7 @@ const SearchContainer = () => {
 
   return (
     <FormProvider {...method}>
-      <form className="px-4 pt-14 text-ELSE-33" onSubmit={onSubmit}>
+      <form className="px-4 pt-16 text-ELSE-33 " onSubmit={onSubmit}>
         <SearchHeader />
         {/* 미적용 */}
         {/* <RecentSearchKeyword keywords={keywords} /> */}

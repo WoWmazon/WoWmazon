@@ -5,3 +5,9 @@
 .scrollbar-none::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
+.text-radio:not(:last-child)::after {
+  content: "";
+  border-left: 1px solid #d9d9d9;
+  height: 12px;
+  margin-right: -2px;
+}
