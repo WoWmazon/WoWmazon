@@ -72,3 +72,8 @@ type BottomSheetProps = {
   optionalBtnText?: string; // modal optional outline button text
   handleOptional?: () => void; // modal optional outline button action
 };
+
+type CustomRadioProps = InputOmitProps & {
+  large?: boolean;
+  isRadioHidden?: boolean;
+};
