@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import LocaleButton from "@/components/locale-button";
-import Providers from "@/providers/query-provider";
+import Providers from "./providers";
 
 import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
