@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import LocaleButton from "@/components/locale-button";
+import Providers from "@/providers/query-provider";
 
 import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
@@ -35,7 +36,7 @@ export default function RootLayout({
                   id="chidrenWrapper"
                   className="relative h-full overflow-y-auto scrollbar-none"
                 >
-                  {children}
+                  <Providers>{children}</Providers>
                 </div>
               </div>
             </div>
