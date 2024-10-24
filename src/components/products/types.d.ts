@@ -32,3 +32,9 @@ type ProductResultType = {
   presentPriceUpdatedAt: string; // ISO date string
   title: string;
 };
+
+type ProductDataType = {
+  count: number;
+  cursor: string;
+  results: ProductResultType[];
+};

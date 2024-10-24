@@ -4,7 +4,7 @@ import CustomCheckBox from "../common/custom-checkbox";
 import CustomRadio from "../common/custom-radio";
 import { orderings } from "@/constants/search";
 
-const SearchFilter = () => {
+const SearchFilter = ({ count }: { count: number }) => {
   const { register, getValues } = useFormContext();
   const ordering = getValues("ordering");
 
@@ -30,7 +30,7 @@ const SearchFilter = () => {
         ))}
       </div>
       <div className="flex flex-row justify-between text-md text-ELSE-F8">
-        <p>전체(0)</p>
+        <p>{`전체(${count})`}</p>
         <div className="flex flex-row gap-3">
           <CustomCheckBox {...register("is_lowest_price_ever")}>
             역대 최저가

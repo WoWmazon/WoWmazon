@@ -1,28 +1,28 @@
+import ProductCard from "../products/productCard";
 import SearchFilter from "./search-filter";
 import SearchNoneProduct from "./search-none-product";
 
-const SearchResult = ({
-  data,
-  isLoading,
-}: {
-  data: ProductResultType[];
-  isLoading: boolean;
-}) => {
+const SearchResult = ({ data, isLoading }: SearchResultProps) => {
   return (
-    <div>
-      <SearchFilter />
+    <>
+      <SearchFilter count={data?.count ?? 0} />
       {isLoading ? (
         <div>loading...</div>
-      ) : data?.length ? (
-        <div>
-          {data.map((d) => (
-            <div key={d.id}>{d.title}</div>
-          ))}
-        </div>
+      ) : data?.results?.length > 0 ? (
+        data.results.map((product) => (
+          <ProductCard
+            key={product.id}
+            image={product.image}
+            title={product.title}
+            presentPrice={parseFloat(product.presentPrice)}
+            price={parseFloat(product.price)}
+            discountRate={product.discountRate}
+          />
+        ))
       ) : (
         <SearchNoneProduct />
       )}
-    </div>
+    </>
   );
 };
 

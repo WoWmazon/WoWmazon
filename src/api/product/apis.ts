@@ -53,7 +53,7 @@ export const getProductListBySearch = async (data: ProductParamsType) => {
       throw new Error("에러가 발생했어요!");
     }
     const data = await response.json();
-    return data.results;
+    return data;
   } catch (error) {
     console.error("에러", error);
   }
