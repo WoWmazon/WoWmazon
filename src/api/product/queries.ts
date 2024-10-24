@@ -4,10 +4,6 @@ import { getProductListBySearch } from "./apis";
 export const useProducts = (data: ProductParamsType) =>
   useQuery({
     queryKey: ["products", data],
-    queryFn: () => {
-      if (!data.search) {
-        return [];
-      }
-      return getProductListBySearch(data);
-    },
+    queryFn: () => getProductListBySearch(data),
+    enabled: !!data.search,
   });
