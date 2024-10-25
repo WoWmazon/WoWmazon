@@ -15,18 +15,9 @@ type FormInput = {
   checkMarketing: boolean;
 };
 
-type InputMessageType = {
-  info: string;
-  error: string;
-};
-
-type NicknameFieldProps = Omit<
-  ControllerRenderProps<FormInput, "nickname">,
-  "onChange"
-> & {
-  message: InputMessageType;
-  nicknameAvailable: boolean;
-  onClickCheck: (nickname: string) => void;
+type NicknameFieldProps = {
+  isAvailableNickname: boolean;
+  setIsAvailableNickname: Dispatch<SetStateAction<boolean>>;
 };
 
 type CheckFieldsProps = {
@@ -55,9 +46,14 @@ type UserRegisterType = {
   device: DeviceType;
 };
 
+type NicknameValidationType = {
+  message: string;
+  isError: boolean;
+};
+
 type HandleDoubleCheckNicknameProps = {
   nickname: string;
-  setInputMessage: Dispatch<SetStateAction<InputMessageType>>;
+  setValidation: Dispatch<SetStateAction<NicknameValidationType>>;
   setIsAvailableNickname: Dispatch<SetStateAction<boolean>>;
   t: TFunction<string, undefined>;
 };
