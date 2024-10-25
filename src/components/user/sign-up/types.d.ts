@@ -20,13 +20,6 @@ type NicknameFieldProps = {
   setIsAvailableNickname: Dispatch<SetStateAction<boolean>>;
 };
 
-type CheckFieldsProps = {
-  register: UseFormRegister<FormInput>;
-  isCheckAll: boolean;
-  onChangeCheckAll: React.ChangeEventHandler<HTMLInputElement>;
-  onChangeChecks: React.ChangeEventHandler<HTMLInputElement>;
-};
-
 type DeviceType = {
   os: "android" | "ios";
   uid: string;
