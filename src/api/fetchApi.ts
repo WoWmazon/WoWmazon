@@ -1,6 +1,6 @@
 "use server";
+import { createURLWithParams } from "@/utils/apis/create-URL-Params";
 import { getCookie } from "@/utils/cookie";
-import { createURLWithParams } from "./create-URL-Params";
 
 const NITO_BASE_URL = process.env.NEXT_PUBLIC_NITO_URL;
 const token = getCookie("accessToken");
