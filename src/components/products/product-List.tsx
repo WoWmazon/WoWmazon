@@ -27,9 +27,9 @@ const ProductList = () => {
         }));
 
         setProducts(mappedProducts);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("에러:", error);
-        setError(error.message || "상품을 불러오는 중 오류가 발생했습니다.");
+        setError("상품을 불러오는 중 오류가 발생했습니다.");
       }
     };
     fetchProducts();
