@@ -8,14 +8,13 @@ const token = getCookie("accessToken");
 //token 값이 필요한 fetch 함수
 export const fetchWithToken = async (
   endpoint: string,
-  method: string = "GET",
-  options: RequestInit,
+  options: RequestInit = {},
   queryParams?: Record<string, string> // 쿼리 파라미터를 위한 인수 추가
 ) => {
   const url = createURLWithParams(`${NITO_BASE_URL}`, endpoint, queryParams);
 
   const response = await fetch(url, {
-    method,
+    method: options.method || "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
