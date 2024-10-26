@@ -1,27 +1,46 @@
+"use server";
+
 import {
-  API_USER_NICKNAME_URL,
-  API_USER_REFRESH_URL,
-  API_USER_VALIDATE_URL,
-} from "@/constants/api-urls";
+  NITO_USER_LOGIN_URL,
+  NITO_USER_NICKNAME_URL,
+  NITO_USER_REFRESH_URL,
+  NITO_USER_VALIDATE_URL,
+} from "@/constants/nito-urls";
+
+const fetchOptions: RequestInit = {
+  cache: "no-store",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+};
 
 export const getNicknameValidate = async (nickname: string) => {
+  if (!nickname) {
+    return {
+      error: "Nickname is required",
+    };
+  }
+
   try {
     const response = await fetch(
-      `${API_USER_VALIDATE_URL}?nickname=${nickname}`,
-      {
-        cache: "no-store",
-      }
+      `${NITO_USER_VALIDATE_URL}?nickname=${nickname}`,
+      fetchOptions
     );
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to validate nickname: ${response.status} ${response.statusText}`
-      );
+    const { ok, status } = response;
+
+    const data = await response.json();
+
+    if (!ok && !(status === 400)) {
+      console.error(`Error ${status}: ${data.detail || data}`);
+      throw new Error(`Validation failed with status: ${status}`);
     }
 
-    const { nickname: available, error } = await response.json();
-
-    return { isValidated: available === "available nickname", error: error };
+    return {
+      isValidated: data.nickname === "available nickname",
+      error: status === 400 ? data.nickname : data.detail,
+    };
   } catch (e) {
     return {
       isValidated: false,
@@ -32,9 +51,7 @@ export const getNicknameValidate = async (nickname: string) => {
 
 export const getRandomNickname = async () => {
   try {
-    const response = await fetch(API_USER_NICKNAME_URL, {
-      cache: "no-store",
-    });
+    const response = await fetch(NITO_USER_NICKNAME_URL, fetchOptions);
 
     if (!response.ok) {
       throw new Error(
@@ -58,10 +75,10 @@ export const getRandomNickname = async () => {
 
 export const postRefreshUser = async (refreshToken: string) => {
   try {
-    const response = await fetch(API_USER_REFRESH_URL, {
+    const response = await fetch(NITO_USER_REFRESH_URL, {
       method: "POST",
-      cache: "no-store",
       body: JSON.stringify({ refreshToken }),
+      ...fetchOptions,
     });
 
     if (!response.ok) {
@@ -83,14 +100,11 @@ export const postRefreshUser = async (refreshToken: string) => {
 
 export const postLogin = async (device: string, refreshToken: string) => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/login`,
-      {
-        method: "POST",
-        cache: "no-store",
-        body: JSON.stringify({ device, refreshToken }),
-      }
-    );
+    const response = await fetch(NITO_USER_LOGIN_URL, {
+      method: "POST",
+      body: JSON.stringify({ device, refreshToken }),
+      ...fetchOptions,
+    });
 
     if (!response.ok) {
       throw new Error(
