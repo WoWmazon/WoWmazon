@@ -1,4 +1,7 @@
+// API : 관련 product 목록 조회 GET _ /v1/product/{id}/related_product_list
+
 // 비슷한 상품 구현 필요
+
 const RelatedProduct = async () => {
   return (
     <div className="bg-SYSTEM-white">
