@@ -41,24 +41,19 @@ export const getProductList = async (queryParams?: Record<string, string>) => {
 // product 상세
 export const getProductDatail = async (id: string) => {
   try {
-    const url = `${NITO_BASE_URL}/product/${id}/`;
-    console.log(url);
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("에러가 발생했습니다.");
+    const data = await fetchWithToken<GetProductDatailResponse>(
+      `product/${id}/`,
+      {
+        method: "GET",
+      }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.log("상품 데이터가 비어있습니다.");
+      return undefined;
     }
-    const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
+    console.log("에러 : ", error);
   }
 };
 
@@ -78,23 +73,35 @@ export const getProductPriceGraph = async () => {
 };
 
 // 상품 상세 가격 조회 GET /v1/product/{id}/price_info
-export const getProductPriceInfo = async () => {
-  const id = "127085";
+export const getProductPriceInfo = async (id: string) => {
   try {
-    const response = await fetch(`${NITO_BASE_URL}/product/${id}/price_info`);
-  } catch (e) {
-    return {
-      error: e instanceof Error ? e.message : "Unknown error occurred",
-    };
+    const data = await fetchWithToken<GetProductInfoResponse>(
+      `product/${id}/price_info/`,
+      { method: "GET" }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.log("데이터가 비어있습니다.");
+      return undefined;
+    }
+    return data;
+  } catch (error) {
+    console.log("에러 : ", error);
   }
 };
 
 // 관련 product 목록 조회 GET /v1/product/{id}/related_product_list
 
-export const getRelatedProductList = async () => {
-  const id = "127085";
+export const getRelatedProductList = async (id: string) => {
   try {
-    const response = await fetch(`${NITO_BASE_URL}/product/${id}/price_info`);
+    const data = await fetchWithToken(`product/${id}/related_product_list/`, {
+      method: "GET",
+    });
+    console.log(data);
+    if (isUndefined(data) || isNull(data)) {
+      console.log("데이터가 비어있습니다.");
+      return undefined;
+    }
+    return data;
   } catch (e) {
     return {
       error: e instanceof Error ? e.message : "Unknown error occurred",

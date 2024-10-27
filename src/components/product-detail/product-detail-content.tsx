@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import headset from "@/assets/images/headset.jpg";
+import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
 import arrowUp from "@/assets/icons/badge_arrow_up.svg";
 import CustomButton from "../common/custom-button";
 import { getProductDatail } from "@/api/product/apis";
-
-// API : product 상품 상세 조회 GET _ /v1/product/{id}
-// API 연결해서 하드코딩한 거 데이터로 변경
+import { formatDistanceToNow } from "date-fns";
+import { ko } from "date-fns/locale";
 
 const ProductDetailContent = () => {
   const [product, setProduct] = useState<GetProductDatailResponse>();
@@ -26,13 +25,24 @@ const ProductDetailContent = () => {
     fetchProduct();
   }, []);
 
-  console.log("api 호출 !!!!!!", product);
+  console.log("product ---> ", product);
 
   if (!product) return null;
 
   return (
     <div className="bg-SYSTEM-white">
-      <Image src={headset} alt="product-image" width={375} height={295} />
+      {product.image ? (
+        <Image
+          src={product.image}
+          alt="product-image"
+          width={375}
+          height={295}
+        />
+      ) : (
+        <div className="bg-ELSE-EC h-[295px] w-[375px] content-center justify-items-center">
+          <Image src={noImage} alt="no-image" />
+        </div>
+      )}
       <div className="p-4 border border-ELSE-EC">
         <p className="mb-3">{product?.title}</p>
         <div className="flex gap-1.5 mb-1">
@@ -58,10 +68,10 @@ const ProductDetailContent = () => {
         </div>
         <div className="flex gap-2 text-ELSE-F8">
           <p>List Price</p>
-          <p className="line-through">$900.99</p>
+          <p className="line-through">{`$ ${product.price}`}</p>
         </div>
         <div className="flex gap-2 content-center">
-          <p className="text-xxl font-bold">$ 751.99</p>
+          <p className="text-xxl font-bold">{`\$ ${product.presentPrice}`}</p>
           <p className="content-center text-ELSE-55">97만 5,226.40원</p>
         </div>
         <p className="text-sm text-ELSE-76 mb-3">
@@ -70,7 +80,12 @@ const ProductDetailContent = () => {
         <div className="text-md px-3 py-2 bg-ELSE-F5 mb-3">
           <p className="font-bold">아마존 가격</p>
           <p className="text-ELSE-55">
-            마지막 업데이트: 1분 전, 마지막 가격 변경: 1일 전
+            {`마지막 업데이트 : 
+            ${formatDistanceToNow(product.presentPriceUpdatedAt, {
+              addSuffix: true,
+              locale: ko,
+            })}
+            , 마지막 가격 변경: 1일 전`}
           </p>
         </div>
         <CustomButton variant="outlineColor">

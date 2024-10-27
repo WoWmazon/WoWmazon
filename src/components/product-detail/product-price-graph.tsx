@@ -11,7 +11,7 @@ type TabOption = "1개월" | "3개월";
 // 그래프 구현
 // 그래프 밑에 날짜 -> 탭 선택에 따라서 다르게 출력되어야 함
 
-const ProductPriceGraph = async () => {
+const ProductPriceGraph = () => {
   const [selectedTab, setSelectedTab] = useState<TabOption>("1개월");
   const tabStyle = "w-full text-md content-center rounded-sm";
   const seletedTabStyle = "bg-white text-SYSTEM-black";
