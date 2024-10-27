@@ -35,8 +35,8 @@ export const postRegisterUser = async (
     const { accessToken, refreshToken, error } = await res.json();
 
     if (isUndefined(error)) {
-      setCookie("accessToken", accessToken, { httpOnly: true, secure: true });
-      setCookie("refreshToken", refreshToken, { httpOnly: true, secure: true });
+      setCookie("accessToken", accessToken, { secure: true });
+      setCookie("refreshToken", refreshToken, { secure: true });
       setCookie("device", JSON.stringify(deviceInfo), {
         httpOnly: true,
         secure: true,

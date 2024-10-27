@@ -1,4 +1,7 @@
+"use client";
+import ProductList from "@/components/products/product-List";
+
 const page = () => {
-  return <div>product list page</div>;
+  return <ProductList />;
 };
 export default page;
