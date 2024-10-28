@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
-import arrowUp from "@/assets/icons/badge_arrow_up.svg";
+import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import CustomButton from "../common/custom-button";
 import { getProductDatail } from "@/api/product/apis";
 import { formatDistanceToNow } from "date-fns";
@@ -25,8 +25,6 @@ const ProductDetailContent = () => {
     fetchProduct();
   }, []);
 
-  console.log("product ---> ", product);
-
   if (!product) return null;
 
   return (
@@ -44,27 +42,31 @@ const ProductDetailContent = () => {
         </div>
       )}
       <div className="p-4 border border-ELSE-EC">
-        <p className="mb-3">{product?.title}</p>
+        <p className="mb-2.5">{product?.title}</p>
         <div className="flex gap-1.5 mb-1">
-          <Badge
-            text="역대최저가"
-            height="h-[18px]"
-            hasIcon={false}
-            backgroundColor="bg-ELSE-F0"
-            textColor="text-ELSE-C1"
-            textSize="text-sm"
-            iconWidth={12}
-          />
-          <Badge
-            text="17%"
-            height="h-[18px]"
-            hasIcon={true}
-            iconSrc={arrowUp}
-            backgroundColor="bg-ELSE-F0"
-            textColor="text-ELSE-C1"
-            textSize="text-sm"
-            iconWidth={12}
-          />
+          {product.isLowestPriceEver && (
+            <Badge
+              text="역대최저가"
+              height="h-[18px]"
+              hasIcon={false}
+              backgroundColor="bg-ELSE-F0"
+              textColor="text-ELSE-C1"
+              textSize="text-sm"
+              iconWidth={12}
+            />
+          )}
+          {product.discountRate !== 0 && (
+            <Badge
+              text={`${product.discountRate}%`}
+              height="h-[18px]"
+              hasIcon={true}
+              iconSrc={arrowDown}
+              backgroundColor="bg-ELSE-FF3"
+              textColor="text-SYSTEM-main"
+              textSize="text-sm"
+              iconWidth={12}
+            />
+          )}
         </div>
         <div className="flex gap-2 text-ELSE-F8">
           <p>List Price</p>
@@ -81,16 +83,24 @@ const ProductDetailContent = () => {
           <p className="font-bold">아마존 가격</p>
           <p className="text-ELSE-55">
             {`마지막 업데이트 : 
-            ${formatDistanceToNow(product.presentPriceUpdatedAt, {
+            ${formatDistanceToNow(product.crawlingUpdatedAt, {
               addSuffix: true,
               locale: ko,
             })}
-            , 마지막 가격 변경: 1일 전`}
+            , 마지막 가격 변경: ${formatDistanceToNow(
+              product.presentPriceUpdatedAt,
+              {
+                addSuffix: true,
+                locale: ko,
+              }
+            )}`}
           </p>
         </div>
-        <CustomButton variant="outlineColor">
-          더 많은 옵션 보러가기
-        </CustomButton>
+        {product.optionStatus && (
+          <CustomButton variant="outlineColor">
+            더 많은 옵션 보러가기
+          </CustomButton>
+        )}
       </div>
     </div>
   );
