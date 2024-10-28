@@ -27,7 +27,7 @@ export const getProductList = async (queryParams?: Record<string, string>) => {
       console.log("상품 데이터가 비어있습니다.");
       return [];
     }
-    return data.results;
+    return data;
   } catch (error) {
     console.error("에러:", error);
     return [];

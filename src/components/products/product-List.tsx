@@ -13,11 +13,11 @@ const ProductList = () => {
       try {
         const data = await getProductList();
 
-        if (isNull(data) || isUndefined(data)) {
+        if (isNull(data) || isUndefined(data) || !Array.isArray(data.results)) {
           throw new Error("유효한 상품 데이터가 아닙니다.");
         }
 
-        const mappedProducts = data.map((item: productProps) => ({
+        const mappedProducts = data.results.map((item: productProps) => ({
           id: item.id,
           image: item.image,
           title: item.title,
