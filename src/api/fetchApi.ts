@@ -5,7 +5,7 @@ import { getCookie } from "@/utils/cookie";
 const NITO_BASE_URL = process.env.NEXT_PUBLIC_NITO_URL;
 const token = getCookie("accessToken");
 
-export const fetchWithToken = async <T = any>(
+export const fetchWithToken = async <T>(
   endpoint: string,
   options: RequestInit = {},
   queryParams?: Record<string, string> // 쿼리 파라미터를 위한 인수 추가
@@ -29,7 +29,7 @@ export const fetchWithToken = async <T = any>(
 };
 
 // token 값 필요없을 때 fetch 함수
-export const fetchWithNoToken = async <T = any>(
+export const fetchWithNoToken = async <T>(
   endpoint: string,
   options: RequestInit,
   queryParams?: Record<string, string>
