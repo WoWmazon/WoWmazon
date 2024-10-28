@@ -55,6 +55,7 @@ const ProductDetailHeader = () => {
               size={32}
               alt="arrow-icon"
               isActive={isActive}
+              onClick={() => setIsActive(false)}
               className="ml-4 rounded-md hover:bg-ELSE-F5"
             />
           )}
