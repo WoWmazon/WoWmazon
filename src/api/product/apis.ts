@@ -95,18 +95,19 @@ export const getProductPriceInfo = async (id: string) => {
 // 관련 product 목록 조회 GET /v1/product/{id}/related_product_list
 export const getRelatedProductList = async (id: string) => {
   try {
-    const data = await fetchWithToken(`product/${id}/related_product_list/`, {
-      method: "GET",
-    });
+    const data = await fetchWithToken<getRelatedProductListResponse[]>(
+      `product/${id}/related_product_list/`,
+      {
+        method: "GET",
+      }
+    );
     if (isUndefined(data) || isNull(data)) {
       console.log("데이터가 비어있습니다.");
       return undefined;
     }
     return data;
-  } catch (e) {
-    return {
-      error: e instanceof Error ? e.message : "Unknown error occurred",
-    };
+  } catch (error) {
+    console.log("에러 : ", error);
   }
 };
 
