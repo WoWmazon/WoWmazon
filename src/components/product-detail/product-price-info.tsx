@@ -7,9 +7,8 @@ import { useEffect, useState } from "react";
 const ProductPriceInfo = () => {
   const [productInfo, setProductInfo] = useState<GetProductInfoResponse>();
 
-  const dateFormat = (date: string) => {
-    return format(new Date(date), "yyyy/MM/dd");
-  };
+  const dateFormat = (date: string) => format(new Date(date), "yyyy/MM/dd");
+
   useEffect(() => {
     const fetchProductInfo = async () => {
       try {
@@ -21,8 +20,6 @@ const ProductPriceInfo = () => {
     };
     fetchProductInfo();
   }, []);
-
-  console.log("INFO ---> ", productInfo);
 
   if (!productInfo) return null;
 
@@ -50,9 +47,9 @@ const ProductPriceInfo = () => {
       </div>
       <div className="grid grid-cols-[1fr_1fr] px-3 py-4 bg-ELSE-FA">
         <div className="border-r-2 border-ELSE-EC pr-3">
-          <p className="text-sm text-ELSE-76 mb-[14px]">평균가</p>
+          <div className="text-sm text-ELSE-76 mb-[14px]">평균가</div>
           <div className="text-right">
-            <p className="font-bold text-ELSE-33">{`$760.00`}</p>
+            <p className="font-bold text-ELSE-33">{`$${productInfo.averagePrice}`}</p>
             <p className="text-sm text-ELSE-55">104만 972원</p>
           </div>
         </div>

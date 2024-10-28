@@ -21,8 +21,6 @@ const RelatedProduct = () => {
     fetchRelatedProducts();
   }, []);
 
-  console.log("relatedProducts ---> ", relatedProducts);
-
   return (
     <div className="bg-SYSTEM-white">
       <div className="px-4 py-[30px]">
