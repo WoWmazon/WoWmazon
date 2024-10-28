@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getProductList } from "@/api/product/apis";
 import ProductCard from "@/components/products/productCard";
 import { isNull, isUndefined } from "@/utils/type-guard";
+import ExchangeBadge from "./exchage-badge";
 
 const ProductList = () => {
   const [products, setProducts] = useState<productProps[]>([]);
@@ -12,10 +13,6 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const data = await getProductList();
-
-        if (isNull(data) || isUndefined(data) || !Array.isArray(data.results)) {
-          throw new Error("유효한 상품 데이터가 아닙니다.");
-        }
 
         const mappedProducts = data.results.map((item: productProps) => ({
           id: item.id,
@@ -46,6 +43,7 @@ const ProductList = () => {
           상품 리스트
         </div>
       </div>
+      <ExchangeBadge />
       {products.length > 0 ? (
         products.map((product) => <ProductCard key={product.id} {...product} />)
       ) : (
