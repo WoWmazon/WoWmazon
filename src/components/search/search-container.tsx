@@ -8,11 +8,11 @@ import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
 
 const SearchContainer = () => {
-  const method = useForm<SearchFormType>();
+  const method = useForm<ProductParamsType>();
   const { watch, handleSubmit } = method;
 
   // debounce 적용할 객체
-  const formParams: SearchFormType = {
+  const formParams: ProductParamsType = {
     search: watch("search"),
     is_out_of_stock: watch("is_out_of_stock"),
     is_lowest_price_ever: watch("is_lowest_price_ever"),
