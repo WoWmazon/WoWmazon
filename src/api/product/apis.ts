@@ -17,7 +17,7 @@ import { createQueryString } from "@/utils/apiUtils";
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: Record<string, string>) => {
   try {
-    const data = await fetchWithToken(
+    const data = await fetchWithToken<getProductListResponse>(
       "product/",
       {
         method: "GET",

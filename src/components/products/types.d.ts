@@ -16,6 +16,12 @@ type ProductParamsType = {
   search?: string; // 검색어
 };
 
+type getProductListResponse = {
+  count: number;
+  cursor: string;
+  results: ProductResultType[];
+};
+
 type ProductResultType = {
   id: number;
   image: string;

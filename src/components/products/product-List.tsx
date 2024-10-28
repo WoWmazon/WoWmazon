@@ -16,8 +16,7 @@ const ProductList = () => {
         if (isNull(data) || isUndefined(data)) {
           throw new Error("유효한 상품 데이터가 아닙니다.");
         }
-
-        const mappedProducts = data.map((item: productProps) => ({
+        const mappedProducts = data.map((item) => ({
           id: item.id,
           image: item.image,
           title: item.title,
@@ -25,7 +24,6 @@ const ProductList = () => {
           presentPrice: item.presentPrice,
           discountRate: item.discountRate,
         }));
-
         setProducts(mappedProducts);
       } catch (error: unknown) {
         console.error("에러:", error);
