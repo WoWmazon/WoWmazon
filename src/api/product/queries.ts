@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProductListBySearch } from "./apis";
 
-export const useProducts = (data: ProductParamsType) =>
+export const useSearchProducts = (data: ProductParamsType) =>
   useQuery({
-    queryKey: ["products", data],
+    queryKey: ["searchProduct", data],
     queryFn: () => getProductListBySearch(data),
     enabled: !!data.search,
   });

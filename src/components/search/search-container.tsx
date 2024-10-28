@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useProducts } from "@/api/product/queries";
+import { useSearchProducts } from "@/api/product/queries";
 import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
 import RecentSearch from "./recent-search";
@@ -29,7 +29,7 @@ const SearchContainer = () => {
   const debouncedParams = useDebounce(formParams);
 
   // react-query로 데이터 페칭
-  const { data, isLoading, refetch } = useProducts(debouncedParams);
+  const { data, isLoading, refetch } = useSearchProducts(debouncedParams);
 
   const onSubmit = handleSubmit(() => {
     if (isLoading) return;
@@ -46,7 +46,7 @@ const SearchContainer = () => {
     <FormProvider {...method}>
       <form className="px-4 pt-16 text-ELSE-33 " onSubmit={onSubmit}>
         <SearchHeader />
-        {watch("search") === "" ? (
+        {isUndefined(getValues("search")) || getValues("search") === "" ? (
           <RecentSearch />
         ) : (
           <SearchResult data={data} isLoading={isLoading} />
