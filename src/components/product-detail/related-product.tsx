@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 // 비슷한 상품 구현 필요
 const RelatedProduct = () => {
   const [relatedProducts, setRelatedProducts] =
-    useState<getRelatedProductListResponse[]>();
+    useState<GetRelatedProductListResponse[]>();
 
   useEffect(() => {
     const fetchRelatedProducts = async () => {

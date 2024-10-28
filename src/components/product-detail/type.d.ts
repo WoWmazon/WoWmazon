@@ -29,7 +29,7 @@ type GetProductInfoResponse = {
   averagePrice: number; // 평균가
 };
 
-type getRelatedProductListResponse = {
+type GetRelatedProductListResponse = {
   id: string; // 상품 ID
   image: string; // 상품 이미지
   isOutOfStock: boolean; // 품절 여부

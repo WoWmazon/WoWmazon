@@ -16,7 +16,7 @@ type ProductParamsType = {
   search?: string; // 검색어
 };
 
-type getProductListResponse = {
+type GetProductListResponse = {
   count: number;
   cursor: string;
   results: ProductResultType[];

@@ -17,7 +17,7 @@ import { createQueryString } from "@/utils/apiUtils";
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: Record<string, string>) => {
   try {
-    const data = await fetchWithToken<getProductListResponse>(
+    const data = await fetchWithToken<GetProductListResponse>(
       "product/",
       {
         method: "GET",
@@ -95,7 +95,7 @@ export const getProductPriceInfo = async (id: string) => {
 // 관련 product 목록 조회 GET /v1/product/{id}/related_product_list
 export const getRelatedProductList = async (id: string) => {
   try {
-    const data = await fetchWithToken<getRelatedProductListResponse[]>(
+    const data = await fetchWithToken<GetRelatedProductListResponse[]>(
       `product/${id}/related_product_list/`,
       {
         method: "GET",
@@ -119,7 +119,7 @@ export const getProductListBySearch = async (
     if (queryParams) {
       stringRecord = createQueryString(queryParams);
     }
-    const data = await fetchWithToken(
+    const data = await fetchWithToken<GetProductListResponse>(
       "product/",
       {
         method: "GET",
