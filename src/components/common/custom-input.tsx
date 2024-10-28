@@ -72,7 +72,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           onChange={onChange}
           {...rest}
         />
-        {hasDelBtn && value && (
+        {hasDelBtn && (value || inputRef?.current?.value) && (
           <div
             className="absolute right-5 cursor-pointer"
             onClick={handleDeleteValue}
