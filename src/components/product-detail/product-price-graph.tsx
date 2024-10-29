@@ -10,7 +10,7 @@ type TabOption = "1개월" | "3개월";
 const ProductPriceGraph = () => {
   const [selectedTab, setSelectedTab] = useState<TabOption>("1개월");
   const tabStyle = "w-full text-md content-center rounded-sm";
-  const seletedTabStyle = "bg-white text-SYSTEM-black";
+  const seletedTabStyle = "bg-SYSTEM-white text-SYSTEM-black";
   const notSeletedTabStyle =
     "text-ELSE-F8 bg-ELSE-EC hover:bg-white hover:text-SYSTEM-black";
   return (
