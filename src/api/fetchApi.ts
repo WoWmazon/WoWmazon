@@ -30,13 +30,14 @@ export const fetchWithToken = async <T>(
 };
 
 // token 값 필요없을 때 fetch 함수
-export const fetchWithNoToken = async <T>(
+export const fetchWithoutToken = async <T>(
   endpoint: string,
   options: RequestInit,
   queryParams?: Record<string, string>
 ) => {
   //쿼리파라미터가 있을때 url 처리
   const url = createURLWithParams(`${NITO_BASE_URL}`, endpoint, queryParams);
+  console.log(url);
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -45,5 +46,8 @@ export const fetchWithNoToken = async <T>(
     },
     credentials: "include",
   });
+  if (!response.ok) {
+    throw new Error(`API 요청 실패: ${response.statusText}`);
+  }
   return response.json() as T;
 };
