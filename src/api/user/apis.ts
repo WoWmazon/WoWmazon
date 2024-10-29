@@ -15,6 +15,7 @@ const fetchOptions: RequestInit = {
   },
 };
 
+// const API_USER_VALIDATE_URL = `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/validate`;
 export const getNicknameValidate = async (nickname: string) => {
   if (!nickname) {
     return {
@@ -48,7 +49,21 @@ export const getNicknameValidate = async (nickname: string) => {
     };
   }
 };
-
+//fetchWithNoToken함수 적용한곳
+// export const getNicknameValidate = async (nickname: string) => {
+//   try {
+//     // fetchWithNoToken 호출 시 쿼리 파라미터 전달
+//     const data = await fetchWithNoToken(
+//       "api/user/validate",
+//       { cache: "no-store" },
+//       { nickname }
+//     );
+//     return data;
+//   } catch (error) {
+//     console.error("에러 발생:", error);
+//     throw new Error("닉네임 유효성 검증에 실패했습니다.");
+//   }
+// };
 export const getRandomNickname = async () => {
   try {
     const response = await fetch(NITO_USER_NICKNAME_URL, fetchOptions);

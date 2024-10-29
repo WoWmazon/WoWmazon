@@ -39,6 +39,9 @@ export const postRegisterUser = async (
     if (isUndefined(error)) {
       const maxAge = 60 * 60 * 24 * 365; // 1 year in seconds
       const setCookieOptions = {
+      setCookie("accessToken", accessToken, { secure: true });
+      setCookie("refreshToken", refreshToken, { secure: true });
+      setCookie("device", JSON.stringify(deviceInfo), {
         secure: true,
         maxAge,
       };
