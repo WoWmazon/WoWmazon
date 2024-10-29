@@ -36,6 +36,7 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
     getValues,
     formState: { errors, isValid },
   } = useForm<FormInput>({
+    mode: "onChange",
     defaultValues: {
       nickname: defaultNickname,
     },
