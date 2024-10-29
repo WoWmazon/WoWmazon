@@ -1,31 +1,24 @@
-"use client";
-
 import { getRelatedProductList } from "@/api/product/apis";
-import { useEffect, useState } from "react";
+import { isNull, isUndefined } from "@/utils/type-guard";
+import RelatedProductCard from "./related-product-card";
 
-// API : 관련 product 목록 조회 GET _ /v1/product/{id}/related_product_list
-// 비슷한 상품 구현 필요
-const RelatedProduct = () => {
-  const [relatedProducts, setRelatedProducts] =
-    useState<GetRelatedProductListResponse[]>();
+const RelatedProduct = async () => {
+  const relatedProducts = await getRelatedProductList("127184");
 
-  useEffect(() => {
-    const fetchRelatedProducts = async () => {
-      try {
-        const data = await getRelatedProductList("127184");
-        setRelatedProducts(data);
-      } catch (error) {
-        console.log("에러 : ", error);
-      }
-    };
-    fetchRelatedProducts();
-  }, []);
+  if (isNull(relatedProducts) || isUndefined(relatedProducts)) {
+    console.log("관련된 상품 데이터가 비어있습니다.");
+    return null;
+  }
 
   return (
     <div className="bg-SYSTEM-white">
       <div className="px-4 py-[30px]">
-        <p className="font-bold mb-2">해당 상품과 비슷한 상품</p>
-        <pre>{JSON.stringify(relatedProducts, null, 2)}</pre>
+        <p className="font-bold mb-3">해당 상품과 비슷한 상품</p>
+        <div className="w-full flex gap-3 overflow-x-auto">
+          {relatedProducts.map((item) => (
+            <RelatedProductCard key={item.id} {...item} />
+          ))}
+        </div>
       </div>
     </div>
   );
