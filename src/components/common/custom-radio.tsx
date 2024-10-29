@@ -12,7 +12,7 @@ const CustomRadio = (props: InputOmitProps & { large?: boolean }) => {
         type="radio"
         id={uuid}
         className={twMerge(
-          "appearance-none w-5 h-5 border border-ELSE-D9 bg-white rounded-full checked:bg-SYSTEM-main checked:bi-circle-sm checked:bg-no-repeat checked:bg-center checked:border-none",
+          "appearance-none w-5 h-5 border border-ELSE-D9 bg-SYSTEM-white rounded-full checked:bg-SYSTEM-main checked:bi-circle-sm checked:bg-no-repeat checked:bg-center checked:border-none",
           large && "w-7 h-7 checked:bi-circle-lg",
           className
         )}
