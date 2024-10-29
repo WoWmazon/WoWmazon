@@ -4,8 +4,7 @@ import { setCookie } from "@/utils/cookie";
 import { createDeviceInfo } from "@/utils/deviceUtils";
 import { LocaleTypes } from "@/utils/localization/settings";
 import { createRegisterBody } from "@/utils/registerUtils";
-import { isUndefined } from "@/utils/type-guard";
-import { NITO_USER_REGISTER_URL } from "@/constants/nito-urls";
+import { fetchWithoutToken } from "@/api/fetchApi";
 
 export const postRegisterUser = async (
   data: FormInput,
@@ -19,36 +18,29 @@ export const postRegisterUser = async (
       deviceInfo,
     });
 
-    const resonse = await fetch(NITO_USER_REGISTER_URL, {
+    const response = await fetchWithoutToken("user/register/", {
       method: "POST",
-      cache: "no-store",
       body: JSON.stringify(registerBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      cache: "no-store",
     });
 
-    if (!resonse.ok) {
-      throw new Error(
-        `Failed to register: ${resonse.status} - ${resonse.statusText}`
-      );
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Registration error: ${responseData}`);
     }
 
-    const { accessToken, refreshToken, error } = await resonse.json();
+    const { accessToken, refreshToken } = responseData;
 
-    if (isUndefined(error)) {
-      const maxAge = 60 * 60 * 24 * 365; // 1 year in seconds
-      const setCookieOptions = {
-        secure: true,
-        maxAge,
-      };
+    const maxAge = 60 * 60 * 24 * 365; // 1 year in seconds
+    const setCookieOptions = {
+      secure: true,
+      maxAge,
+    };
 
-      setCookie("accessToken", accessToken, setCookieOptions);
-      setCookie("refreshToken", refreshToken, setCookieOptions);
-      setCookie("device", JSON.stringify(deviceInfo), setCookieOptions);
-    } else {
-      throw new Error(`Registration error: ${error}`);
-    }
+    setCookie("accessToken", accessToken, setCookieOptions);
+    setCookie("refreshToken", refreshToken, setCookieOptions);
+    setCookie("device", JSON.stringify(deviceInfo), setCookieOptions);
   } catch (e) {
     console.error("Error during user registration:", e);
     throw new Error(e instanceof Error ? e.message : "Unknown error occurred");

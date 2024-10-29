@@ -1,32 +1,15 @@
 "use server";
 
-import {
-  NITO_USER_LOGIN_URL,
-  NITO_USER_NICKNAME_URL,
-  NITO_USER_REFRESH_URL,
-  NITO_USER_VALIDATE_URL,
-} from "@/constants/nito-urls";
+import { fetchWithoutToken } from "../fetchApi";
 
-const fetchOptions: RequestInit = {
-  cache: "no-store",
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  },
-};
-
-// const API_USER_VALIDATE_URL = `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/validate`;
 export const getNicknameValidate = async (nickname: string) => {
-  if (!nickname) {
-    return {
-      error: "Nickname is required",
-    };
-  }
-
   try {
-    const response = await fetch(
-      `${NITO_USER_VALIDATE_URL}?nickname=${nickname}`,
-      fetchOptions
+    const response = await fetchWithoutToken(
+      "user/validate/",
+      {
+        cache: "no-store",
+      },
+      { nickname }
     );
 
     const { ok, status } = response;
@@ -49,24 +32,12 @@ export const getNicknameValidate = async (nickname: string) => {
     };
   }
 };
-//fetchWithNoToken함수 적용한곳
-// export const getNicknameValidate = async (nickname: string) => {
-//   try {
-//     // fetchWithNoToken 호출 시 쿼리 파라미터 전달
-//     const data = await fetchWithNoToken(
-//       "api/user/validate",
-//       { cache: "no-store" },
-//       { nickname }
-//     );
-//     return data;
-//   } catch (error) {
-//     console.error("에러 발생:", error);
-//     throw new Error("닉네임 유효성 검증에 실패했습니다.");
-//   }
-// };
+
 export const getRandomNickname = async () => {
   try {
-    const response = await fetch(NITO_USER_NICKNAME_URL, fetchOptions);
+    const response = await fetchWithoutToken("user/nickname/", {
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       throw new Error(
@@ -74,28 +45,22 @@ export const getRandomNickname = async () => {
       );
     }
 
-    const { nickname, error } = await response.json();
-
-    if (error) {
-      throw new Error(error);
-    }
+    const { nickname } = await response.json();
 
     return nickname;
   } catch (e) {
-    return {
-      error: e instanceof Error ? e.message : "Unknown error occurred",
-    };
+    console.error(e);
+    return "";
   }
 };
 
 export const postRefreshUser = async (refreshToken: string) => {
   try {
-    const response = await fetch(NITO_USER_REFRESH_URL, {
+    const response = await fetchWithoutToken("user/refresh/", {
       method: "POST",
       body: JSON.stringify({ refreshToken }),
-      ...fetchOptions,
+      cache: "no-store",
     });
-
     if (!response.ok) {
       throw new Error(
         `Failed to refresh user: ${response.status} ${response.statusText}`
@@ -107,6 +72,7 @@ export const postRefreshUser = async (refreshToken: string) => {
 
     return { accessToken, refreshToken: newRefreshToken };
   } catch (e) {
+    console.error(e);
     return {
       error: e instanceof Error ? e.message : "Unknown error occurred",
     };
@@ -115,10 +81,10 @@ export const postRefreshUser = async (refreshToken: string) => {
 
 export const postLogin = async (device: string, refreshToken: string) => {
   try {
-    const response = await fetch(NITO_USER_LOGIN_URL, {
+    const response = await fetchWithoutToken("user/login/", {
       method: "POST",
       body: JSON.stringify({ device, refreshToken }),
-      ...fetchOptions,
+      cache: "no-store",
     });
 
     if (!response.ok) {
