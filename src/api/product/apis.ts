@@ -16,23 +16,14 @@ import { createQueryString } from "@/utils/apiUtils";
 
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: Record<string, string>) => {
-  try {
-    const data = await fetchWithToken<GetProductListResponse>(
-      "product/",
-      {
-        method: "GET",
-      },
-      queryParams
-    );
-    if (isUndefined(data) || isNull(data) || isUndefined(data.results)) {
-      console.log("상품 데이터가 비어있습니다.");
-      return [];
-    }
-    return data;
-  } catch (error) {
-    console.error("에러:", error);
-    return [];
-  }
+  const data = await fetchWithToken<GetProductListResponse>(
+    "product/",
+    {
+      method: "GET",
+    },
+    queryParams
+  );
+  return data;
 };
 
 // product 상세
