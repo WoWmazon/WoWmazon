@@ -17,7 +17,7 @@ import { createQueryString } from "@/utils/apiUtils";
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: Record<string, string>) => {
   try {
-    const data = await fetchWithToken(
+    const data = await fetchWithToken<GetProductListResponse>(
       "product/",
       {
         method: "GET",
@@ -35,6 +35,82 @@ export const getProductList = async (queryParams?: Record<string, string>) => {
   }
 };
 
+// product 상세
+export const getProductDatail = async (id: string) => {
+  try {
+    const data = await fetchWithToken<GetProductDatailResponse>(
+      `product/${id}/`,
+      {
+        method: "GET",
+      }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.log("상품 데이터가 비어있습니다.");
+      return undefined;
+    }
+    return data;
+  } catch (error) {
+    console.log("에러 : ", error);
+  }
+};
+
+// price history 목록 조회(가격 그래프) GET /v1/price_history/
+export const getProductPriceGraph = async () => {
+  const id = "127085";
+  const month = "3";
+  try {
+    const data = await fetchWithToken<GetProductDatailResponse>(
+      `price_history/?period=${month}&product_id=${id}/`,
+      {
+        method: "GET",
+      }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.log("상품 데이터가 비어있습니다.");
+      return undefined;
+    }
+    return data;
+  } catch (error) {
+    console.log("에러 : ", error);
+  }
+};
+
+// 상품 상세 가격 조회 GET /v1/product/{id}/price_info
+export const getProductPriceInfo = async (id: string) => {
+  try {
+    const data = await fetchWithToken<GetProductInfoResponse>(
+      `product/${id}/price_info/`,
+      { method: "GET" }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.log("데이터가 비어있습니다.");
+      return undefined;
+    }
+    return data;
+  } catch (error) {
+    console.log("에러 : ", error);
+  }
+};
+
+// 관련 product 목록 조회 GET /v1/product/{id}/related_product_list
+export const getRelatedProductList = async (id: string) => {
+  try {
+    const data = await fetchWithToken<GetRelatedProductListResponse[]>(
+      `product/${id}/related_product_list/`,
+      {
+        method: "GET",
+      }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.log("데이터가 비어있습니다.");
+      return undefined;
+    }
+    return data;
+  } catch (error) {
+    console.log("에러 : ", error);
+  }
+};
+
 export const getProductListBySearch = async (
   queryParams?: ProductParamsType
 ) => {
@@ -43,7 +119,7 @@ export const getProductListBySearch = async (
     if (queryParams) {
       stringRecord = createQueryString(queryParams);
     }
-    const data = await fetchWithToken(
+    const data = await fetchWithToken<GetProductListResponse>(
       "product/",
       {
         method: "GET",

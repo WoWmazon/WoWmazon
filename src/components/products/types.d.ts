@@ -1,8 +1,8 @@
 type productPostCardProps = {
   image: string;
   title: string;
-  price: number;
-  presentPrice: number;
+  price: string;
+  presentPrice: string;
   discountRate: number;
 };
 
@@ -14,6 +14,12 @@ type ProductParamsType = {
   ordering?: "present_price" | "discount_rate"; // 정렬 기준
   page_size?: number; // 페이지 당 결과 수
   search?: string; // 검색어
+};
+
+type GetProductListResponse = {
+  count: number;
+  cursor: string;
+  results: ProductResultType[];
 };
 
 type ProductResultType = {
