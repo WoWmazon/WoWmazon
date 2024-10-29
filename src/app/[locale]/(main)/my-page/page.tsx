@@ -1,5 +1,6 @@
 import MyPageHeader from "@/components/my-page/my-page-header";
 import MyPageInfo from "@/components/my-page/my-page-info";
+import MyPageNotificationSetting from "@/components/my-page/my-page-notification-setting";
 
 // dummy data
 const data = {
@@ -20,10 +21,11 @@ const data = {
 
 const page = () => {
   return (
-    <div className="px-4">
+    <>
       <MyPageHeader />
       <MyPageInfo data={data} />
-    </div>
+      <MyPageNotificationSetting />
+    </>
   );
 };
 export default page;

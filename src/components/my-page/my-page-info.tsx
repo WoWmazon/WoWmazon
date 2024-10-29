@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 const MyPageInfo = ({ data }: MyPageInfoProps) => {
   return (
-    <div className="py-5">
+    <div className="py-5 px-4">
       <div className="flex flex-row gap-[6px]">
         <p className="text-xl font-bold">안녕하세요, {data.nickname}님</p>
         <Image
