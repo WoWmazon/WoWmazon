@@ -4,6 +4,7 @@ import IconButton from "../common/custom-icon-button";
 import addProduct from "@/assets/icons/addProduct.svg";
 import Badge from "../common/badge";
 import arrowDowm from "@/assets/icons/badge_arrow_down.svg";
+import defaultIcon from "@/assets/images/main-mid.png";
 import { useRouter } from "next/navigation";
 
 const ProductCard = (productProps: productPostCardProps) => {
@@ -17,7 +18,12 @@ const ProductCard = (productProps: productPostCardProps) => {
       <div className="flex gap-3">
         {/* 상품이미지 */}
         <div className="w-20 h-20 flex justify-center items-center bg-ELSE-EC">
-          <Image src={image} alt="example-Image" width={66} height={47} />
+          <Image
+            src={image || defaultIcon}
+            alt="Image"
+            width={66}
+            height={47}
+          />
         </div>
         {/* 이미지 제외 컴포넌트 */}
         <div className=" flex flex-col gap-5">
