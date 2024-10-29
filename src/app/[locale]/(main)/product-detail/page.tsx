@@ -10,7 +10,8 @@ const page = () => {
       <div className="mb-3">
         <ProductDetailHeader />
         <ProductDetailContent />
-        <ProductPriceGraph />
+        {/* TODO: 그래프 추후 개발 */}
+        {/* <ProductPriceGraph /> */}
         <ProductPriceInfo />
       </div>
       <div>
