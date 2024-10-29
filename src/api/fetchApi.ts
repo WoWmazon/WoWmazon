@@ -1,9 +1,9 @@
 "use server";
+
 import { createURLWithParams } from "@/utils/apis/create-URL-Params";
 import { getCookie } from "@/utils/cookie";
 
 const NITO_BASE_URL = process.env.NEXT_PUBLIC_NITO_URL;
-const token = getCookie("accessToken");
 
 export const fetchWithToken = async <T>(
   endpoint: string,
@@ -11,6 +11,7 @@ export const fetchWithToken = async <T>(
   queryParams?: Record<string, string> // 쿼리 파라미터를 위한 인수 추가
 ) => {
   const url = createURLWithParams(`${NITO_BASE_URL}`, endpoint, queryParams);
+  const token = getCookie("accessToken");
 
   const response = await fetch(url, {
     method: options.method || "GET",
