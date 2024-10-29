@@ -1,25 +1,11 @@
-"use client";
+"use server";
 
 import { getProductPriceInfo } from "@/api/product/apis";
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
 
-const ProductPriceInfo = () => {
-  const [productInfo, setProductInfo] = useState<GetProductInfoResponse>();
-
+const ProductPriceInfo = async () => {
   const dateFormat = (date: string) => format(new Date(date), "yyyy/MM/dd");
-
-  useEffect(() => {
-    const fetchProductInfo = async () => {
-      try {
-        const data = await getProductPriceInfo("127184");
-        setProductInfo(data);
-      } catch (error) {
-        console.log("에러 : ", error);
-      }
-    };
-    fetchProductInfo();
-  }, []);
+  const productInfo = await getProductPriceInfo("127184");
 
   if (!productInfo) return null;
 
