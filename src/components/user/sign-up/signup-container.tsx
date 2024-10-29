@@ -23,6 +23,7 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
 
   const formMethods = useForm<FormInput>({
+    mode: "onChange",
     defaultValues: {
       nickname: defaultNickname,
     },

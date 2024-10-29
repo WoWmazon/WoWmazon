@@ -35,7 +35,6 @@ const NicknameFields = ({
   const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e);
     if (!errors.nickname) {
-      setValidation({ message: "", isError: false });
       setIsAvailableNickname(false);
     }
   };
