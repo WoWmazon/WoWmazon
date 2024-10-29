@@ -11,3 +11,8 @@ type TextButtonProps = {
   children: React.ReactNode;
   isActive?: boolean;
 };
+
+type RecentSearchItemProps = {
+  keyword: string;
+  onClick: () => void;
+};

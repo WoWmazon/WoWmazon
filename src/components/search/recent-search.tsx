@@ -1,3 +1,4 @@
+import { useFormContext } from "react-hook-form";
 import { useRecentSearchStore } from "@/stores/recent-search-store";
 import RecentSearchItem from "./recent-search-item";
 import CustomButton from "../common/custom-button";
@@ -7,6 +8,8 @@ const RecentSearch = () => {
   const clearRecentSearch = useRecentSearchStore(
     (state) => state.clearRecentSearch
   );
+
+  const { setValue } = useFormContext();
 
   return (
     <div className="flex flex-col gap-2 mt-3">
@@ -28,7 +31,11 @@ const RecentSearch = () => {
       {recentSearch.length ? (
         <div>
           {recentSearch.map((keyword, idx) => (
-            <RecentSearchItem key={`rsk-${idx}`} keyword={keyword} />
+            <RecentSearchItem
+              key={`rsk-${idx}`}
+              keyword={keyword}
+              onClick={() => setValue("search", keyword)}
+            />
           ))}
         </div>
       ) : (
