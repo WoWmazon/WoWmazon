@@ -7,7 +7,7 @@ import { ko } from "date-fns/locale";
 export const formatToKoreanTime = (isoString: string): string => {
   const date = new Date(isoString);
 
-  const koreanOffsetDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  const koreanOffsetDate = new Date(date.getTime());
 
   return format(koreanOffsetDate, "yy/MM/dd a hh시mm분 '기준 UTC+9'", {
     locale: ko,
