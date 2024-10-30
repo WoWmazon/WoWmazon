@@ -4,7 +4,7 @@ import IconButton from "../common/custom-icon-button";
 import addProduct from "@/assets/icons/addProduct.svg";
 import Badge from "../common/badge";
 import arrowDowm from "@/assets/icons/badge_arrow_down.svg";
-import defaultIcon from "@/assets/images/main-mid.png";
+import defaultIcon from "@/assets/icons/product_default_img.svg";
 import { useRouter } from "next/navigation";
 
 const ProductCard = (productProps: productPostCardProps) => {
@@ -24,6 +24,7 @@ const ProductCard = (productProps: productPostCardProps) => {
             width={66}
             height={47}
             style={{ width: "auto", height: "auto" }}
+            priority
           />
         </div>
         {/* 이미지 제외 컴포넌트 */}
