@@ -2,7 +2,7 @@
 
 import { getExchangeLatest } from "@/api/exchange/apis";
 import Badge from "../common/badge";
-import { formatToKoreanTime, getFormattedExchangeText } from "@/utils/date";
+import { getFormattedExchangeText } from "@/utils/date";
 
 const ExchangeBadge = async () => {
   const exchangeData = await getExchangeLatest();
