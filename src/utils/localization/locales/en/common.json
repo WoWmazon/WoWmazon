@@ -1,0 +1,21 @@
+{
+  "greeting": "Hello",
+  "description": "Welcome to our website!",
+  "english": "English(EN)",
+  "korean": "korean(KR)",
+  "cancel": "Cancel",
+  "update": "Update",
+  "retry": "Retry",
+  "notice": "Notice",
+  "lowestPrice": "Lowest Price",
+  "highestPrice": "Highest Price",
+  "wishList": "Wishlist",
+  "discountRateOrder": "Discount rate order",
+  "lowToHigh": "Low to High",
+  "edit": "Edit",
+  "wishListNoContents": "There are no desired products yet.",
+  "wishLostNoContentsDescription": "Click the + button below to include the product you want to be notified of the lowest price!",
+  "no": "No",
+  "yesPlease": "Yes, please",
+  "check": "Check"
+}

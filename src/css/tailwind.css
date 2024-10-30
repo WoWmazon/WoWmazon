@@ -6,4 +6,40 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .bg-signin {
+    background-image: url("../assets//images/nito-big.svg");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: top;
+  }
+
+  .bi-check-sm {
+    background-image: url("../assets/icons/check-sm.svg");
+  }
+
+  .bi-check-lg {
+    background-image: url("../assets/icons/check-lg.svg");
+  }
+
+  .bi-circle-sm {
+    background-image: url("../assets/icons/circle-sm.svg");
+  }
+
+  .bi-circle-lg {
+    background-image: url("../assets/icons/circle-lg.svg");
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: Pretendard;
+    font-weight: 700;
+    src: url(/fonts/Pretendard-Bold.woff) format("woff");
+  }
+  @font-face {
+    font-family: Pretendard;
+    font-weight: 400;
+    src: url(/fonts/Pretendard-Regular.woff) format("woff");
+  }
 }
