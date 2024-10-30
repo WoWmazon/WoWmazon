@@ -1,6 +1,6 @@
 import ProductDetailHeader from "@/components/product-detail/product-detail-header";
 import ProductDetailContent from "@/components/product-detail/product-detail-content";
-import ProductPriceGraph from "@/components/product-detail/product-price-graph";
+// import ProductPriceGraph from "@/components/product-detail/product-price-graph";
 import ProductPriceInfo from "@/components/product-detail/product-price-info";
 import RelatedProduct from "@/components/product-detail/related-product";
 
