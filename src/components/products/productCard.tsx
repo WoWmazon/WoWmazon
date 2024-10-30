@@ -17,13 +17,13 @@ const ProductCard = (productProps: productPostCardProps) => {
     >
       <div className="flex gap-3">
         {/* 상품이미지 */}
-        <div className="w-20 h-20 flex justify-center items-center bg-ELSE-EC">
+        <div className="size-20 flex justify-center items-center bg-ELSE-EC">
           <Image
+            className="size-full object-contain object-center"
             src={image || defaultIcon}
             alt="Image"
             width={66}
             height={47}
-            style={{ width: "auto", height: "auto" }}
             priority
           />
         </div>
