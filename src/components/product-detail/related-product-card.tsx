@@ -22,7 +22,7 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
     <div className="bg-SYSTEM-white">
       <div className="h-full w-[120px]">
         {props.image ? (
-          <div className="relative size-[120px] bg-ELSE-EC overflow-hidden">
+          <div className="relative size-[120px] rounded-md bg-ELSE-EC overflow-hidden">
             <Image
               src={props.image}
               alt="product-image"
@@ -40,8 +40,16 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
             </div>
           </div>
         ) : (
-          <div className="bg-ELSE-EC h-[295px] w-[375px] content-center justify-items-center">
-            <Image src={noImage} alt="no-image" />
+          <div className="relative bg-ELSE-EC size-[120px] rounded-md content-center justify-items-center">
+            <Image src={noImage} alt="no-image" className="size-[80px] pb-3" />
+            <div className="absolute bottom-2 right-3 z-10">
+              <IconButton
+                icon={add}
+                size={32}
+                alt="WishAddButton"
+                onClick={handleIconClick}
+              />
+            </div>
           </div>
         )}
         <p className="line-clamp-2 text-md text-ELSE-55 mt-3 mb-2">
