@@ -1,57 +1,64 @@
 "use client";
 
+import { ChangeEvent, useState } from "react";
 import { useParams } from "next/navigation";
-import CustomCheckBox from "@/components/common/custom-checkbox";
+import { useFormContext } from "react-hook-form";
 import CheckItem from "./check-item";
+import CustomCheckBox from "@/components/common/custom-checkbox";
 import { useTranslation } from "@/utils/localization/client";
 import { LocaleTypes } from "@/utils/localization/settings";
+import { checkFieldsItem, checkFields } from "@/constants/user";
 
-const CheckFields = ({
-  register,
-  isCheckAll,
-  onChangeCheckAll,
-  onChangeChecks,
-}: CheckFieldsProps) => {
-  const { locale } = useParams();
-  const { t } = useTranslation(locale as LocaleTypes, "user");
+const CheckFields = () => {
+  const locale = useParams()?.locale as LocaleTypes;
+  const { t } = useTranslation(locale, "user");
 
-  const checkList = [
-    {
-      required: true,
-      name: "checkAge",
-      description: t("sign-up.check1.description"),
-    },
-    {
-      required: true,
-      name: "checkService",
-      description: t("sign-up.check2.description"),
-      link: "",
-      children: t("sign-up.check2.sub-description"),
-    },
-    {
-      required: false,
-      name: "checkMarketing",
-      description: t("sign-up.check3.description"),
-      link: "",
-    },
-  ];
+  const [isCheckAll, setIsCheckAll] = useState(false);
+
+  const { register, setValue, getValues } = useFormContext();
+
+  // 전체동의 클릭 이벤트
+  const handleSelectAllChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    // setValue 시 shouldValidate: true 옵션이 있어야 validate에도 적용된다.
+    checkFields.forEach((field) =>
+      setValue(field, checked, { shouldValidate: true })
+    );
+    setIsCheckAll(checked);
+  };
+
+  // 동의 체크 체인지 이벤트
+  const handleCheckChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { checked, name } = e.target;
+
+    if (!checked) {
+      setIsCheckAll(false);
+      return;
+    }
+
+    const isAllChecked = checkFields.every(
+      (field) => field === name || getValues(field as keyof FormInput)
+    );
+
+    setIsCheckAll(isAllChecked && checked);
+  };
 
   return (
     <div className="flex flex-col mt-6 gap-5">
       <div className="h-14 px-4 py-[14px] content-center border border-ELSE-D9 rounded-sm">
-        <CustomCheckBox checked={isCheckAll} onChange={onChangeCheckAll}>
+        <CustomCheckBox checked={isCheckAll} onChange={handleSelectAllChange}>
           <span className="text-ELSE-29 font-bold">
             {t("sign-up.all-check")}
           </span>
         </CustomCheckBox>
       </div>
       <div className="flex flex-col gap-3">
-        {checkList.map((check, idx) => (
+        {checkFieldsItem(t).map((check, idx) => (
           <CheckItem
             key={`sign-check-${idx}`}
             register={register}
+            onChange={handleCheckChange}
             {...check}
-            onChange={onChangeChecks}
           />
         ))}
       </div>

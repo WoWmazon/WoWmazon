@@ -4,8 +4,7 @@ import { setCookie } from "@/utils/cookie";
 import { createDeviceInfo } from "@/utils/deviceUtils";
 import { LocaleTypes } from "@/utils/localization/settings";
 import { createRegisterBody } from "@/utils/registerUtils";
-import { isUndefined } from "@/utils/type-guard";
-import { API_USER_REGISTER_URL } from "@/constants/api-urls";
+import { fetchWithoutToken } from "@/api/fetchApi";
 
 export const postRegisterUser = async (
   data: FormInput,
@@ -19,31 +18,29 @@ export const postRegisterUser = async (
       deviceInfo,
     });
 
-    const res = await fetch(API_USER_REGISTER_URL, {
+    const response = await fetchWithoutToken("user/register/", {
       method: "POST",
-      cache: "no-store",
       body: JSON.stringify(registerBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      cache: "no-store",
     });
 
-    if (!res.ok) {
-      throw new Error(`Failed to register: ${res.status} - ${res.statusText}`);
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Registration error: ${responseData}`);
     }
 
-    const { accessToken, refreshToken, error } = await res.json();
+    const { accessToken, refreshToken } = responseData;
 
-    if (isUndefined(error)) {
-      setCookie("accessToken", accessToken, { secure: true });
-      setCookie("refreshToken", refreshToken, { secure: true });
-      setCookie("device", JSON.stringify(deviceInfo), {
-        httpOnly: true,
-        secure: true,
-      });
-    } else {
-      throw new Error(`Registration error: ${error}`);
-    }
+    const maxAge = 60 * 60 * 24 * 365; // 1 year in seconds
+    const setCookieOptions = {
+      secure: true,
+      maxAge,
+    };
+
+    setCookie("accessToken", accessToken, setCookieOptions);
+    setCookie("refreshToken", refreshToken, setCookieOptions);
+    setCookie("device", JSON.stringify(deviceInfo), setCookieOptions);
   } catch (e) {
     console.error("Error during user registration:", e);
     throw new Error(e instanceof Error ? e.message : "Unknown error occurred");

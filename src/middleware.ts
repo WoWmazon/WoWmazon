@@ -54,8 +54,14 @@ export async function middleware(request: NextRequest) {
     const response = NextResponse.redirect(new URL("/", request.url));
 
     // 리프레시 성공, 쿠키 저장
-    response.cookies.set("accessToken", newAccessToken);
-    response.cookies.set("refreshToken", newRefreshToken);
+    response.cookies.set("accessToken", newAccessToken, {
+      maxAge: 60 * 60 * 24 * 365,
+      secure: true,
+    });
+    response.cookies.set("refreshToken", newRefreshToken, {
+      maxAge: 60 * 60 * 24 * 365,
+      secure: true,
+    });
 
     return response;
   }

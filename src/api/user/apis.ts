@@ -1,28 +1,30 @@
-import {
-  API_USER_NICKNAME_URL,
-  API_USER_REFRESH_URL,
-  API_USER_VALIDATE_URL,
-} from "@/constants/api-urls";
+"use server";
 
-// const API_USER_VALIDATE_URL = `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/validate`;
+import { fetchWithoutToken } from "../fetchApi";
+
 export const getNicknameValidate = async (nickname: string) => {
   try {
-    const response = await fetch(
-      `${API_USER_VALIDATE_URL}?nickname=${nickname}`,
+    const response = await fetchWithoutToken(
+      "user/validate/",
       {
         cache: "no-store",
-      }
+      },
+      { nickname }
     );
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to validate nickname: ${response.status} ${response.statusText}`
-      );
+    const { ok, status } = response;
+
+    const data = await response.json();
+
+    if (!ok && !(status === 400)) {
+      console.error(`Error ${status}: ${data.detail || data}`);
+      throw new Error(`Validation failed with status: ${status}`);
     }
 
-    const { nickname: available, error } = await response.json();
-
-    return { isValidated: available === "available nickname", error: error };
+    return {
+      isValidated: data.nickname === "available nickname",
+      error: status === 400 ? data.nickname : data.detail,
+    };
   } catch (e) {
     return {
       isValidated: false,
@@ -30,24 +32,10 @@ export const getNicknameValidate = async (nickname: string) => {
     };
   }
 };
-//fetchWithNoToken함수 적용한곳
-// export const getNicknameValidate = async (nickname: string) => {
-//   try {
-//     // fetchWithNoToken 호출 시 쿼리 파라미터 전달
-//     const data = await fetchWithNoToken(
-//       "api/user/validate",
-//       { cache: "no-store" },
-//       { nickname }
-//     );
-//     return data;
-//   } catch (error) {
-//     console.error("에러 발생:", error);
-//     throw new Error("닉네임 유효성 검증에 실패했습니다.");
-//   }
-// };
+
 export const getRandomNickname = async () => {
   try {
-    const response = await fetch(API_USER_NICKNAME_URL, {
+    const response = await fetchWithoutToken("user/nickname/", {
       cache: "no-store",
     });
 
@@ -57,28 +45,22 @@ export const getRandomNickname = async () => {
       );
     }
 
-    const { nickname, error } = await response.json();
-
-    if (error) {
-      throw new Error(error);
-    }
+    const { nickname } = await response.json();
 
     return nickname;
   } catch (e) {
-    return {
-      error: e instanceof Error ? e.message : "Unknown error occurred",
-    };
+    console.error(e);
+    return "";
   }
 };
 
 export const postRefreshUser = async (refreshToken: string) => {
   try {
-    const response = await fetch(API_USER_REFRESH_URL, {
+    const response = await fetchWithoutToken("user/refresh/", {
       method: "POST",
-      cache: "no-store",
       body: JSON.stringify({ refreshToken }),
+      cache: "no-store",
     });
-
     if (!response.ok) {
       throw new Error(
         `Failed to refresh user: ${response.status} ${response.statusText}`
@@ -90,6 +72,7 @@ export const postRefreshUser = async (refreshToken: string) => {
 
     return { accessToken, refreshToken: newRefreshToken };
   } catch (e) {
+    console.error(e);
     return {
       error: e instanceof Error ? e.message : "Unknown error occurred",
     };
@@ -98,14 +81,11 @@ export const postRefreshUser = async (refreshToken: string) => {
 
 export const postLogin = async (device: string, refreshToken: string) => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/user/login`,
-      {
-        method: "POST",
-        cache: "no-store",
-        body: JSON.stringify({ device, refreshToken }),
-      }
-    );
+    const response = await fetchWithoutToken("user/login/", {
+      method: "POST",
+      body: JSON.stringify({ device, refreshToken }),
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       throw new Error(
