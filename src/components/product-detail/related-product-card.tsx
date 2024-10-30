@@ -22,13 +22,13 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
     <div className="bg-SYSTEM-white">
       <div className="h-full w-[120px]">
         {props.image ? (
-          <div className="relative w-[120px] h-[120px] bg-ELSE-EC overflow-hidden">
+          <div className="relative size-[120px] bg-ELSE-EC overflow-hidden">
             <Image
               src={props.image}
               alt="product-image"
               width={120}
               height={120}
-              className="w-full h-full object-contain object-center"
+              className="size-full object-contain object-center"
             />
             <div className="absolute bottom-2 right-3 z-10">
               <IconButton
