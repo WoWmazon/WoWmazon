@@ -1,9 +1,9 @@
-type RecentSerchKeywordType = {
-  id: string;
-  keyword: string;
+type SearchResultProps = {
+  data: ProductDataType;
+  isLoading: boolean;
 };
 
-type TextButtonProps = {
-  children: React.ReactNode;
-  isActive?: boolean;
+type RecentSearchItemProps = {
+  keyword: string;
+  onClick: () => void;
 };

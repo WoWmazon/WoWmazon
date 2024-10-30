@@ -4,14 +4,23 @@ import CustomInput from "../common/custom-input";
 import CustomButton from "../common/custom-button";
 
 import HeaderArrow from "@/assets/icons/header_arrow.svg";
-import { useFormContext } from "react-hook-form";
+import { useRecentSearchStore } from "@/stores/recent-search-store";
 
 const SearchHeader = () => {
   const router = useRouter();
-  const { register } = useFormContext();
+
+  const setRecentSearch = useRecentSearchStore(
+    (state) => state.addRecentSearch
+  );
+
+  const handleClickSearch = (keyword: string) => {
+    if (keyword) {
+      setRecentSearch(keyword);
+    }
+  };
 
   return (
-    <div className="fixed grid grid-cols-[32px_auto_32px] top-0 items-center w-full max-w-[343px] h-[62px] py-2 gap-[6px] bg-SYSTEM-white">
+    <div className="fixed grid grid-cols-[32px_auto_32px] top-0 items-center w-full max-w-[343px] h-[62px] py-2 gap-1.5 bg-SYSTEM-white">
       <Image
         src={HeaderArrow}
         className="cursor-pointer rounded-md hover:bg-ELSE-F5"
@@ -25,9 +34,13 @@ const SearchHeader = () => {
         placeholder="상품명 검색"
         hasDelBtn
         autoComplete="off"
-        {...register("search")}
       />
-      <CustomButton className="w-7 ml-[6px]" variant="none" smallSize>
+      <CustomButton
+        className="w-7 ml-1.5"
+        variant="none"
+        smallSize
+        onClick={handleClickSearch("")}
+      >
         검색
       </CustomButton>
     </div>
