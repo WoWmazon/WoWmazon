@@ -2,6 +2,7 @@
 
 import { getExchangeLatest } from "@/api/exchange/apis";
 import Badge from "../common/badge";
+import { formatToKoreanTime, getFormattedExchangeText } from "@/utils/date";
 
 const ExchangeBadge = async () => {
   const exchangeData = await getExchangeLatest();
@@ -16,7 +17,12 @@ const ExchangeBadge = async () => {
         textSize="text-sm"
         hasIcon={false}
       />
-      <p>USD/KRW = {exchangeData.usdToKrw}</p>
+      <p className="text-md">
+        {getFormattedExchangeText(
+          exchangeData.usdToKrw,
+          exchangeData.createdAt
+        )}
+      </p>
     </div>
   );
 };
