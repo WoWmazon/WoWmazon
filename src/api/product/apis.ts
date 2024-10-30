@@ -128,11 +128,11 @@ export const getProductListBySearch = async (
     );
     if (isUndefined(data) || isNull(data) || isUndefined(data.results)) {
       console.log("상품 데이터가 비어있습니다.");
-      return [];
+      return {};
     }
     return data;
   } catch (error) {
     console.error("에러:", error);
-    return [];
+    return {};
   }
 };

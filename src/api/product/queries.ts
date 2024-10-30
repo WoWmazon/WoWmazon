@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProductListBySearch } from "./apis";
+import { isUndefined } from "@/utils/type-guard";
 
-export const useProducts = (data: ProductParamsType) =>
+export const useSearchProducts = (data: ProductParamsType) =>
   useQuery({
-    queryKey: ["products", data],
-    queryFn: () => {
-      if (!data.search) {
-        return [];
-      }
-      return getProductListBySearch(data);
-    },
+    queryKey: ["searchProduct", data],
+    queryFn: () => getProductListBySearch(data),
+    enabled: !isUndefined(data?.search) && data.search !== "",
   });
