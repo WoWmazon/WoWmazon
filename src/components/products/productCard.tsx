@@ -23,13 +23,16 @@ const ProductCard = (productProps: productPostCardProps) => {
             alt="Image"
             width={66}
             height={47}
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
         {/* 이미지 제외 컴포넌트 */}
         <div className=" flex flex-col gap-5">
           {/* 상품명과 아이콘버튼 */}
           <div className=" w-[251px] h-10 gap-4 flex">
-            <p className="w-[203px] h-10  text-md text-ELSE-55">{title}</p>
+            <p className="w-[203px] h-10  text-md text-ELSE-55 line-clamp-2">
+              {title}
+            </p>
             <IconButton icon={addProduct} size={32} alt="add-icon" />
           </div>
           <div>
