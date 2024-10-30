@@ -16,7 +16,7 @@ const CustomCheckBox = forwardRef<
         id={uuid}
         ref={ref}
         className={twMerge(
-          "appearance-none flex-none size-5 border border-ELSE-D9 bg-white rounded-sm",
+          "appearance-none flex-none size-5 border border-ELSE-D9 bg-SYSTEM-white rounded-sm",
           "checked:bi-check-sm checked:bg-SYSTEM-main checked:bg-no-repeat checked:bg-center checked:border-none",
           large && "size-7 checked:bi-check-lg",
           className
