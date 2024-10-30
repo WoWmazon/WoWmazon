@@ -4,6 +4,6 @@ type SearchResultProps = {
 };
 
 type RecentSearchItemProps = {
-  keyword: string;
+  search: string;
   onClick: () => void;
 };

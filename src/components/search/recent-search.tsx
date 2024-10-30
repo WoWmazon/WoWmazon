@@ -1,12 +1,26 @@
+import { Dispatch, SetStateAction } from "react";
 import { useRecentSearchStore } from "@/stores/recent-search-store";
+import { useSearchParamsStore } from "@/stores/search-params-store";
 import RecentSearchItem from "./recent-search-item";
 import CustomButton from "../common/custom-button";
 
-const RecentSearch = () => {
+const RecentSearch = ({
+  setIsClick,
+}: {
+  setIsClick: Dispatch<SetStateAction<boolean>>;
+}) => {
   const recentSearch = useRecentSearchStore((state) => state.recentSearch);
   const clearRecentSearch = useRecentSearchStore(
     (state) => state.clearRecentSearch
   );
+  const setSearchParams = useSearchParamsStore(
+    (state) => state.setSearchParams
+  );
+
+  const handleClickRecentSearch = (search: string) => {
+    setSearchParams("search", search);
+    setIsClick(true);
+  };
 
   return (
     <div className="flex flex-col gap-2 mt-3">
@@ -27,11 +41,11 @@ const RecentSearch = () => {
       </div>
       {recentSearch.length ? (
         <div>
-          {recentSearch.map((keyword, idx) => (
+          {recentSearch.map((search, idx) => (
             <RecentSearchItem
               key={`rsk-${idx}`}
-              keyword={keyword}
-              onClick={() => console.log(keyword)}
+              search={search}
+              onClick={() => handleClickRecentSearch(search)}
             />
           ))}
         </div>
