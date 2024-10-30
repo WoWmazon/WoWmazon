@@ -18,7 +18,7 @@ const NicknameFields = forwardRef<HTMLInputElement, NicknameFieldProps>(
     const { t } = useTranslation(locale as LocaleTypes, "user");
 
     return (
-      <div className="flex flex-col gap-[6px]">
+      <div className="flex flex-col gap-1.5">
         <p className="font-bold">
           {t("sign-up.nickname")}
           <span className="text-SYSTEM-main">*</span>
