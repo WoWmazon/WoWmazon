@@ -9,7 +9,7 @@ const SearchResult = ({ data, isLoading }: SearchResultProps) => {
       {isLoading ? (
         <div>loading...</div>
       ) : data?.results?.length > 0 ? (
-        data.results.map((product) => (
+        data.results.map((product: ProductResultType) => (
           <ProductCard
             key={product.id}
             image={product.image}
