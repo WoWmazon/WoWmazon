@@ -1,10 +1,22 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getProductListBySearch } from "./apis";
 
-export const useSearchProducts = (data: ProductParamsType, flag: boolean) =>
-  useQuery({
-    queryKey: ["searchProduct", data],
-    queryFn: () => getProductListBySearch(data),
+export const useInfiniteSearchProject = (
+  data: ProductParamsType,
+  flag: boolean
+) =>
+  useInfiniteQuery({
+    queryKey: ["infiniteSearchProduct", data],
+    queryFn: ({ pageParam }) => {
+      const params = { ...data };
+      if (pageParam !== "") {
+        params.cursor = pageParam;
+      }
+      return getProductListBySearch(params);
+    },
     enabled: flag,
-    gcTime: 0,
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => {
+      return lastPage.cursor;
+    },
   });
