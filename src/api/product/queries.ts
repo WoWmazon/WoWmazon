@@ -8,15 +8,12 @@ export const useInfiniteSearchProject = (
   useInfiniteQuery({
     queryKey: ["infiniteSearchProduct", data],
     queryFn: ({ pageParam }) => {
-      const params = { ...data };
-      if (pageParam !== "") {
-        params.cursor = pageParam;
-      }
-      return getProductListBySearch(params);
+      return getProductListBySearch({ ...data, cursor: pageParam });
     },
     enabled: flag,
     initialPageParam: "",
     getNextPageParam: (lastPage) => {
       return lastPage.cursor;
     },
+    gcTime: 0,
   });
