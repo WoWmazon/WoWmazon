@@ -5,9 +5,9 @@ import RecentSearchItem from "./recent-search-item";
 import CustomButton from "../common/custom-button";
 
 const RecentSearch = ({
-  setIsClick,
+  setSearchFlag,
 }: {
-  setIsClick: Dispatch<SetStateAction<boolean>>;
+  setSearchFlag: Dispatch<SetStateAction<boolean>>;
 }) => {
   const recentSearch = useRecentSearchStore((state) => state.recentSearch);
   const clearRecentSearch = useRecentSearchStore(
@@ -19,7 +19,7 @@ const RecentSearch = ({
 
   const handleClickRecentSearch = (search: string) => {
     setSearchParams("search", search);
-    setIsClick(true);
+    setSearchFlag(true);
   };
 
   return (

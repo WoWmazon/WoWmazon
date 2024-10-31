@@ -1,21 +1,29 @@
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import CustomInput from "../common/custom-input";
 import CustomButton from "../common/custom-button";
+import { useRecentSearchStore } from "@/stores/recent-search-store";
+import { useSearchParamsStore } from "@/stores/search-params-store";
 
 import HeaderArrow from "@/assets/icons/header_arrow.svg";
-import { useRecentSearchStore } from "@/stores/recent-search-store";
 
-const SearchHeader = () => {
+const SearchHeader = ({
+  setSearchFlag,
+}: {
+  setSearchFlag: Dispatch<SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
 
   const setRecentSearch = useRecentSearchStore(
     (state) => state.addRecentSearch
   );
+  const { searchParams, setSearchParams } = useSearchParamsStore();
 
   const handleClickSearch = (keyword: string) => {
     if (keyword) {
       setRecentSearch(keyword);
+      setSearchFlag(true);
     }
   };
 
@@ -34,12 +42,14 @@ const SearchHeader = () => {
         placeholder="상품명 검색"
         hasDelBtn
         autoComplete="off"
+        value={searchParams.search}
+        onChange={(e) => setSearchParams("search", e.target.value)}
       />
       <CustomButton
         className="w-7 ml-1.5"
         variant="none"
         smallSize
-        onClick={handleClickSearch("")}
+        onClick={() => handleClickSearch(searchParams.search)}
       >
         검색
       </CustomButton>

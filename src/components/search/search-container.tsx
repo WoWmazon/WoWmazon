@@ -9,25 +9,26 @@ import { isUndefined } from "@/utils/type-guard";
 import { useSearchParamsStore } from "@/stores/search-params-store";
 
 const SearchContainer = () => {
-  const [isRecentClick, setIsRecentClick] = useState(false);
+  const [searchFlag, setSearchFlag] = useState(false);
   const searchParams = useSearchParamsStore((state) => state.searchParams);
   // react-query로 데이터 페칭
-  const { data, isLoading, isFetching, refetch } =
-    useSearchProducts(searchParams);
+  const { data, isLoading, isFetching, isFetched } = useSearchProducts(
+    searchParams,
+    searchFlag
+  );
 
   useEffect(() => {
-    if (isRecentClick) {
-      refetch();
+    if (isFetched) {
+      setSearchFlag(false);
     }
-    return () => setIsRecentClick(false);
-  }, [isRecentClick]);
+  }, [isFetched]);
 
   return (
     <div className="px-4 pt-16 text-ELSE-33">
-      <SearchHeader />
+      <SearchHeader setSearchFlag={setSearchFlag} />
       {/* 임시 처리 */}
       {(!isFetching && isUndefined(data)) || searchParams.search === "" ? (
-        <RecentSearch setIsClick={setIsRecentClick} />
+        <RecentSearch setSearchFlag={setSearchFlag} />
       ) : (
         <SearchResult data={data} isLoading={isLoading} />
       )}
