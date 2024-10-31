@@ -1,14 +1,10 @@
-import { Dispatch, SetStateAction } from "react";
 import { useRecentSearchStore } from "@/stores/recent-search-store";
 import { useSearchParamsStore } from "@/stores/search-params-store";
 import RecentSearchItem from "./recent-search-item";
 import CustomButton from "../common/custom-button";
+import { useSearchFlagStore } from "@/stores/search-flag-store";
 
-const RecentSearch = ({
-  setSearchFlag,
-}: {
-  setSearchFlag: Dispatch<SetStateAction<boolean>>;
-}) => {
+const RecentSearch = () => {
   const recentSearch = useRecentSearchStore((state) => state.recentSearch);
   const clearRecentSearch = useRecentSearchStore(
     (state) => state.clearRecentSearch
@@ -16,6 +12,7 @@ const RecentSearch = ({
   const setSearchParams = useSearchParamsStore(
     (state) => state.setSearchParams
   );
+  const setSearchFlag = useSearchFlagStore((state) => state.setSearchFlag);
 
   const handleClickRecentSearch = (search: string) => {
     setSearchParams("search", search);

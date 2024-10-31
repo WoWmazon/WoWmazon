@@ -7,10 +7,11 @@ import SearchResult from "@/components/search/search-result";
 import RecentSearch from "./recent-search";
 import { isUndefined } from "@/utils/type-guard";
 import { useSearchParamsStore } from "@/stores/search-params-store";
+import { useSearchFlagStore } from "@/stores/search-flag-store";
 
 const SearchContainer = () => {
-  const [searchFlag, setSearchFlag] = useState(false);
   const searchParams = useSearchParamsStore((state) => state.searchParams);
+  const { searchFlag, setSearchFlag } = useSearchFlagStore();
   // react-query로 데이터 페칭
   const { data, isLoading, isFetching, isFetched } = useSearchProducts(
     searchParams,
@@ -25,10 +26,10 @@ const SearchContainer = () => {
 
   return (
     <div className="px-4 pt-16 text-ELSE-33">
-      <SearchHeader setSearchFlag={setSearchFlag} />
+      <SearchHeader />
       {/* 임시 처리 */}
       {(!isFetching && isUndefined(data)) || searchParams.search === "" ? (
-        <RecentSearch setSearchFlag={setSearchFlag} />
+        <RecentSearch />
       ) : (
         <SearchResult data={data} isLoading={isLoading} />
       )}

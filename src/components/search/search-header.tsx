@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import CustomInput from "../common/custom-input";
@@ -7,18 +6,16 @@ import { useRecentSearchStore } from "@/stores/recent-search-store";
 import { useSearchParamsStore } from "@/stores/search-params-store";
 
 import HeaderArrow from "@/assets/icons/header_arrow.svg";
+import { useSearchFlagStore } from "@/stores/search-flag-store";
 
-const SearchHeader = ({
-  setSearchFlag,
-}: {
-  setSearchFlag: Dispatch<SetStateAction<boolean>>;
-}) => {
+const SearchHeader = () => {
   const router = useRouter();
 
   const setRecentSearch = useRecentSearchStore(
     (state) => state.addRecentSearch
   );
   const { searchParams, setSearchParams } = useSearchParamsStore();
+  const setSearchFlag = useSearchFlagStore((state) => state.setSearchFlag);
 
   const handleClickSearch = (keyword: string) => {
     if (keyword) {
