@@ -17,9 +17,16 @@ const SearchHeader = () => {
   const { searchParams, setSearchParams } = useSearchParamsStore();
   const setSearchFlag = useSearchFlagStore((state) => state.setSearchFlag);
 
-  const handleClickSearch = (keyword: string) => {
+  const handleSearchClick = (keyword: string) => {
     if (keyword) {
       setRecentSearch(keyword);
+      setSearchFlag(true);
+    }
+  };
+
+  const handleInputKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (searchParams.search === "") return;
+    if (e.key === "Enter") {
       setSearchFlag(true);
     }
   };
@@ -41,12 +48,13 @@ const SearchHeader = () => {
         autoComplete="off"
         value={searchParams.search}
         onChange={(e) => setSearchParams("search", e.target.value)}
+        onKeyDown={handleInputKeydown}
       />
       <CustomButton
         className="w-7 ml-1.5"
         variant="none"
         smallSize
-        onClick={() => handleClickSearch(searchParams.search)}
+        onClick={() => handleSearchClick(searchParams.search)}
       >
         검색
       </CustomButton>
