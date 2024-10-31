@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-// Define the state and actions for the store
 type RecentSearchState = {
   recentSearch: string[];
   addRecentSearch: (search: string) => void;
@@ -9,16 +8,15 @@ type RecentSearchState = {
   clearRecentSearch: () => void;
 };
 
-// Create the store with types applied
 export const useRecentSearchStore = create<RecentSearchState>()(
   persist(
     (set, get) => ({
-      recentSearch: [], // Default empty array
+      recentSearch: [],
       addRecentSearch: (search) => {
         const currentSearches = get().recentSearch;
         if (currentSearches.includes(search)) return;
         set({
-          recentSearch: [search, ...currentSearches], // Add new search item
+          recentSearch: [search, ...currentSearches],
         });
       },
       deleteRecentSearch: (search) => {
@@ -34,8 +32,8 @@ export const useRecentSearchStore = create<RecentSearchState>()(
       },
     }),
     {
-      name: "recent-search", // Key for localStorage
-      storage: createJSONStorage(() => localStorage), // Use localStorage
+      name: "recent-search",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
