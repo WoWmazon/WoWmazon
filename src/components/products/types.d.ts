@@ -47,3 +47,8 @@ type ProductResultType = {
   presentPriceUpdatedAt: string; // ISO date string
   title: string;
 };
+
+type GetExchangeResponse = {
+  usdToKrw: string;
+  createdAt: string;
+};

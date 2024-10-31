@@ -1,7 +1,14 @@
-"use client";
-import ProductList from "@/components/products/product-List";
+"use server";
 
-const page = () => {
-  return <ProductList />;
+import ProductList from "@/components/products/product-List";
+import ProductListHeader from "@/components/products/product-list-header";
+
+const page = async () => {
+  return (
+    <>
+      <ProductListHeader />
+      <ProductList />
+    </>
+  );
 };
 export default page;

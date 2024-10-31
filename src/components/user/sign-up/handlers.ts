@@ -3,34 +3,36 @@ import { nicknameRegex } from "@/constants/user";
 
 export const handleDoubleCheckNickname = async ({
   nickname,
-  setInputMessage,
+  setValidation,
   setIsAvailableNickname,
   t,
 }: HandleDoubleCheckNicknameProps) => {
   if (!nicknameRegex.test(nickname)) {
-    setInputMessage((prev: InputMessageType) => ({
-      ...prev,
-      error: t("sign-up.validate1"),
-    }));
+    setValidation({
+      message: t("sign-up.validate1"),
+      isError: true,
+    });
     return;
   }
 
-  const { isValidated, error } = await getNicknameValidate(nickname);
+  try {
+    const { isValidated, error } = await getNicknameValidate(nickname);
 
-  if (error) {
+    if (error || !isValidated) {
+      throw new Error(error || t("sign-up.validate2"));
+    }
+
+    setValidation({
+      message: t("sign-up.info"),
+      isError: false,
+    });
+
+    setIsAvailableNickname(true);
+  } catch (e) {
+    setValidation({
+      message: t(e instanceof Error ? e.message : "error"),
+      isError: true,
+    });
     setIsAvailableNickname(false);
-    throw new Error(error);
   }
-
-  if (!isValidated) {
-    setInputMessage((prev: InputMessageType) => ({
-      ...prev,
-      error: t("sign-up.validate2"),
-    }));
-    setIsAvailableNickname(false);
-    return;
-  }
-
-  setInputMessage({ info: t("sign-up.info"), error: "" });
-  setIsAvailableNickname(true);
 };
