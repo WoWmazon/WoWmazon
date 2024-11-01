@@ -9,17 +9,16 @@ import CheckFields from "./check-fields";
 import CustomButton from "@/components/common/custom-button";
 import { useTranslation } from "@/utils/localization/client";
 import { LocaleTypes } from "@/utils/localization/settings";
-import CloseModal from "./close-modal";
 import { postRegisterUser } from "@/app/actions";
-
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
+import { useModalStore } from "@/stores/common";
+import Modal from "@/components/common/modal";
 
 const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
   const locale = useParams()?.locale as LocaleTypes;
   const { t } = useTranslation(locale, "user");
   const router = useRouter();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { handleModal } = useModalStore();
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
 
   const formMethods = useForm<FormInput>({
@@ -43,12 +42,29 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
     router.push("/");
   };
 
+  const handleCloseModal = () => {
+    handleModal({
+      isShow: true,
+      handleClose: () => handleModal({ isShow: false }),
+      title: t("modal.title"),
+      content: t("modal.content"),
+      btnText: t("modal.button1"),
+      handleAction: () => {
+        handleModal({ isShow: false });
+      },
+      optionalBtnText: t("modal.button2"),
+      handleOptional: () => {
+        router.push("/");
+        handleModal({ isShow: false });
+      },
+    });
+  };
+
   return (
     <div className="h-full pt-5">
-      <CloseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
       <div
         className="flex mb-6 ml-auto w-4 h-4 content-center justify-center cursor-pointer"
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleCloseModal}
       >
         <Image
           src={CloseButtonIcon}
@@ -77,6 +93,7 @@ const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {
           </div>
         </form>
       </FormProvider>
+      <Modal />
     </div>
   );
 };
