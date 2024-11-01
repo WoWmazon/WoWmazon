@@ -3,8 +3,9 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import CustomButton from "./custom-button";
+import { useModalStore } from "@/stores/common";
 
-const Modal = (props: ModalProps) => {
+const Modal = () => {
   const {
     isShow,
     handleClose,
@@ -15,7 +16,7 @@ const Modal = (props: ModalProps) => {
     icon,
     optionalBtnText,
     handleOptional,
-  } = props;
+  } = useModalStore();
   const textAlign = icon ? "text-center" : ""; // icon 있으면 text-align: center 적용
 
   // 모달 열릴 때 외부 스크롤 차단

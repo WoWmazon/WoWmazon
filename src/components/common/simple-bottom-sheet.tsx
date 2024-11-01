@@ -1,8 +1,11 @@
+"use client";
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
+import { useSimpleBottomSheetStore } from "@/stores/common";
 
-export const SimpleBottomSheet = (props: SimpleBottomSheetProps) => {
-  const { children, isShow, handleClose, className } = props;
+const SimpleBottomSheet = () => {
+  const { children, isShow, handleClose, className } =
+    useSimpleBottomSheetStore();
 
   // bottom sheet 열릴 때 외부 스크롤 차단
   useEffect(() => {
@@ -51,3 +54,5 @@ export const SimpleBottomSheet = (props: SimpleBottomSheetProps) => {
     </div>
   );
 };
+
+export default SimpleBottomSheet;
