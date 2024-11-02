@@ -1,14 +1,13 @@
-import { useRecentSearchStore } from "@/stores/recent-search-store";
-import { useSearchParamsStore } from "@/stores/search-params-store";
 import RecentSearchItem from "./recent-search-item";
 import CustomButton from "../common/custom-button";
-import { useSearchFlagStore } from "@/stores/search-flag-store";
+import {
+  useRecentSearchStore,
+  useSearchFlagStore,
+  useSearchParamsStore,
+} from "@/stores/search/stores";
 
 const RecentSearch = () => {
-  const recentSearch = useRecentSearchStore((state) => state.recentSearch);
-  const clearRecentSearch = useRecentSearchStore(
-    (state) => state.clearRecentSearch
-  );
+  const { recentSearch, clearRecentSearch } = useRecentSearchStore();
   const setSearchParams = useSearchParamsStore(
     (state) => state.setSearchParams
   );

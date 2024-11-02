@@ -1,6 +1,6 @@
 import DeleteButton from "@/assets/icons/input-delete-button.svg";
 import IconButton from "../common/custom-icon-button";
-import { useRecentSearchStore } from "@/stores/recent-search-store";
+import { useRecentSearchStore } from "@/stores/search/stores";
 
 const RecentSearchItem = ({ search, onClick }: RecentSearchItemProps) => {
   const deleteRecentSearch = useRecentSearchStore(

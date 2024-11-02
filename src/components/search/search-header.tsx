@@ -2,11 +2,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import CustomInput from "../common/custom-input";
 import CustomButton from "../common/custom-button";
-import { useRecentSearchStore } from "@/stores/recent-search-store";
-import { useSearchParamsStore } from "@/stores/search-params-store";
+import {
+  useRecentSearchStore,
+  useSearchFlagStore,
+  useSearchParamsStore,
+} from "@/stores/search/stores";
 
 import HeaderArrow from "@/assets/icons/header_arrow.svg";
-import { useSearchFlagStore } from "@/stores/search-flag-store";
 
 const SearchHeader = () => {
   const router = useRouter();

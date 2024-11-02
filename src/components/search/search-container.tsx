@@ -6,8 +6,10 @@ import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
 import RecentSearch from "./recent-search";
 import { isUndefined } from "@/utils/type-guard";
-import { useSearchParamsStore } from "@/stores/search-params-store";
-import { useSearchFlagStore } from "@/stores/search-flag-store";
+import {
+  useSearchFlagStore,
+  useSearchParamsStore,
+} from "@/stores/search/stores";
 
 const SearchContainer = () => {
   const searchParams = useSearchParamsStore((state) => state.searchParams);

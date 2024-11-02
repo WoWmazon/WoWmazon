@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type RecentSearchState = {
-  recentSearch: string[];
-  addRecentSearch: (search: string) => void;
-  deleteRecentSearch: (search: string) => void;
-  clearRecentSearch: () => void;
-};
-
 export const useRecentSearchStore = create<RecentSearchState>()(
   persist(
     (set, get) => ({
@@ -37,3 +30,14 @@ export const useRecentSearchStore = create<RecentSearchState>()(
     }
   )
 );
+
+export const useSearchFlagStore = create<SearchFlagState>()((set) => ({
+  searchFlag: false,
+  setSearchFlag: (flag) => set(() => ({ searchFlag: flag })),
+}));
+
+export const useSearchParamsStore = create<SearchParamsState>()((set) => ({
+  searchParams: { search: "", ordering: "-discount_rate" },
+  setSearchParams: (key, value) =>
+    set((state) => ({ searchParams: { ...state.searchParams, [key]: value } })),
+}));
