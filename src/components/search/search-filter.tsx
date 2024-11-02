@@ -1,9 +1,10 @@
 import { twMerge } from "tailwind-merge";
-import { useSearchParamsStore } from "@/stores/search-params-store";
 import CustomCheckBox from "../common/custom-checkbox";
 import CustomButton from "../common/custom-button";
-import { useSearchFlagStore } from "@/stores/search-flag-store";
-import { isUndefined } from "@/utils/type-guard";
+import {
+  useSearchFlagStore,
+  useSearchParamsStore,
+} from "@/stores/search/stores";
 
 const SearchFilter = ({ count }: { count: number }) => {
   const { searchParams, setSearchParams } = useSearchParamsStore();
@@ -15,25 +16,19 @@ const SearchFilter = ({ count }: { count: number }) => {
   };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const key = e.target.dataset.key;
-    if (isUndefined(key)) {
-      return;
-    }
+    const { key } = e.target.dataset;
+
+    if (!key) return;
 
     const isChecked = e.target.checked;
+    const value = isChecked
+      ? key === "is_lowest_price_ever"
+        ? "true"
+        : "false"
+      : "";
 
-    const keyMapping = {
-      is_lowest_price_ever: isChecked ? "true" : "",
-      is_out_of_stock: isChecked ? "false" : "",
-    };
-
-    if (keyMapping.hasOwnProperty(key)) {
-      setSearchParams(
-        key,
-        keyMapping[key as "is_lowest_price_ever" | "is_out_of_stock"]
-      );
-      setSearchFlag(true);
-    }
+    setSearchParams(key, value);
+    setSearchFlag(true);
   };
 
   return (
