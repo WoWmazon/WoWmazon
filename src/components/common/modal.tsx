@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import CustomButton from "./custom-button";
-import { useModalStore } from "@/stores/common";
+import { useModalStore } from "@/stores/common/stores";
 
 const Modal = () => {
   const {

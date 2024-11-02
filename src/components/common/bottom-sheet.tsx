@@ -3,7 +3,7 @@ import CustomButton from "./custom-button";
 import Image from "next/image";
 import CloseButton from "@/assets/icons/closeButton.svg";
 import { useState, useEffect } from "react";
-import { useBottomSheetStore } from "@/stores/common";
+import { useBottomSheetStore } from "@/stores/common/stores";
 
 const BottomSheet = () => {
   const {

@@ -13,7 +13,7 @@ import {
   useModalStore,
   useSimpleBottomSheetStore,
   useBottomSheetStore,
-} from "@/stores/common";
+} from "@/stores/common/stores";
 import Toast from "./common/toast";
 
 const TestButton = () => {

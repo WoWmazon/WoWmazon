@@ -11,7 +11,7 @@ import { useTranslation } from "@/utils/localization/client";
 import { LocaleTypes } from "@/utils/localization/settings";
 import { postRegisterUser } from "@/app/actions";
 import CloseButtonIcon from "@/assets/icons/closeButton.svg";
-import { useModalStore } from "@/stores/common";
+import { useModalStore } from "@/stores/common/stores";
 import Modal from "@/components/common/modal";
 
 const SignUpContainer = ({ defaultNickname }: { defaultNickname: string }) => {

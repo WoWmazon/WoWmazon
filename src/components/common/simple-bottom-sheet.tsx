@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { useSimpleBottomSheetStore } from "@/stores/common";
+import { useSimpleBottomSheetStore } from "@/stores/common/stores";
 
 const SimpleBottomSheet = () => {
   const { children, isShow, handleClose, className } =
