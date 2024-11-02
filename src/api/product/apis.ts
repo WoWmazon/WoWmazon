@@ -93,7 +93,7 @@ export const getRelatedProductList = async (id: string) => {
 };
 
 export const getProductListBySearch = async (
-  queryParams?: ProductParamsType
+  queryParams?: SearchParamsType
 ) => {
   try {
     let stringRecord: Record<string, string> = {};
