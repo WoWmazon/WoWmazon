@@ -40,35 +40,3 @@ type CustomInputProps = Omit<InputProps, "size"> & {
   hasDelBtn?: boolean;
   error?: boolean;
 };
-
-type ModalProps = {
-  isShow: boolean;
-  handleClose: () => void;
-  title: string;
-  content: string;
-  btnText: string; // filled button text
-  handleAction: () => void; // filled button action
-  icon?: string; // icon svg 파일 넘기기, icon 있으면 css textAlignCenter 적용
-  optionalBtnText?: string; // modal optional outline button text
-  handleOptional?: () => void; // modal optional outline button action
-};
-
-type SimpleBottomSheetProps = {
-  children: ReactNode;
-  isShow: boolean;
-  handleClose: () => void;
-  className?: string; // 기본 가운데 정렬, 왼쪽 정렬 필요한 경우 사용
-};
-
-type BottomSheetProps = {
-  children: ReactNode;
-  isShow: boolean;
-  hasDelBtn?: boolean;
-  handleClose: () => void;
-  title: string;
-  className?: string; // 기본 가운데 정렬, 왼쪽 정렬 필요한 경우 사용
-  btnText: string; // filled button text
-  handleAction: () => void; // filled button action
-  optionalBtnText?: string; // modal optional outline button text
-  handleOptional?: () => void; // modal optional outline button action
-};
