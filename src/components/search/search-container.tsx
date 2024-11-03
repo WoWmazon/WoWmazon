@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useInfiniteSearchProject } from "@/api/product/queries";
+import { useInfiniteSearchProduct } from "@/api/product/queries";
 import SearchHeader from "@/components/search/search-header";
 import SearchResult from "@/components/search/search-result";
 import RecentSearch from "./recent-search";
@@ -16,7 +16,7 @@ const SearchContainer = () => {
   const { searchFlag, setSearchFlag } = useSearchFlagStore();
   // react-query로 데이터 페칭
   const { data, isLoading, isFetching, isFetched, hasNextPage, fetchNextPage } =
-    useInfiniteSearchProject(searchParams, searchFlag);
+    useInfiniteSearchProduct(searchParams, searchFlag);
 
   const getAllFetchResults = () => {
     const pages = data?.pages;

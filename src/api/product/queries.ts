@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getProductListBySearch } from "./apis";
 
-export const useInfiniteSearchProject = (
+export const useInfiniteSearchProduct = (
   data: SearchParamsType,
   flag: boolean
 ) =>
