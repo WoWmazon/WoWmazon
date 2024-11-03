@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
@@ -8,19 +8,39 @@ import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import IconButton from "../common/custom-icon-button";
 import add from "@/assets/icons/addProduct.svg";
 import Toast from "../common/toast";
+import { convertToKrw } from "@/utils/exchange";
+import { getExchangeLatest } from "@/api/exchange/apis";
+import { useRouter } from "next/navigation";
 
 const RelatedProductCard = (props: GetRelatedProductListResponse) => {
+  const router = useRouter();
   const [isWished, setIsWished] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [exchangeData, setExchangeData] = useState<GetExchangeResponse>();
 
   const handleIconClick = () => {
     setIsWished(!isWished);
     setIsActive(!isActive);
   };
 
+  useEffect(() => {
+    const fetchExchange = async () => {
+      try {
+        const result = await getExchangeLatest();
+        setExchangeData(result);
+      } catch (error) {
+        console.log("에러 : ", error);
+      }
+    };
+    fetchExchange();
+  }, []);
+
   return (
     <div className="bg-SYSTEM-white">
-      <div className="h-full w-[120px]">
+      <div
+        className="h-full w-[120px] cursor-pointer"
+        onClick={() => router.push(`/product-detail/${props.id}`)}
+      >
         {props.image ? (
           <div className="relative size-[120px] rounded-md bg-ELSE-EC overflow-hidden">
             <Image
@@ -56,7 +76,9 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
           {props.title}
         </p>
         <p className="font-bold text-md text-SYSTEM-black">{`$ ${props.price}`}</p>
-        <p className="text-md text-ELSE-76">{`${props.price}한화로 바꾸기`}</p>
+        <p className="text-md text-ELSE-76">
+          {convertToKrw(Number(exchangeData?.usdToKrw), props.price)}
+        </p>
         {(props.isLowestPriceEver || props.discountRate !== 0) && (
           <div className="flex gap-1.5 mt-2">
             {props.isLowestPriceEver && (
