@@ -1,5 +1,3 @@
-import ProductDetailNav from "@/components/layout/product-detail-nav";
-
 export default function ProductDeatilLayout({
   children,
 }: {
