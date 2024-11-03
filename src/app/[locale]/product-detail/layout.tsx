@@ -5,10 +5,5 @@ export default function ProductDeatilLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="pb-16">
-      {children}
-      <ProductDetailNav />
-    </div>
-  );
+  return <div className="pt-[66px] pb-24">{children}</div>;
 }

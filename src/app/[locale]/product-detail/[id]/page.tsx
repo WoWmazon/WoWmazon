@@ -3,8 +3,10 @@ import ProductDetailContent from "@/components/product-detail/product-detail-con
 // import ProductPriceGraph from "@/components/product-detail/product-price-graph";
 import ProductPriceInfo from "@/components/product-detail/product-price-info";
 import RelatedProduct from "@/components/product-detail/related-product";
+import ProductDetailNav from "@/components/layout/product-detail-nav";
 
 const page = () => {
+
   return (
     <div className="bg-ELSE-EC">
       <div className="mb-3">
@@ -17,6 +19,7 @@ const page = () => {
       <div>
         <RelatedProduct />
       </div>
+      <ProductDetailNav  />
     </div>
   );
 };
