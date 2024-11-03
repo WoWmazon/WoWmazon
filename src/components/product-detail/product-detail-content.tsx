@@ -3,14 +3,12 @@ import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
 import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import CustomButton from "../common/custom-button";
-import { getProductDatail } from "@/api/product/apis";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { getExchangeLatest } from "@/api/exchange/apis";
 import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
 
-const ProductDetailContent = async ({ productId }: { productId: string }) => {
-  const product = await getProductDatail(productId);
+const ProductDetailContent = async (product: GetProductDatailResponse) => {
   const exchangeData = await getExchangeLatest();
 
   if (!product) return null;
@@ -62,10 +60,9 @@ const ProductDetailContent = async ({ productId }: { productId: string }) => {
         </div>
         <div className="flex gap-2 content-center">
           <p className="text-xxl font-bold">{`\$ ${product.presentPrice}`}</p>
-          <p className="content-center text-ELSE-55">{convertToKrw(
-            Number(exchangeData?.usdToKrw),
-            product.presentPrice
-          )}</p>
+          <p className="content-center text-ELSE-55">
+            {convertToKrw(Number(exchangeData?.usdToKrw), product.presentPrice)}
+          </p>
         </div>
         <p className="text-sm text-ELSE-76 mb-3">
           {getFormattedExchangeText(

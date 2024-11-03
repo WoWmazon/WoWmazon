@@ -11,13 +11,15 @@ const page = async () => {
   const pathname = headers().get("original-pathname");
   const productId = pathname!.split("/").filter(Boolean)[1];
 
-  const productInfo = await getProductDatail(productId);
+  const product = await getProductDatail(productId);
+
+  if (!product) return null;
 
   return (
     <div className="bg-ELSE-EC">
       <div className="mb-3">
-        <ProductDetailHeader isFavorite={productInfo!.isFavorite} />
-        <ProductDetailContent productId={productId} />
+        <ProductDetailHeader isFavorite={product!.isFavorite} />
+        <ProductDetailContent {...product} />
         {/* TODO: 그래프 추후 개발 */}
         {/* <ProductPriceGraph /> */}
         <ProductPriceInfo productId={productId} />
@@ -25,7 +27,7 @@ const page = async () => {
       <div>
         <RelatedProduct productId={productId} />
       </div>
-      <ProductDetailNav isFavorite={productInfo!.isFavorite} />
+      <ProductDetailNav isFavorite={product!.isFavorite} />
     </div>
   );
 };
