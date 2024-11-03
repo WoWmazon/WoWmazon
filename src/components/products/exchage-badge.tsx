@@ -2,7 +2,7 @@
 
 import { getExchangeLatest } from "@/api/exchange/apis";
 import Badge from "../common/badge";
-import { getFormattedExchangeText } from "@/utils/date";
+import { getFormattedExchangeText } from "@/utils/exchange";
 
 const ExchangeBadge = async () => {
   const exchangeData = await getExchangeLatest();
