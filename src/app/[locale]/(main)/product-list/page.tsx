@@ -16,7 +16,6 @@ const page = async (data: ProductParamsType) => {
   await queryClient.prefetchInfiniteQuery({
     queryKey: ["productList", data],
     queryFn: async ({ pageParam = "" }) => {
-      // pageParam을 cursor로 사용하여 getProductList 호출
       return await getProductList({
         ...data,
         cursor: pageParam,
