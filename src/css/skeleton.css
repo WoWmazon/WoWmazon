@@ -1,0 +1,45 @@
+.skeleton-bg {
+  @apply bg-ELSE-EC bg-no-repeat bg-gradient-to-r from-[0px] from-ELSE-EC via-[40px] via-ELSE-F5 to-[80px] to-ELSE-EC;
+}
+
+.skeleton-img {
+  @apply skeleton-bg;
+  animation: loading-img 1.6s infinite linear;
+}
+
+.skeleton-line {
+  @apply skeleton-bg;
+  animation: loading-line 1.6s infinite linear;
+}
+
+.skeleton-icon {
+  @apply skeleton-bg;
+  animation: loading-icon 1.6s infinite linear;
+}
+
+@keyframes loading-img {
+  0% {
+    background-position-x: -40px;
+  }
+  100% {
+    background-position-x: 343px;
+  }
+}
+
+@keyframes loading-line {
+  0% {
+    background-position: -136px;
+  }
+  100% {
+    background-position-x: 247px;
+  }
+}
+
+@keyframes loading-icon {
+  0% {
+    background-position: -355px;
+  }
+  100% {
+    background-position-x: 28px;
+  }
+}
