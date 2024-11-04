@@ -5,13 +5,11 @@ import ProductPriceInfo from "@/components/product-detail/product-price-info";
 import RelatedProduct from "@/components/product-detail/related-product";
 import ProductDetailNav from "@/components/layout/product-detail-nav";
 import { getProductDatail } from "@/api/product/apis";
-import { headers } from "next/headers";
 
-const page = async () => {
-  const pathname = headers().get("original-pathname");
-  const productId = pathname!.split("/").filter(Boolean)[1];
+const page = async ({ params }: { params: { id: string } }) => {
+  console.log("params", params);
 
-  const product = await getProductDatail(productId);
+  const product = await getProductDatail(params.id);
 
   if (!product) return null;
 
@@ -22,10 +20,10 @@ const page = async () => {
         <ProductDetailContent {...product} />
         {/* TODO: 그래프 추후 개발 */}
         {/* <ProductPriceGraph /> */}
-        <ProductPriceInfo productId={productId} />
+        <ProductPriceInfo productId={params.id} />
       </div>
       <div>
-        <RelatedProduct productId={productId} />
+        <RelatedProduct productId={params.id} />
       </div>
       <ProductDetailNav isFavorite={product!.isFavorite} />
     </div>

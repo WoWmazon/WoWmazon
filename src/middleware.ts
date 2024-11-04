@@ -71,10 +71,9 @@ export async function middleware(request: NextRequest) {
   const pathnameIsMissingLocale = !locales.includes(currentLocale);
 
   if (pathnameIsMissingLocale) {
-    const newUrl = new URL(`/${fallbackLng}${newPathname}`, request.url);
-    const response = NextResponse.rewrite(newUrl);
-    response.headers.set("original-pathname", pathname); // 원래의 pathname을 헤더에 추가
-    return response;
+    return NextResponse.rewrite(
+      new URL(`/${fallbackLng}${newPathname}`, request.url)
+    );
   }
 
   return NextResponse.next();
