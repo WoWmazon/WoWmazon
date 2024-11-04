@@ -19,17 +19,15 @@ const SearchHeader = () => {
   const { searchParams, setSearchParams } = useSearchParamsStore();
   const setSearchFlag = useSearchFlagStore((state) => state.setSearchFlag);
 
-  const handleSearchClick = (keyword: string) => {
-    if (keyword) {
-      setRecentSearch(keyword);
-      setSearchFlag(true);
-    }
+  const handleSearchSubmit = () => {
+    if (searchParams.search === "") return;
+    setRecentSearch(searchParams.search);
+    setSearchFlag(true);
   };
 
   const handleInputKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (searchParams.search === "") return;
     if (e.key === "Enter") {
-      setSearchFlag(true);
+      handleSearchSubmit();
     }
   };
 
@@ -56,7 +54,7 @@ const SearchHeader = () => {
         className="w-7 ml-1.5"
         variant="none"
         smallSize
-        onClick={() => handleSearchClick(searchParams.search)}
+        onClick={handleSearchSubmit}
       >
         검색
       </CustomButton>

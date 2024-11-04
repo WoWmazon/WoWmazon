@@ -12,8 +12,6 @@ export const useInfiniteSearchProduct = (
     },
     enabled: flag,
     initialPageParam: "",
-    getNextPageParam: (lastPage) => {
-      return lastPage.cursor;
-    },
+    getNextPageParam: (lastPage) => lastPage.cursor,
     gcTime: 0,
   });
