@@ -9,19 +9,17 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 
-// 페이지 컴포넌트 정의
-const page = async (data: ProductParamsType) => {
+const page = async () => {
   const queryClient = new QueryClient();
-
+  //수정 필요, 동작 안하고있음
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["productList", data],
+    queryKey: ["productList"],
     queryFn: async ({ pageParam = "" }) => {
       return await getProductList({
-        ...data,
         cursor: pageParam,
       });
     },
-    initialPageParam: "", // 초기 pageParam을 빈 문자열로 설정하여 첫 호출에 빈 cursor 사용
+    initialPageParam: "",
   });
 
   const dehydratedState = dehydrate(queryClient);
