@@ -33,7 +33,7 @@ const ProductList = () => {
   if (isError) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
 
   return (
-    <>
+    <div className="flex flex-col justify-center items-center">
       {products.length > 0 ? (
         products.map((product, index) => (
           <ProductCard key={`${product.id}-${index}`} {...product} />
@@ -44,7 +44,7 @@ const ProductList = () => {
       <div ref={IntersectionObserver}>
         {isFetchingNextPage && <p>추가 데이터를 로딩 중...</p>}
       </div>
-    </>
+    </div>
   );
 };
 
