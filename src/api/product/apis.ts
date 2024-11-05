@@ -12,6 +12,7 @@ export const getProductList = async (queryParams?: ProductParamsType) => {
   }
   const data = await fetchWithToken<GetProductListResponse>(
     "product/",
+    {},
     stringRecord
   );
   return data;
