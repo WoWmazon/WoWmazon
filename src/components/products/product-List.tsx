@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/products/productCard";
 import { useInfiniteScrollProductList } from "@/hooks/useInfiniteProductList";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
