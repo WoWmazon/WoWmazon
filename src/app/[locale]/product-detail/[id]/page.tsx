@@ -7,8 +7,6 @@ import ProductDetailNav from "@/components/layout/product-detail-nav";
 import { getProductDatail } from "@/api/product/apis";
 
 const page = async ({ params }: { params: { id: string } }) => {
-  console.log("params", params);
-
   const product = await getProductDatail(params.id);
 
   if (!product) return null;
