@@ -1,29 +1,15 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
 import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import CustomButton from "../common/custom-button";
-import { getProductDatail } from "@/api/product/apis";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
+import { getExchangeLatest } from "@/api/exchange/apis";
+import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
 
-const ProductDetailContent = () => {
-  const [product, setProduct] = useState<GetProductDatailResponse>();
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const data = await getProductDatail("127184");
-        setProduct(data);
-      } catch (error) {
-        console.log("에러 : ", error);
-      }
-    };
-    fetchProduct();
-  }, []);
+const ProductDetailContent = async (product: GetProductDatailResponse) => {
+  const exchangeData = await getExchangeLatest();
 
   if (!product) return null;
 
@@ -74,10 +60,15 @@ const ProductDetailContent = () => {
         </div>
         <div className="flex gap-2 content-center">
           <p className="text-xxl font-bold">{`\$ ${product.presentPrice}`}</p>
-          <p className="content-center text-ELSE-55">97만 5,226.40원</p>
+          <p className="content-center text-ELSE-55">
+            {convertToKrw(Number(exchangeData?.usdToKrw), product.presentPrice)}
+          </p>
         </div>
         <p className="text-sm text-ELSE-76 mb-3">
-          USD/KRW = 1366.2, 24/10/05 오전 09시15분 기준 UTC+9
+          {getFormattedExchangeText(
+            exchangeData.usdToKrw,
+            exchangeData.createdAt
+          )}
         </p>
         <div className="text-md px-3 py-2 bg-ELSE-F5 mb-3">
           <p className="font-bold">아마존 가격</p>

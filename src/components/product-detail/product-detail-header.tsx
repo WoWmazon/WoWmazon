@@ -7,9 +7,8 @@ import IconButton from "../common/custom-icon-button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const ProductDetailHeader = () => {
+const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
   const router = useRouter();
-  const isWished = true; // 임시, API 연결하면 isFavorite 값 사용
   const [currentURL, setCurrentURL] = useState<string>("");
   const [isActive, setIsActive] = useState(false);
 
@@ -27,7 +26,7 @@ const ProductDetailHeader = () => {
   };
 
   return (
-    <div className="p-4 border border-ELSE-EC bg-SYSTEM-white">
+    <div className="fixed top-0 w-full max-w-[375px] h-[66px] p-4 border border-ELSE-EC bg-SYSTEM-white">
       <div className="grid grid-cols-[32px_auto_80px] items-center h-8 gap-[6px]">
         <IconButton
           icon={headerArrow}
@@ -49,7 +48,7 @@ const ProductDetailHeader = () => {
             onClick={() => handleCopyClipBoard(currentURL)}
             className="rounded-md hover:bg-ELSE-F5"
           />
-          {isWished && (
+          {isFavorite && (
             <IconButton
               icon={detailTrash}
               size={32}

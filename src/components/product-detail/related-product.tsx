@@ -2,8 +2,8 @@ import { getRelatedProductList } from "@/api/product/apis";
 import { isNull, isUndefined } from "@/utils/type-guard";
 import RelatedProductCard from "./related-product-card";
 
-const RelatedProduct = async () => {
-  const relatedProducts = await getRelatedProductList("127184");
+const RelatedProduct = async ({ productId }: { productId: string }) => {
+  const relatedProducts = await getRelatedProductList(productId);
 
   if (isNull(relatedProducts) || isUndefined(relatedProducts)) {
     console.log("관련된 상품 데이터가 비어있습니다.");
