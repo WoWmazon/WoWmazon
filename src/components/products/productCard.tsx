@@ -8,12 +8,12 @@ import defaultIcon from "@/assets/icons/product_default_img.svg";
 import { useRouter } from "next/navigation";
 
 const ProductCard = (productProps: productPostCardProps) => {
-  const { image, title, presentPrice, price, discountRate } = productProps;
+  const { id, image, title, presentPrice, price, discountRate } = productProps;
   const router = useRouter();
   return (
     <div
       className="w-[343px] h-[136px]  py-4 border-b-[1px] border-ELSE-EC cursor-pointer"
-      onClick={() => router.push("/product-detail")}
+      onClick={() => router.push(`/product-detail/${id}`)}
     >
       <div className="flex gap-3">
         {/* 상품이미지 */}
