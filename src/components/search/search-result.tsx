@@ -38,6 +38,7 @@ const SearchResult = ({
           {data.results.map((product: ProductResultType) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               image={product.image}
               title={product.title}
               presentPrice={product.presentPrice}
