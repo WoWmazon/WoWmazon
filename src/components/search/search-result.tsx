@@ -1,4 +1,5 @@
 import ProductCard from "../products/productCard";
+import ProductCardSkelton from "../skeletons/product-card-skeleton";
 import SearchFilter from "./search-filter";
 import SearchNoneProduct from "./search-none-product";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
@@ -15,7 +16,11 @@ const SearchResult = ({
     <>
       <SearchFilter count={data?.count ?? 0} />
       {isLoading ? (
-        <div>loading...</div>
+        <>
+          {[...Array(5)].map((_, idx) => (
+            <ProductCardSkelton key={`pcs-0${idx + 1}`} />
+          ))}
+        </>
       ) : data?.results?.length > 0 ? (
         <>
           {data.results.map((product: ProductResultType) => (
