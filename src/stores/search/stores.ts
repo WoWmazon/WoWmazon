@@ -7,9 +7,11 @@ export const useRecentSearchStore = create<RecentSearchState>()(
       recentSearch: [],
       addRecentSearch: (search) => {
         const currentSearches = get().recentSearch;
-        if (currentSearches.includes(search)) return;
         set({
-          recentSearch: [search, ...currentSearches],
+          recentSearch: [
+            search,
+            ...currentSearches.filter((item) => item !== search),
+          ],
         });
       },
       deleteRecentSearch: (search) => {
