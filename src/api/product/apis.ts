@@ -2,7 +2,7 @@
 
 import { isNull, isUndefined } from "@/utils/type-guard";
 import { fetchWithToken } from "../fetchApi";
-import { createQueryString } from "@/utils/apiUtils";
+import { createQueryString } from "@/utils/apis/create-query-string";
 
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: ProductParamsType) => {
@@ -85,7 +85,7 @@ export const getRelatedProductList = async (id: string) => {
 };
 
 export const getProductListBySearch = async (
-  queryParams?: ProductParamsType
+  queryParams?: SearchParamsType
 ) => {
   try {
     let stringRecord: Record<string, string> = {};
@@ -99,13 +99,10 @@ export const getProductListBySearch = async (
       },
       stringRecord
     );
-    if (isUndefined(data) || isNull(data) || isUndefined(data.results)) {
-      console.log("상품 데이터가 비어있습니다.");
-      return [];
-    }
+
     return data;
   } catch (error) {
     console.error("에러:", error);
-    return [];
+    return { count: 0, cursor: "", results: [] };
   }
 };

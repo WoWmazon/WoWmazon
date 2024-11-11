@@ -1,9 +1,18 @@
-type RecentSerchKeywordType = {
-  id: string;
-  keyword: string;
+type SearchResultProps = {
+  data: ProductDataType;
+  isLoading: boolean;
+  hasNextPage: boolean;
+  fetchNextPage: (
+    options?: FetchNextPageOptions
+  ) => Promise<
+    InfiniteQueryObserverResult<
+      InfiniteData<GetProductListResponse, unknown>,
+      Error
+    >
+  >;
 };
 
-type TextButtonProps = {
-  children: React.ReactNode;
-  isActive?: boolean;
+type RecentSearchItemProps = {
+  search: string;
+  onClick: () => void;
 };

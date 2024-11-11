@@ -1,49 +1,56 @@
 "use client";
 
-// import { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-// import { useDebounce } from "@/hooks/useDebounce";
-// import { useProducts } from "@/api/product/queries";
+import { useEffect } from "react";
+import { useInfiniteSearchProduct } from "@/api/product/queries";
 import SearchHeader from "@/components/search/search-header";
-// import SearchResult from "@/components/search/search-result";
+import SearchResult from "@/components/search/search-result";
+import RecentSearch from "./recent-search";
+import { isUndefined } from "@/utils/type-guard";
+import {
+  useSearchFlagStore,
+  useSearchParamsStore,
+} from "@/stores/search/stores";
 
 const SearchContainer = () => {
-  const method = useForm<ProductParamsType>();
-  const { handleSubmit } = method;
-
-  // debounce 적용할 객체
-  // const formParams: ProductParamsType = {
-  //   search: watch("search"),
-  //   is_out_of_stock: watch("is_out_of_stock"),
-  //   is_lowest_price_ever: watch("is_lowest_price_ever"),
-  //   ordering: "discount_rate", // 아직 미 적용.
-  // };
-
-  // formParams에 debounce 적용
-  // const debouncedParams = useDebounce(formParams);
-
+  const searchParams = useSearchParamsStore((state) => state.searchParams);
+  const { searchFlag, setSearchFlag } = useSearchFlagStore();
   // react-query로 데이터 페칭
-  // const { data, isLoading, refetch } = useProducts(debouncedParams);
+  const { data, isLoading, isFetching, isFetched, hasNextPage, fetchNextPage } =
+    useInfiniteSearchProduct(searchParams, searchFlag);
 
-  const onSubmit = handleSubmit(() => {
-    // refetch();
-  });
+  const getAllFetchResults = () => {
+    const pages = data?.pages;
+    if (!pages) {
+      return [];
+    }
+    const results: ProductResultType[] = [];
+    pages.forEach((page) => {
+      results.push(...page.results);
+    });
 
-  // useEffect(() => {
-  //   if (debouncedParams.search) {
-  //     refetch();
-  //   }
-  // }, [debouncedParams]);
+    return { count: pages[0].count, cursor: "", results };
+  };
+
+  useEffect(() => {
+    if (isFetched) {
+      setSearchFlag(false);
+    }
+  }, [isFetched]);
 
   return (
-    <FormProvider {...method}>
-      <form className="px-4 pt-14 text-ELSE-33" onSubmit={onSubmit}>
-        <SearchHeader />
-        {/* 미적용 */}
-        {/* <RecentSearchKeyword keywords={keywords} /> */}
-        {/* <SearchResult data={data?.results} isLoading={isLoading} /> */}
-      </form>
-    </FormProvider>
+    <div className="px-4 pt-16 text-ELSE-33">
+      <SearchHeader />
+      {(!isFetching && isUndefined(data)) || searchParams.search === "" ? (
+        <RecentSearch />
+      ) : (
+        <SearchResult
+          data={getAllFetchResults()}
+          isLoading={isLoading}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      )}
+    </div>
   );
 };
 
