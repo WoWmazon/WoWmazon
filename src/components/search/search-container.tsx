@@ -21,12 +21,9 @@ const SearchContainer = () => {
   const getAllFetchResults = () => {
     const pages = data?.pages;
     if (!pages) {
-      return [];
+      return { count: 0, cursor: "", results: [] };
     }
-    const results: ProductResultType[] = [];
-    pages.forEach((page) => {
-      results.push(...page.results);
-    });
+    const results = pages.flatMap((page) => page.results);
 
     return { count: pages[0].count, cursor: "", results };
   };
@@ -35,7 +32,7 @@ const SearchContainer = () => {
     if (isFetched) {
       setSearchFlag(false);
     }
-  }, [isFetched]);
+  }, [isFetched, setSearchFlag]);
 
   return (
     <div className="px-4 pt-16 text-ELSE-33">
