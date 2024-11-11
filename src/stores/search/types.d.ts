@@ -5,11 +5,6 @@ type RecentSearchState = {
   clearRecentSearch: () => void;
 };
 
-type SearchFlagState = {
-  searchFlag: boolean;
-  setSearchFlag: (flag: boolean) => void;
-};
-
 type SearchParamsState = {
   searchParams: SearchParamsType;
   setSearchParams: (key: string, value: string) => void;

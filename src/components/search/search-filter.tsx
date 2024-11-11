@@ -1,18 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import CustomCheckBox from "../common/custom-checkbox";
 import CustomButton from "../common/custom-button";
-import {
-  useSearchFlagStore,
-  useSearchParamsStore,
-} from "@/stores/search/stores";
+import { useSearchParamsStore } from "@/stores/search/stores";
 
 const SearchFilter = ({ count }: { count: number }) => {
   const { searchParams, setSearchParams } = useSearchParamsStore();
-  const setSearchFlag = useSearchFlagStore((state) => state.setSearchFlag);
 
   const handleClickOrdering = (order: OrderingType) => {
     setSearchParams("ordering", order);
-    setSearchFlag(true);
   };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +23,6 @@ const SearchFilter = ({ count }: { count: number }) => {
       : "";
 
     setSearchParams(key, value);
-    setSearchFlag(true);
   };
 
   return (

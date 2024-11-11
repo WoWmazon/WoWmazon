@@ -33,11 +33,6 @@ export const useRecentSearchStore = create<RecentSearchState>()(
   )
 );
 
-export const useSearchFlagStore = create<SearchFlagState>()((set) => ({
-  searchFlag: false,
-  setSearchFlag: (flag) => set(() => ({ searchFlag: flag })),
-}));
-
 export const useSearchParamsStore = create<SearchParamsState>()((set) => ({
   searchParams: { search: "", ordering: "-discount_rate" },
   setSearchParams: (key, value) =>
