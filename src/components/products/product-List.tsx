@@ -24,7 +24,7 @@ const ProductList = () => {
     }
   }, [data]);
 
-  const IntersectionObserverRef = useIntersectionObserver({
+  const intersectionObserverRef = useIntersectionObserver({
     fetchNextPage: fetchNextPage,
     hasNextPage: hasNextPage,
   });
@@ -41,7 +41,7 @@ const ProductList = () => {
       ) : (
         <p>상품이 없습니다.</p>
       )}
-      <div ref={IntersectionObserverRef}>
+      <div ref={intersectionObserverRef}>
         {isFetchingNextPage && <p>추가 데이터를 로딩 중...</p>}
       </div>
     </div>
