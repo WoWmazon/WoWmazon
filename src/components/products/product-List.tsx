@@ -1,50 +1,50 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getProductList } from "@/api/product/apis";
 import ProductCard from "@/components/products/productCard";
+import { useInfiniteScrollProductList } from "@/hooks/useInfiniteProductList";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const ProductList = () => {
   const [products, setProducts] = useState<ProductResultType[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    isLoading,
+  } = useInfiniteScrollProductList();
+
+  //스크롤 이벤트 핸들러
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getProductList();
+    if (data?.pages) {
+      const allProducts = data.pages.flatMap((page) => page.results);
+      setProducts(allProducts);
+    }
+  }, [data]);
 
-        if (data && data.results) {
-          const mappedProducts = data.results.map((item) => ({
-            id: item.id,
-            image: item.image,
-            title: item.title,
-            price: item.price,
-            presentPrice: item.presentPrice,
-            discountRate: item.discountRate,
-          })) as ProductResultType[];
-          setProducts(mappedProducts); // 정상 동작
-        } else {
-          setProducts([]); // 데이터가 없을 경우 빈 배열 설정
-        }
-      } catch (error: unknown) {
-        console.error("에러:", error);
-        setError("상품을 불러오는 중 오류가 발생했습니다.");
-      }
-    };
-    fetchProducts();
-  }, []);
+  const intersectionObserverRef = useIntersectionObserver({
+    fetchNextPage: fetchNextPage,
+    hasNextPage: hasNextPage,
+  });
 
-  if (error) {
-    return <p>{error}</p>;
-  }
+  if (isLoading) return <p>로딩 중...</p>;
+  if (isError) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
 
   return (
-    <>
+    <div className="flex flex-col justify-center items-center">
       {products.length > 0 ? (
-        products.map((product) => <ProductCard key={product.id} {...product} />)
+        products.map((product, index) => (
+          <ProductCard key={`${product.id}-${index}`} {...product} />
+        ))
       ) : (
         <p>상품이 없습니다.</p>
       )}
-    </>
+      <div ref={intersectionObserverRef}>
+        {isFetchingNextPage && <p>추가 데이터를 로딩 중...</p>}
+      </div>
+    </div>
   );
 };
 
