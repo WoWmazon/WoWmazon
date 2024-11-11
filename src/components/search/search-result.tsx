@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
 import ProductCard from "../products/productCard";
 import SearchFilter from "./search-filter";
 import SearchNoneProduct from "./search-none-product";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const SearchResult = ({
   data,
@@ -9,24 +9,7 @@ const SearchResult = ({
   hasNextPage,
   fetchNextPage,
 }: SearchResultProps) => {
-  const observerRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && hasNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1 }
-    );
-
-    if (observerRef.current) observer.observe(observerRef.current);
-
-    return () => {
-      if (observerRef.current) observer.unobserve(observerRef.current);
-    };
-  }, [fetchNextPage, hasNextPage]);
+  const observerRef = useIntersectionObserver({ fetchNextPage, hasNextPage });
 
   return (
     <>
