@@ -17,6 +17,11 @@ type ProductParamsType = {
   search?: string; // 검색어
 };
 
+type ProductCategoryType = {
+  cursor?: string;
+  page_size?: number;
+};
+
 type OrderingType = "present_price" | "-discount_rate";
 
 // 임시로 만듦
@@ -34,6 +39,16 @@ type GetProductListResponse = {
   results: ProductResultType[];
 };
 
+type GetProductCategoryResponse = {
+  count: number;
+  cursor: string;
+  results: ProductCategoryType[];
+};
+
+type ProductCategoryType = {
+  id: number;
+  enTitle: string;
+};
 type ProductResultType = {
   id: number;
   image: string;
