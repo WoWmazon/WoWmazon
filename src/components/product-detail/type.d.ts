@@ -38,10 +38,39 @@ type GetRelatedProductListResponse = {
   isLowestPriceEver: boolean; // 역대 최저가 상품 여부
   discountRate: number; // 할인율
   code: string; // 아마존 상품 코드
-  crawlingUpdatedAt: string; // 최근 크롤링일자 (?)
+  crawlingUpdatedAt: string; // 최근 크롤링일자
   isFavorite: boolean; // 찜한 상품 여부
   affiliateUrl: string; // 아마존 어필리에이트 url
   isStopSelling: boolean; // 판매 중지 상품 여부
   presentPriceUpdatedAt: string; // 현재가 갱신 날짜
   title: string; // 상품명
+};
+
+type GetFavoriteProductResponse = {
+  count: number; // 찜한 상품 개수
+  cursor: string;
+  results: FavoriteProductList[]; // 찜한 상품 리스트
+};
+
+type FavoriteProductList = {
+  id: number; // 찜한 ID
+  product: {
+    id: number; // 상품 ID
+    image: string; // 상품 이미지
+    presentPrice: number; // 현재가
+    isOutOfStock: boolean; // 품절 여부
+    discountRate: number; // 할인율
+    isStopSelling: boolean; // 판매 중지 상품 여부
+    title: string; // 상품명
+    isLowestPriceEver: boolean; // 역대 최저가 상품 여부
+  };
+  isAlarm: boolean; // 알림 여부
+};
+
+type PostProductResponse = {
+  productId: number;
+};
+
+type DeleteAndPutProductResponse = {
+  detail: string;
 };
