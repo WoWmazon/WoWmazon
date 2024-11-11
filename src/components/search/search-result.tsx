@@ -14,14 +14,14 @@ const SearchResult = ({
 
   return (
     <>
-      <SearchFilter count={data?.count ?? 0} />
+      <SearchFilter count={data.count} />
       {isLoading ? (
         <>
           {[...Array(5)].map((_, idx) => (
             <ProductCardSkelton key={`pcs-0${idx + 1}`} />
           ))}
         </>
-      ) : data?.results?.length > 0 ? (
+      ) : data.results.length > 0 ? (
         <>
           {data.results.map((product: ProductResultType) => (
             <ProductCard
