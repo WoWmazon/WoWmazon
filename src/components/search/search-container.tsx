@@ -1,9 +1,9 @@
 "use client";
 
 import { useInfiniteSearchProduct } from "@/api/product/queries";
-import SearchHeader from "@/components/search/search-header";
+import SearchBar from "@/components/search/search-bar";
 import SearchResult from "@/components/search/search-result";
-import RecentSearch from "./recent-search";
+import SearchRecentKeywords from "./search-recent-keywords";
 import { isUndefined } from "@/utils/type-guard";
 import { useSearchParamsStore } from "@/stores/search/stores";
 
@@ -25,9 +25,9 @@ const SearchContainer = () => {
 
   return (
     <div className="px-4 pt-16 text-ELSE-33">
-      <SearchHeader />
+      <SearchBar />
       {(!isFetching && isUndefined(data)) || searchParams.search === "" ? (
-        <RecentSearch />
+        <SearchRecentKeywords />
       ) : (
         <SearchResult
           data={getAllFetchResults()}

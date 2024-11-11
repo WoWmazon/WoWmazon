@@ -1,25 +1,25 @@
-import RecentSearchItem from "./recent-search-item";
+import SearchRecentKeywordItem from "./search-recent-keyword-item";
 import CustomButton from "../common/custom-button";
 import {
-  useRecentSearchStore,
+  useRecentKeywordsStore,
   useSearchParamsStore,
 } from "@/stores/search/stores";
 
-const RecentSearch = () => {
-  const { recentSearch, clearRecentSearch } = useRecentSearchStore();
+const SearchRecentKeywordsContainer = () => {
+  const { recentKeyword, clear: clearRecentSearch } = useRecentKeywordsStore();
   const setSearchParams = useSearchParamsStore(
     (state) => state.setSearchParams
   );
 
-  const handleClickRecentSearch = (search: string) => {
-    setSearchParams("search", search);
+  const handleClickRecentKeyword = (keyword: string) => {
+    setSearchParams("search", keyword);
   };
 
   return (
     <div className="flex flex-col gap-2 mt-3">
       <div className="flex flex-row justify-between items-center h-11">
         <p className="font-bold">최근 검색어</p>
-        {recentSearch.length ? (
+        {recentKeyword.length ? (
           <CustomButton
             className="size-fit text-md hover:text-ELSE-55"
             variant="none"
@@ -32,13 +32,13 @@ const RecentSearch = () => {
           ""
         )}
       </div>
-      {recentSearch.length ? (
+      {recentKeyword.length ? (
         <div>
-          {recentSearch.map((search, idx) => (
-            <RecentSearchItem
+          {recentKeyword.map((keyword, idx) => (
+            <SearchRecentKeywordItem
               key={`rsk-${idx}`}
-              search={search}
-              onClick={() => handleClickRecentSearch(search)}
+              keyword={keyword}
+              onClick={() => handleClickRecentKeyword(keyword)}
             />
           ))}
         </div>
@@ -51,4 +51,4 @@ const RecentSearch = () => {
   );
 };
 
-export default RecentSearch;
+export default SearchRecentKeywordsContainer;

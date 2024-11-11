@@ -1,31 +1,29 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import CustomInput from "../common/custom-input";
-import CustomButton from "../common/custom-button";
 import {
-  useRecentSearchStore,
+  useRecentKeywordsStore,
   useSearchParamsStore,
 } from "@/stores/search/stores";
+import CustomInput from "../common/custom-input";
+import CustomButton from "../common/custom-button";
 
 import HeaderArrow from "@/assets/icons/header_arrow.svg";
-import { useEffect, useState } from "react";
 
-const SearchHeader = () => {
+const SearchBar = () => {
   const router = useRouter();
 
   const [inputValue, setInputValue] = useState("");
 
-  const setRecentSearch = useRecentSearchStore(
-    (state) => state.addRecentSearch
-  );
+  const addRecentSearch = useRecentKeywordsStore((state) => state.add);
   const {
     searchParams: { search },
     setSearchParams,
-  } = useSearchParamsStore((state) => state);
+  } = useSearchParamsStore();
 
   const handleSearchSubmit = () => {
     if (inputValue === "") return;
-    setRecentSearch(inputValue);
+    addRecentSearch(inputValue);
     setSearchParams("search", inputValue);
   };
 
@@ -78,4 +76,4 @@ const SearchHeader = () => {
   );
 };
 
-export default SearchHeader;
+export default SearchBar;
