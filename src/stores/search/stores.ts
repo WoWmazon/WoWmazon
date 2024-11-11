@@ -1,33 +1,33 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export const useRecentSearchStore = create<RecentSearchState>()(
+export const useRecentKeywordsStore = create<RecentKeywordsState>()(
   persist(
     (set, get) => ({
-      recentSearch: [],
-      addRecentSearch: (search) => {
-        const currentSearches = get().recentSearch;
+      recentKeyword: [],
+      add: (keyword) => {
+        const currentSearches = get().recentKeyword;
         set({
-          recentSearch: [
-            search,
-            ...currentSearches.filter((item) => item !== search),
+          recentKeyword: [
+            keyword,
+            ...currentSearches.filter((item) => item !== keyword),
           ],
         });
       },
-      deleteRecentSearch: (search) => {
-        const currentSearches = get().recentSearch;
+      delete: (keyword) => {
+        const currentKeywords = get().recentKeyword;
         set({
-          recentSearch: currentSearches.filter((keyword) => keyword !== search),
+          recentKeyword: currentKeywords.filter((item) => item !== keyword),
         });
       },
-      clearRecentSearch: () => {
+      clear: () => {
         set({
-          recentSearch: [],
+          recentKeyword: [],
         });
       },
     }),
     {
-      name: "recent-search",
+      name: "recent-keywords",
       storage: createJSONStorage(() => localStorage),
     }
   )
