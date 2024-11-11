@@ -6,8 +6,11 @@ import detailTrash from "@/assets/icons/detail_trash.svg";
 import IconButton from "../common/custom-icon-button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { deleteFavoriteProduct } from "@/api/favorite/apis";
 
-const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
+const ProductDetailHeader = (product: GetProductDatailResponse) => {
+  const { id, isFavorite } = product;
+
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState<string>("");
   const [isActive, setIsActive] = useState(false);
@@ -24,6 +27,14 @@ const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
       console.log(err);
     }
   };
+
+  const deleteFavorite = () => {
+    try {
+      deleteFavoriteProduct(id)
+    } catch (error) {
+      console.log("에러 : ", error);
+    }
+  }
 
   return (
     <div className="fixed top-0 w-full max-w-[375px] h-[66px] p-4 border border-ELSE-EC bg-SYSTEM-white">
@@ -54,7 +65,7 @@ const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
               size={32}
               alt="arrow-icon"
               isActive={isActive}
-              onClick={() => setIsActive(false)}
+              onClick={() => deleteFavorite()}
               className="ml-4 rounded-md hover:bg-ELSE-F5"
             />
           )}

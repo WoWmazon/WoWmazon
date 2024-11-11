@@ -6,14 +6,23 @@ import add from "@/assets/icons/addProduct.svg";
 import alarmOn from "@/assets/icons/product_alarmOn.svg";
 import alarmOff from "@/assets/icons/product_alarmOff.svg";
 import Toast from "../common/toast";
+import { postFavoriteProduct } from "@/api/favorite/apis";
 
-const ProductDetailNav = ({ isFavorite }: { isFavorite: boolean }) => {
+const ProductDetailNav = (product: GetProductDatailResponse) => {
+  const { id, isFavorite } = product;
+
   // const [isAdd, setIsAdd] = useState(false); // 찜하기 연결 전 테스트용
   const [isWished, setIsWished] = useState(false);
   const [isAlarm, setIsAlarm] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
   const handleAdd = () => {
     // setIsAdd(!isAdd); // 찜하기 연결 전 테스트용
+    try {
+      const response = postFavoriteProduct(id);
+    } catch (error) {
+      console.log("에러 : ", error);
+    }
     setIsWished(!isWished);
     setIsAlarm(true);
   };

@@ -14,7 +14,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="bg-ELSE-EC">
       <div className="mb-3">
-        <ProductDetailHeader isFavorite={product!.isFavorite} />
+        <ProductDetailHeader {...product} />
         <ProductDetailContent {...product} />
         {/* TODO: 그래프 추후 개발 */}
         {/* <ProductPriceGraph /> */}
@@ -23,7 +23,7 @@ const page = async ({ params }: { params: { id: string } }) => {
       <div>
         <RelatedProduct productId={params.id} />
       </div>
-      <ProductDetailNav isFavorite={product!.isFavorite} />
+      <ProductDetailNav {...product} />
     </div>
   );
 };
