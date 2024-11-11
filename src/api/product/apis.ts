@@ -4,24 +4,16 @@ import { isNull, isUndefined } from "@/utils/type-guard";
 import { fetchWithToken } from "../fetchApi";
 import { createQueryString } from "@/utils/apis/create-query-string";
 
-// 쿼리 파라미터 생성
-// const queryParams = new URLSearchParams({
-//   category_id: "1",
-//   is_lowest_price_ever: "true",
-//   is_out_of_stock: "false",
-//   ordering: "present_price",
-//   page_size: "1",
-//   search: "bag",
-// });
-
 // 초기 productList를 불러오는 함수
-export const getProductList = async (queryParams?: Record<string, string>) => {
+export const getProductList = async (queryParams?: ProductParamsType) => {
+  let stringRecord: Record<string, string> = {};
+  if (queryParams) {
+    stringRecord = createQueryString(queryParams);
+  }
   const data = await fetchWithToken<GetProductListResponse>(
     "product/",
-    {
-      method: "GET",
-    },
-    queryParams
+    {},
+    stringRecord
   );
   return data;
 };
