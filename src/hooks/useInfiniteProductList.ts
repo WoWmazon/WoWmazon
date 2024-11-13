@@ -2,12 +2,15 @@ import { getProductList } from "@/api/product/apis";
 import { PRODUCT_LIST } from "@/constants/query-keys";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export const useInfiniteScrollProductList = () => {
+export const useInfiniteScrollProductList = (params: ProductParamsType) => {
   return useInfiniteQuery({
-    queryKey: [PRODUCT_LIST],
+    queryKey: [PRODUCT_LIST, params],
     queryFn: ({ pageParam = "" }) => {
-      const params: ProductParamsType = pageParam ? { cursor: pageParam } : {};
-      return getProductList(params);
+      const queryParams: ProductParamsType = {
+        ...params,
+        cursor: pageParam,
+      };
+      return getProductList(queryParams);
     },
     initialPageParam: "",
     getNextPageParam: (lastPage) => {
