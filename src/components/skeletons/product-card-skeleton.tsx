@@ -1,6 +1,6 @@
 const ProductCardSkelton = () => {
   return (
-    <div className="relative flex flex-row gap-4 items-center">
+    <div className="relative flex flex-row gap-4 items-center py-4">
       <div className="size-20 skeleton-img" />
       <div className="flex flex-col gap-4">
         <div className="flex flex-row gap-3">

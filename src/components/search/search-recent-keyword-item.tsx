@@ -1,23 +1,24 @@
 import DeleteButton from "@/assets/icons/input-delete-button.svg";
 import IconButton from "../common/custom-icon-button";
-import { useRecentSearchStore } from "@/stores/search/stores";
+import { useRecentKeywordsStore } from "@/stores/search/stores";
 
-const RecentSearchItem = ({ search, onClick }: RecentSearchItemProps) => {
-  const deleteRecentSearch = useRecentSearchStore(
-    (state) => state.deleteRecentSearch
-  );
+const SearchRecentKeywordItem = ({
+  keyword,
+  onClick,
+}: SearchRecentKeywordItemProps) => {
+  const deleteRecentKeyword = useRecentKeywordsStore((state) => state.delete);
 
   return (
     <div className="flex flex-row justify-between items-center h-11">
       <div className="w-full select-none cursor-pointer" onClick={onClick}>
-        {search}
+        {keyword}
       </div>
       <IconButton
         icon={DeleteButton}
         alt="delete-btn"
-        onClick={() => deleteRecentSearch(search)}
+        onClick={() => deleteRecentKeyword(keyword)}
       />
     </div>
   );
 };
-export default RecentSearchItem;
+export default SearchRecentKeywordItem;

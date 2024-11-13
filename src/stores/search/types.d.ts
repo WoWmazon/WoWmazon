@@ -1,13 +1,8 @@
-type RecentSearchState = {
-  recentSearch: string[];
-  addRecentSearch: (search: string) => void;
-  deleteRecentSearch: (search: string) => void;
-  clearRecentSearch: () => void;
-};
-
-type SearchFlagState = {
-  searchFlag: boolean;
-  setSearchFlag: (flag: boolean) => void;
+type RecentKeywordsState = {
+  recentKeyword: string[];
+  add: (keyword: string) => void;
+  delete: (keyword: string) => void;
+  clear: () => void;
 };
 
 type SearchParamsState = {

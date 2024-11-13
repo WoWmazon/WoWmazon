@@ -49,7 +49,7 @@ const NicknameFields = ({
       message: t("sign-up.validate1"),
       isError: true,
     });
-  }, [errors.nickname]);
+  }, [errors.nickname, t]);
 
   return (
     <div className="flex flex-col gap-[6px]">

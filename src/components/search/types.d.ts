@@ -12,7 +12,7 @@ type SearchResultProps = {
   >;
 };
 
-type RecentSearchItemProps = {
-  search: string;
+type SearchRecentKeywordItemProps = {
+  keyword: string;
   onClick: () => void;
 };
