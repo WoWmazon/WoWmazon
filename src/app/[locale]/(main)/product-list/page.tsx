@@ -1,7 +1,8 @@
 "use server";
 
 import { getProductList } from "@/api/product/apis";
-import ProductList from "@/components/products/product-List";
+import ProductList from "@/components/products/product-list";
+import ProductListCategoryFilter from "@/components/products/product-list-category-filter";
 import ProductListHeader from "@/components/products/product-list-header";
 import {
   HydrationBoundary,
@@ -26,6 +27,7 @@ const page = async () => {
   return (
     <HydrationBoundary state={dehydratedState}>
       <ProductListHeader />
+      <ProductListCategoryFilter />
       <ProductList />
     </HydrationBoundary>
   );
