@@ -19,7 +19,9 @@ export const getProductList = async (queryParams?: ProductParamsType) => {
 };
 
 //카테고리 불어오는 함수
-export const getCategoryId = async (queryParams?: ProductCategoryType) => {
+export const getCategoryId = async (
+  queryParams?: ProductCategoryParamsType
+) => {
   let stringRecord: Record<string, string> = {};
   if (queryParams) {
     stringRecord = createQueryString(queryParams);
