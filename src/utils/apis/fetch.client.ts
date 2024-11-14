@@ -6,7 +6,7 @@ export const fetchClient = async <T>(
   endpoint: string,
   options?: RequestInit,
   queryParams?: Record<string, string> // 쿼리 파라미터를 위한 인수 추가
-) => {
+): Promise<T> => {
   try {
     const requestHeaders: HeadersInit = new Headers({
       "Content-Type": "application/json",
