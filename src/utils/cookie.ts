@@ -8,3 +8,6 @@ export const setCookie = (
 ) => cookies().set(key, value, option);
 
 export const getCookie = (key: string) => cookies().get(key)?.value;
+
+export const deleteCookie = (key: string) =>
+  cookies().set(key, "", { maxAge: -1 });
