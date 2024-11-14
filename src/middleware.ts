@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
     pathname === "" || pathname === "/" ? "/wish-list" : pathname;
 
   const accessToken = getCookie("accessToken");
-  const refreshToken = getCookie("refreshToken");
 
   const isAuth = pathname.includes("auth"); // auth 페이지 인지 체크
   const isNotAuthorized = isUndefined(accessToken); // 회원정보가 없는지 체크
