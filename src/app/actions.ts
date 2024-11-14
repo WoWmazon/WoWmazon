@@ -4,7 +4,8 @@ import { setCookie } from "@/utils/cookie";
 import { createDeviceInfo } from "@/utils/deviceUtils";
 import { LocaleTypes } from "@/utils/localization/settings";
 import { createRegisterBody } from "@/utils/registerUtils";
-import { fetchWithoutToken } from "@/api/fetchApi";
+import { COOKIE_OPTIONS } from "@/constants/cookie";
+import { fetchServer } from "@/utils/apis/fetch.server";
 
 export const postRegisterUser = async (
   data: FormInput,
@@ -18,29 +19,28 @@ export const postRegisterUser = async (
       deviceInfo,
     });
 
-    const response = await fetchWithoutToken("user/register/", {
+    const response = await fetchServer("user/register/", {
       method: "POST",
       body: JSON.stringify(registerBody),
+      headers: {
+        accept: "application/json",
+      },
       cache: "no-store",
     });
 
-    const responseData = await response.json();
-
     if (!response.ok) {
-      throw new Error(`Registration error: ${responseData}`);
+      throw new Error(
+        `Registration error: ${response.status}-${response.statusText}`
+      );
     }
+
+    const responseData = await response.json();
 
     const { accessToken, refreshToken } = responseData;
 
-    const maxAge = 60 * 60 * 24 * 365; // 1 year in seconds
-    const setCookieOptions = {
-      secure: true,
-      maxAge,
-    };
-
-    setCookie("accessToken", accessToken, setCookieOptions);
-    setCookie("refreshToken", refreshToken, setCookieOptions);
-    setCookie("device", JSON.stringify(deviceInfo), setCookieOptions);
+    setCookie("accessToken", accessToken, COOKIE_OPTIONS);
+    setCookie("refreshToken", refreshToken, COOKIE_OPTIONS);
+    setCookie("device", JSON.stringify(deviceInfo), COOKIE_OPTIONS);
   } catch (e) {
     console.error("Error during user registration:", e);
     throw new Error(e instanceof Error ? e.message : "Unknown error occurred");
