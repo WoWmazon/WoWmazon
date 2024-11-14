@@ -1,5 +1,3 @@
-"use server";
-
 import { fetchWithoutToken } from "../fetchApi";
 
 export const getNicknameValidate = async (nickname: string) => {
@@ -51,31 +49,6 @@ export const getRandomNickname = async () => {
   } catch (e) {
     console.error(e);
     return "";
-  }
-};
-
-export const postRefreshUser = async (refreshToken: string) => {
-  try {
-    const response = await fetchWithoutToken("user/refresh/", {
-      method: "POST",
-      body: JSON.stringify({ refreshToken }),
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      throw new Error(
-        `Failed to refresh user: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const { accessToken, refreshToken: newRefreshToken } =
-      await response.json();
-
-    return { accessToken, refreshToken: newRefreshToken };
-  } catch (e) {
-    console.error(e);
-    return {
-      error: e instanceof Error ? e.message : "Unknown error occurred",
-    };
   }
 };
 
