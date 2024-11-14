@@ -23,7 +23,7 @@ export const fetchServer = async (
 
     // cookie에 accessToken이 있을 시 Authorization 추가
     if (token) {
-      requestHeaders.set("Authorization", token);
+      requestHeaders.set("Authorization", `Bearer ${token}`);
     }
 
     // options에서 headers 삭제
