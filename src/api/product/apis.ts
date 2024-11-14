@@ -1,8 +1,7 @@
-"use server";
-
 import { isNull, isUndefined } from "@/utils/type-guard";
 import { fetchWithToken } from "../fetchApi";
 import { createQueryString } from "@/utils/apis/create-query-string";
+import { fetchClient } from "@/utils/apis/fetch.client";
 
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: ProductParamsType) => {
@@ -87,22 +86,6 @@ export const getRelatedProductList = async (id: string) => {
 export const getProductListBySearch = async (
   queryParams?: SearchParamsType
 ) => {
-  try {
-    let stringRecord: Record<string, string> = {};
-    if (queryParams) {
-      stringRecord = createQueryString(queryParams);
-    }
-    const data = await fetchWithToken<GetProductListResponse>(
-      "product/",
-      {
-        method: "GET",
-      },
-      stringRecord
-    );
-
-    return data;
-  } catch (error) {
-    console.error("에러:", error);
-    return { count: 0, cursor: "", results: [] };
-  }
+  const stringRecord = queryParams ? createQueryString(queryParams) : {};
+  return fetchClient<GetProductListResponse>("product/", {}, stringRecord);
 };
