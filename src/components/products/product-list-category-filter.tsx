@@ -4,7 +4,7 @@ import CategoryDropDown from "./category-drop-down";
 import { useInfiniteCategory } from "@/hooks/useInfiniteCategoryId";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useState } from "react";
-import ProductList from "../products/product-list";
+import ProductList from "./product-lists";
 
 const ProductListCategoryFilter = () => {
   const { data, fetchNextPage, hasNextPage } = useInfiniteCategory();
