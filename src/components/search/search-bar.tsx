@@ -1,28 +1,30 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import CustomInput from "../common/custom-input";
-import CustomButton from "../common/custom-button";
 import {
-  useRecentSearchStore,
-  useSearchFlagStore,
+  useRecentKeywordsStore,
   useSearchParamsStore,
 } from "@/stores/search/stores";
+import CustomInput from "../common/custom-input";
+import CustomButton from "../common/custom-button";
 
 import HeaderArrow from "@/assets/icons/header_arrow.svg";
 
-const SearchHeader = () => {
+const SearchBar = () => {
   const router = useRouter();
 
-  const setRecentSearch = useRecentSearchStore(
-    (state) => state.addRecentSearch
-  );
-  const { searchParams, setSearchParams } = useSearchParamsStore();
-  const setSearchFlag = useSearchFlagStore((state) => state.setSearchFlag);
+  const [inputValue, setInputValue] = useState("");
+
+  const addRecentSearch = useRecentKeywordsStore((state) => state.add);
+  const {
+    searchParams: { search },
+    setSearchParams,
+  } = useSearchParamsStore();
 
   const handleSearchSubmit = () => {
-    if (searchParams.search === "") return;
-    setRecentSearch(searchParams.search);
-    setSearchFlag(true);
+    if (inputValue === "") return;
+    addRecentSearch(inputValue);
+    setSearchParams("search", inputValue);
   };
 
   const handleInputKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -30,6 +32,18 @@ const SearchHeader = () => {
       handleSearchSubmit();
     }
   };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "") {
+      setSearchParams("search", "");
+    }
+    setInputValue(value);
+  };
+
+  useEffect(() => {
+    setInputValue(search);
+  }, [search, setInputValue]);
 
   return (
     <div className="fixed grid grid-cols-[32px_auto_32px] top-0 items-center w-full max-w-[343px] h-[62px] py-2 gap-1.5 bg-SYSTEM-white">
@@ -46,8 +60,8 @@ const SearchHeader = () => {
         placeholder="상품명 검색"
         hasDelBtn
         autoComplete="off"
-        value={searchParams.search}
-        onChange={(e) => setSearchParams("search", e.target.value)}
+        value={inputValue}
+        onChange={handleInputChange}
         onKeyDown={handleInputKeydown}
       />
       <CustomButton
@@ -62,4 +76,4 @@ const SearchHeader = () => {
   );
 };
 
-export default SearchHeader;
+export default SearchBar;
