@@ -45,7 +45,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
         <span className="text-md text-ELSE-33">{activeCategory || "All"}</span>
         <div className={`transform  ${isOpen ? "rotate-180" : "rotate-0"}`}>
           <Image
-            src={categoryArrowDown} // 아이콘 하나만 사용
+            src={categoryArrowDown}
             width={24}
             height={24}
             alt="category-arrow"
