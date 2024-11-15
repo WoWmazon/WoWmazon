@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import categoryArrowDown from "@/assets/icons/product_category_arrow_down.svg";
-import categoryArrowUp from "@/assets/icons/product_category_arrow_up.svg";
 import Image from "next/image";
 import CategoryDropDownButton from "./category-drop-down-button";
 
@@ -44,12 +43,14 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
         className="bg-SYSTEM-white w-[343px] h-10 px-4 py-2 flex items-center justify-between cursor-pointer border border-ELSE-EC"
       >
         <span className="text-md text-ELSE-33">{activeCategory || "All"}</span>
-        <Image
-          src={isOpen ? categoryArrowUp : categoryArrowDown}
-          width={24}
-          height={24}
-          alt="category-arrow"
-        />
+        <div className={`transform  ${isOpen ? "rotate-180" : "rotate-0"}`}>
+          <Image
+            src={categoryArrowDown} // 아이콘 하나만 사용
+            width={24}
+            height={24}
+            alt="category-arrow"
+          />
+        </div>
       </div>
       {/* 드롭다운 메뉴 */}
       {isOpen && (
