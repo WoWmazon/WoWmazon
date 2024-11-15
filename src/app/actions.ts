@@ -5,7 +5,7 @@ import { createDeviceInfo } from "@/utils/deviceUtils";
 import { LocaleTypes } from "@/utils/localization/settings";
 import { createRegisterBody } from "@/utils/registerUtils";
 import { COOKIE_OPTIONS } from "@/constants/cookie";
-import { fetchServer } from "@/utils/apis/fetch.server";
+import { fetchServer } from "@/api/fetch.server";
 
 export const postRegisterUser = async (
   data: FormInput,

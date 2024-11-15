@@ -1,4 +1,4 @@
-import { fetchServer } from "@/utils/apis/fetch.server";
+import { fetchServer } from "@/api/fetch.server";
 
 export const postUserRefresh = async (refreshToken: string) => {
   return fetchServer("user/refresh/", {

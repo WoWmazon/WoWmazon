@@ -1,7 +1,7 @@
 import { isNull, isUndefined } from "@/utils/type-guard";
 import { fetchWithToken } from "../fetchApi";
 import { createQueryString } from "@/utils/apis/create-query-string";
-import { fetchClient } from "@/utils/apis/fetch.client";
+import { fetchClient } from "@/api/fetch.client";
 
 // 초기 productList를 불러오는 함수
 export const getProductList = async (queryParams?: ProductParamsType) => {
