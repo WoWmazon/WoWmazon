@@ -18,6 +18,22 @@ export const getProductList = async (queryParams?: ProductParamsType) => {
   return data;
 };
 
+//카테고리 불어오는 함수
+export const getCategoryId = async (
+  queryParams?: ProductCategoryParamsType
+) => {
+  let stringRecord: Record<string, string> = {};
+  if (queryParams) {
+    stringRecord = createQueryString(queryParams);
+  }
+  const data = await fetchWithToken<GetProductCategoryResponse>(
+    "category/",
+    {},
+    stringRecord
+  );
+  return data;
+};
+
 // product 상세 조회 GET /v1/product/{id}
 export const getProductDatail = async (id: string) => {
   try {

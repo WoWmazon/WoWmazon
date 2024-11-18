@@ -1,40 +1,37 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export const useRecentSearchStore = create<RecentSearchState>()(
+export const useRecentKeywordsStore = create<RecentKeywordsState>()(
   persist(
     (set, get) => ({
-      recentSearch: [],
-      addRecentSearch: (search) => {
-        const currentSearches = get().recentSearch;
-        if (currentSearches.includes(search)) return;
+      recentKeyword: [],
+      add: (keyword) => {
+        const currentSearches = get().recentKeyword;
         set({
-          recentSearch: [search, ...currentSearches],
+          recentKeyword: [
+            keyword,
+            ...currentSearches.filter((item) => item !== keyword),
+          ],
         });
       },
-      deleteRecentSearch: (search) => {
-        const currentSearches = get().recentSearch;
+      delete: (keyword) => {
+        const currentKeywords = get().recentKeyword;
         set({
-          recentSearch: currentSearches.filter((keyword) => keyword !== search),
+          recentKeyword: currentKeywords.filter((item) => item !== keyword),
         });
       },
-      clearRecentSearch: () => {
+      clear: () => {
         set({
-          recentSearch: [],
+          recentKeyword: [],
         });
       },
     }),
     {
-      name: "recent-search",
+      name: "recent-keywords",
       storage: createJSONStorage(() => localStorage),
     }
   )
 );
-
-export const useSearchFlagStore = create<SearchFlagState>()((set) => ({
-  searchFlag: false,
-  setSearchFlag: (flag) => set(() => ({ searchFlag: flag })),
-}));
 
 export const useSearchParamsStore = create<SearchParamsState>()((set) => ({
   searchParams: { search: "", ordering: "-discount_rate" },

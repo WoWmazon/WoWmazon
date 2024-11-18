@@ -1,47 +1,33 @@
 "use client";
 
-import { useEffect } from "react";
 import { useInfiniteSearchProduct } from "@/api/product/queries";
-import SearchHeader from "@/components/search/search-header";
+import SearchBar from "@/components/search/search-bar";
 import SearchResult from "@/components/search/search-result";
-import RecentSearch from "./recent-search";
+import SearchRecentKeywords from "./search-recent-keywords";
 import { isUndefined } from "@/utils/type-guard";
-import {
-  useSearchFlagStore,
-  useSearchParamsStore,
-} from "@/stores/search/stores";
+import { useSearchParamsStore } from "@/stores/search/stores";
 
 const SearchContainer = () => {
   const searchParams = useSearchParamsStore((state) => state.searchParams);
-  const { searchFlag, setSearchFlag } = useSearchFlagStore();
   // react-query로 데이터 페칭
-  const { data, isLoading, isFetching, isFetched, hasNextPage, fetchNextPage } =
-    useInfiniteSearchProduct(searchParams, searchFlag);
+  const { data, isLoading, isFetching, hasNextPage, fetchNextPage } =
+    useInfiniteSearchProduct(searchParams);
 
   const getAllFetchResults = () => {
     const pages = data?.pages;
     if (!pages) {
-      return [];
+      return { count: 0, cursor: "", results: [] };
     }
-    const results: ProductResultType[] = [];
-    pages.forEach((page) => {
-      results.push(...page.results);
-    });
+    const results = pages.flatMap((page) => page.results);
 
     return { count: pages[0].count, cursor: "", results };
   };
 
-  useEffect(() => {
-    if (isFetched) {
-      setSearchFlag(false);
-    }
-  }, [isFetched]);
-
   return (
     <div className="px-4 pt-16 text-ELSE-33">
-      <SearchHeader />
+      <SearchBar />
       {(!isFetching && isUndefined(data)) || searchParams.search === "" ? (
-        <RecentSearch />
+        <SearchRecentKeywords />
       ) : (
         <SearchResult
           data={getAllFetchResults()}

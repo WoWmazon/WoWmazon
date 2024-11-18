@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
 import ProductCard from "../products/productCard";
+import ProductCardSkelton from "../skeletons/product-card-skeleton";
 import SearchFilter from "./search-filter";
 import SearchNoneProduct from "./search-none-product";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const SearchResult = ({
   data,
@@ -9,31 +10,18 @@ const SearchResult = ({
   hasNextPage,
   fetchNextPage,
 }: SearchResultProps) => {
-  const observerRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && hasNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1 }
-    );
-
-    if (observerRef.current) observer.observe(observerRef.current);
-
-    return () => {
-      if (observerRef.current) observer.unobserve(observerRef.current);
-    };
-  }, [fetchNextPage, hasNextPage]);
+  const observerRef = useIntersectionObserver({ fetchNextPage, hasNextPage });
 
   return (
     <>
-      <SearchFilter count={data?.count ?? 0} />
+      <SearchFilter count={data.count} />
       {isLoading ? (
-        <div>loading...</div>
-      ) : data?.results?.length > 0 ? (
+        <>
+          {[...Array(5)].map((_, idx) => (
+            <ProductCardSkelton key={`pcs-0${idx + 1}`} />
+          ))}
+        </>
+      ) : data.results.length > 0 ? (
         <>
           {data.results.map((product: ProductResultType) => (
             <ProductCard
