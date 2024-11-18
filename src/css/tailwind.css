@@ -29,6 +29,10 @@
   .bi-circle-lg {
     background-image: url("../assets/icons/circle-lg.svg");
   }
+
+  .skeleton {
+    @apply bg-gradient-to-r from-ELSE-EC to-ELSE-F5 animate-pulse;
+  }
 }
 
 @layer base {
