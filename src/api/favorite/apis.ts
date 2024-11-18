@@ -2,7 +2,7 @@
 
 import { fetchWithToken } from "../fetchApi";
 
-// favorite product 목록 조회   /v1/favorite_product/
+// favorite product 목록 조회  GET /v1/favorite_product/
 export const getFavoriteProduct = async (
   queryParams?: Record<string, string>
 ) => {
@@ -18,7 +18,7 @@ export const getFavoriteProduct = async (
   }
 };
 
-// favorite product 등록   /v1/favorite_product/
+// favorite product 등록  POST /v1/favorite_product/
 export const postFavoriteProduct = async (productId: string) => {
   try {
     const data = await fetchWithToken<PostProductResponse>(
@@ -34,7 +34,7 @@ export const postFavoriteProduct = async (productId: string) => {
   }
 };
 
-// favorite product 삭제   /v1/favorite_product/delete_multiple/
+// favorite product 삭제  DELETE /v1/favorite_product/delete_multiple/
 export const deleteFavoriteProduct = async (productId: string) => {
   try {
     const data = await fetchWithToken<DeleteAndPutProductResponse>(
@@ -49,7 +49,7 @@ export const deleteFavoriteProduct = async (productId: string) => {
   }
 };
 
-// favorite product 수정   /v1/favorite_product/{id}/
+// favorite product 수정  PUT /v1/favorite_product/{id}/
 export const putFavoriteProduct = async (id: string, isAlarm: boolean) => {
   try {
     const data = await fetchWithToken<DeleteAndPutProductResponse>(

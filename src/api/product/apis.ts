@@ -18,11 +18,14 @@ export const getProductList = async (queryParams?: ProductParamsType) => {
   return data;
 };
 
-// product 상세
+// product 상세 조회 GET /v1/product/{id}
 export const getProductDatail = async (id: string) => {
   try {
     const data = await fetchWithToken<GetProductDatailResponse>(
-      `product/${id}/`
+      `product/${id}/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("상품 데이터가 비어있습니다.");
@@ -40,7 +43,10 @@ export const getProductPriceGraph = async () => {
   const month = "3";
   try {
     const data = await fetchWithToken<GetProductDatailResponse>(
-      `price_history/?period=${month}&product_id=${id}/`
+      `price_history/?period=${month}&product_id=${id}/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("상품 데이터가 비어있습니다.");
@@ -56,7 +62,10 @@ export const getProductPriceGraph = async () => {
 export const getProductPriceInfo = async (id: string) => {
   try {
     const data = await fetchWithToken<GetProductInfoResponse>(
-      `product/${id}/price_info/`
+      `product/${id}/price_info/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("데이터가 비어있습니다.");
@@ -72,7 +81,10 @@ export const getProductPriceInfo = async (id: string) => {
 export const getRelatedProductList = async (id: string) => {
   try {
     const data = await fetchWithToken<GetRelatedProductListResponse[]>(
-      `product/${id}/related_product_list/`
+      `product/${id}/related_product_list/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("데이터가 비어있습니다.");
