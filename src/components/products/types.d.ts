@@ -17,6 +17,11 @@ type ProductParamsType = {
   search?: string; // 검색어
 };
 
+type ProductCategoryParamsType = {
+  cursor?: string;
+  page_size?: number;
+};
+
 type OrderingType = "present_price" | "-discount_rate";
 
 // 임시로 만듦
@@ -32,6 +37,17 @@ type GetProductListResponse = {
   count: number;
   cursor: string;
   results: ProductResultType[];
+};
+
+type GetProductCategoryResponse = {
+  count: number;
+  cursor: string;
+  results: ProductCategoryTypeId[];
+};
+
+type ProductCategoryTypeId = {
+  id: number;
+  enTitle: string;
 };
 
 type ProductResultType = {
@@ -54,4 +70,16 @@ type ProductResultType = {
 type GetExchangeResponse = {
   usdToKrw: string;
   createdAt: string;
+};
+
+type CategorytButtonProps = {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+};
+
+type DropdownProps = {
+  initialValue?: string;
+  categories: string[];
+  onSelect: (category: string) => void;
 };
