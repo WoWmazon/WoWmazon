@@ -7,29 +7,42 @@ import alarmOn from "@/assets/icons/product_alarmOn.svg";
 import alarmOff from "@/assets/icons/product_alarmOff.svg";
 import Toast from "../common/toast";
 import { postFavoriteProduct } from "@/api/favorite/apis";
+import { useToastStore } from "@/stores/common/stores";
 
 const ProductDetailNav = (product: GetProductDatailResponse) => {
   const { id, isFavorite } = product;
 
-  // const [isAdd, setIsAdd] = useState(false); // 찜하기 연결 전 테스트용
   const [isWished, setIsWished] = useState(false);
-  const [isAlarm, setIsAlarm] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [isAlarmState, setIsAlarmState] = useState(false);
 
-  const handleAdd = () => {
-    // setIsAdd(!isAdd); // 찜하기 연결 전 테스트용
+  const { handleToast } = useToastStore();
+
+  // + 버튼 클릭 시 찜하기 추가 함수
+  const handleAdd = async () => {
     try {
-      const response = postFavoriteProduct(id);
+      const response = await postFavoriteProduct(id);
+      if (response?.productId) {
+        handleToast({
+          open: true,
+          onChange: () => handleToast({ open: false }),
+          message: "찜하기 추가되었습니다",
+        });
+      }
     } catch (error) {
       console.log("에러 : ", error);
     }
     setIsWished(!isWished);
-    setIsAlarm(true);
+    setIsAlarmState(true);
   };
 
+  // isFavorite: true(찜한 상품)일 경우 알림 허용/비허용으로 toast 처리만
   const handleAlarm = () => {
-    setIsAlarm(!isAlarm);
-    setIsActive(!isActive);
+    setIsAlarmState(!isAlarmState);
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: isAlarmState ? "알림 설정되었습니다" : "알림 해제되었습니다",
+    });
   };
 
   return (
@@ -42,31 +55,20 @@ const ProductDetailNav = (product: GetProductDatailResponse) => {
             size={60}
             alt="AddButton"
             onClick={handleAdd}
+            className="cursor-pointer"
           />
         )}
         {isFavorite && (
           <IconButton
-            icon={isAlarm ? alarmOn : alarmOff}
+            icon={isAlarmState ? alarmOn : alarmOff}
             size={60}
             alt="AlarmOn"
             onClick={handleAlarm}
+            className="cursor-pointer"
           />
         )}
       </div>
-      {isWished && (
-        <Toast
-          open={isWished}
-          onChange={setIsWished}
-          message={"찜하기 추가되었습니다"}
-        />
-      )}
-      {isActive && (
-        <Toast
-          open={isActive}
-          onChange={setIsActive}
-          message={isAlarm ? "알림 설정되었습니다" : "알림 해제되었습니다"}
-        />
-      )}
+      <Toast />
     </div>
   );
 };
