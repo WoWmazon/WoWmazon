@@ -18,10 +18,11 @@ const ExchangeBadge = async () => {
         hasIcon={false}
       />
       <p className="text-md">
-        {getFormattedExchangeText(
-          exchangeData.usdToKrw,
-          exchangeData.createdAt
-        )}
+        {exchangeData &&
+          getFormattedExchangeText(
+            exchangeData.usdToKrw,
+            exchangeData.createdAt
+          )}
       </p>
     </div>
   );
