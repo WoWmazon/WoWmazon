@@ -4,9 +4,8 @@ import {
   locales,
   LocaleTypes,
 } from "./utils/localization/settings";
-import { getCookie } from "./utils/cookie";
+import { getCookie } from "./utils/get-cookie";
 import { isUndefined } from "./utils/type-guard";
-import { postRefreshUser } from "./api/user/apis";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -28,42 +27,6 @@ export async function middleware(request: NextRequest) {
   // auth 페이지가 아니고 회원정보가 없으면
   if (!isAuth && isNotAuthorized) {
     return NextResponse.redirect(new URL("/auth/preference", request.url));
-  }
-
-  // auth 페이지가 아니고 access token이 만료되었으면
-  if (!isAuth && isExpired) {
-    // 유저 리프레시
-    const {
-      accessToken: newAccessToken,
-      refreshToken: newRefreshToken,
-      error,
-    } = await postRefreshUser(refreshToken || "");
-
-    if (!isUndefined(error)) {
-      // 리프레시 실패
-      const response = NextResponse.redirect(
-        new URL("/auth/sign-in", request.url)
-      );
-      response.cookies.set("accessToken", "", {
-        maxAge: 0,
-      });
-
-      return response;
-    }
-
-    const response = NextResponse.redirect(new URL("/", request.url));
-
-    // 리프레시 성공, 쿠키 저장
-    response.cookies.set("accessToken", newAccessToken, {
-      maxAge: 60 * 60 * 24 * 365,
-      secure: true,
-    });
-    response.cookies.set("refreshToken", newRefreshToken, {
-      maxAge: 60 * 60 * 24 * 365,
-      secure: true,
-    });
-
-    return response;
   }
 
   const pathSegments = pathname.split("/");
