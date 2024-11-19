@@ -1,6 +1,6 @@
 "use server";
 
-import { fetchWithoutToken } from "../fetchApi";
+import { fetchWithoutToken, fetchWithToken } from "../fetchApi";
 
 export const getNicknameValidate = async (nickname: string) => {
   try {
@@ -102,4 +102,8 @@ export const postLogin = async (device: string, refreshToken: string) => {
       error: e instanceof Error ? e.message : "Unknown error occurred",
     };
   }
+};
+
+export const getUserInfo = async () => {
+  return await fetchWithToken<UserInfoType>("user/me/");
 };
