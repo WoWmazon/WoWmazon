@@ -44,4 +44,5 @@ type GetRelatedProductListResponse = {
   isStopSelling: boolean; // 판매 중지 상품 여부
   presentPriceUpdatedAt: string; // 현재가 갱신 날짜
   title: string; // 상품명
+  exchangeData: GetExchangeResponse;
 };
