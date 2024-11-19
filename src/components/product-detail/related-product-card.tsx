@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
@@ -9,7 +9,6 @@ import IconButton from "../common/custom-icon-button";
 import add from "@/assets/icons/addProduct.svg";
 import Toast from "../common/toast";
 import { convertToKrw } from "@/utils/exchange";
-import { getExchangeLatest } from "@/api/exchange/apis";
 import { useRouter } from "next/navigation";
 
 const RelatedProductCard = (props: GetRelatedProductListResponse) => {

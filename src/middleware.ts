@@ -17,7 +17,6 @@ export async function middleware(request: NextRequest) {
 
   const isAuth = pathname.includes("auth"); // auth 페이지 인지 체크
   const isNotAuthorized = isUndefined(accessToken) && isUndefined(refreshToken); // 회원정보가 없는지 체크
-  const isExpired = isUndefined(accessToken); // access token이 만료되었는지 체크
 
   // auth 페이지이고 회원정보가 있으면
   if (isAuth && !isNotAuthorized) {
