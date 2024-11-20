@@ -27,13 +27,14 @@ const ProductList = ({
     page_size: page_size,
     search: search,
   });
-
-  const allProducts = data?.pages.flatMap((page) => page.results) || [];
-
   const intersectionObserverRef = useIntersectionObserver({
     fetchNextPage: fetchNextPage,
     hasNextPage: hasNextPage,
   });
+  if (!data) {
+    return <p>상품없음</p>;
+  }
+  const allProducts = data.pages.flatMap((page) => page.results) || [];
 
   if (isLoading) return <p>로딩 중...</p>;
   if (isError) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
