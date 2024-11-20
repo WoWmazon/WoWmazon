@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import CustomCheckBox from "../common/custom-checkbox";
 import CustomButton from "../common/custom-button";
-import { useSearchParamsStore } from "@/stores/search/stores";
+import { useSearchParamsStore } from "@/stores/prooduct/stores";
 
 const SearchFilter = ({ count }: { count: number }) => {
   const { searchParams, setSearchParams } = useSearchParamsStore();
