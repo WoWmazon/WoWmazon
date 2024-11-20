@@ -1,5 +1,5 @@
 type SearchResultProps = {
-  data: GetProductListResponse;
+  data: ProductResultType[];
   isLoading: boolean;
   hasNextPage: boolean;
   fetchNextPage: (

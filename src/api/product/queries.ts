@@ -11,4 +11,5 @@ export const useInfiniteSearchProduct = (data: SearchParamsType) =>
     initialPageParam: "",
     getNextPageParam: (lastPage) => lastPage.cursor,
     gcTime: 0,
+    enabled: data?.search !== "",
   });
