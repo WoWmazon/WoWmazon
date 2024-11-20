@@ -11,6 +11,7 @@ import CustomButton from "../common/custom-button";
 const TestComponents = () => {
   const [value, setValue] = useState("");
   const [value3, setValue3] = useState(false);
+  const [message, setMessage] = useState("");
   const ref = useRef<HTMLInputElement>(null);
 
   const focusInput = () => {
@@ -52,11 +53,23 @@ const TestComponents = () => {
       </div>
       <CustomButton
         variant="outlineColor"
-        onClick={() => setValue3((prev) => !prev)}
+        onClick={() => {
+          setValue3(true);
+          setMessage("toast");
+        }}
       >
         토스트
       </CustomButton>
-      {value3 && <Toast open={value3} onChange={setValue3} message="Toast" />}
+      <CustomButton
+        variant="outlineColor"
+        onClick={() => {
+          setValue3(true);
+          setMessage("toastfff");
+        }}
+      >
+        토스트
+      </CustomButton>
+      <Toast open={value3} onChange={setValue3} message={message} />
     </div>
   );
 };
