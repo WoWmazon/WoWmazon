@@ -9,11 +9,12 @@ const SearchRecentKeywordItem = ({
   const deleteRecentKeyword = useRecentKeywordsStore((state) => state.delete);
 
   return (
-    <div className="flex flex-row justify-between items-center h-11">
-      <div className="w-full select-none cursor-pointer" onClick={onClick}>
+    <div className="flex flex-row justify-between items-center h-11 cursor-pointer -mx-4 px-4 hover:bg-ELSE-F5">
+      <div className="w-full select-none" onClick={onClick}>
         {keyword}
       </div>
       <IconButton
+        className="size-5 justify-items-center rounded-full hover:bg-ELSE-FA"
         icon={DeleteButton}
         alt="delete-btn"
         onClick={() => deleteRecentKeyword(keyword)}
