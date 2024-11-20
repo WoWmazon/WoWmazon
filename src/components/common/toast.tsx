@@ -34,7 +34,7 @@ const Toast = ({
   }, [message, autoHideDuration, error, onChange]);
 
   if (toastMessage === "") {
-    return "";
+    return <></>;
   }
 
   return (
