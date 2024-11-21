@@ -12,6 +12,7 @@ import { handleDoubleCheckNickname } from "./handlers";
 const NicknameFields = ({
   isAvailableNickname,
   setIsAvailableNickname,
+  hasLabel = true,
 }: NicknameFieldProps) => {
   const locale = useParams()?.locale as LocaleTypes;
   const { t } = useTranslation(locale, "user");
@@ -53,10 +54,12 @@ const NicknameFields = ({
 
   return (
     <div className="flex flex-col gap-[6px]">
-      <p className="font-bold">
-        {t("sign-up.nickname")}
-        <span className="text-SYSTEM-main">*</span>
-      </p>
+      {hasLabel && (
+        <p className="font-bold">
+          {t("sign-up.nickname")}
+          <span className="text-SYSTEM-main">*</span>
+        </p>
+      )}
       <div className="grid grid-cols-[auto_auto] gap-2">
         <CustomInput
           className={twMerge(
