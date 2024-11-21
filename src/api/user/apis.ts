@@ -1,5 +1,3 @@
-"use server";
-
 import { fetchWithoutToken, fetchWithToken } from "../fetchApi";
 
 export const getNicknameValidate = async (nickname: string) => {
@@ -106,4 +104,14 @@ export const postLogin = async (device: string, refreshToken: string) => {
 
 export const getUserInfo = async () => {
   return await fetchWithToken<UserInfoType>("user/me/");
+};
+
+export const patchUserNickname = async (info: {
+  nickname?: string;
+  lang?: string;
+}) => {
+  return await fetchWithToken<UserInfoType>("user/me/", {
+    method: "PATCH",
+    body: JSON.stringify(info),
+  });
 };

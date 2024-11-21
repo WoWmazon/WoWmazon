@@ -13,7 +13,3 @@ type UserInfoType = {
   };
   hasUnreadNoti: boolean;
 };
-
-type MyPageInfoProps = {
-  data: UserInfoType;
-};
