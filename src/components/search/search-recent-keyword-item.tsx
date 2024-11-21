@@ -1,6 +1,6 @@
 import DeleteButton from "@/assets/icons/input-delete-button.svg";
 import IconButton from "../common/custom-icon-button";
-import { useRecentKeywordsStore } from "@/stores/search/stores";
+import { useRecentKeywordsStore } from "@/stores/prooduct/stores";
 
 const SearchRecentKeywordItem = ({
   keyword,

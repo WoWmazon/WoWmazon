@@ -3,7 +3,7 @@ import CustomButton from "../common/custom-button";
 import {
   useRecentKeywordsStore,
   useSearchParamsStore,
-} from "@/stores/search/stores";
+} from "@/stores/prooduct/stores";
 
 const SearchRecentKeywordsContainer = () => {
   const { recentKeyword, clear: clearRecentSearch } = useRecentKeywordsStore();

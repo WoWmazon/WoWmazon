@@ -6,13 +6,14 @@ type productPostCardProps = {
   presentPrice: string;
   discountRate: number;
 };
+type OrderingType = "present_price" | "-discount_rate";
 
 type ProductParamsType = {
   category_id?: number; // 카테고리 필터
   cursor?: string; // 페이지네이션 커서 값
   is_lowest_price_ever?: boolean; // 최저가 상품 여부 필터
   is_out_of_stock?: boolean; // 품절 상품 여부 필터
-  ordering?: "present_price" | "-discount_rate"; // 정렬 기준
+  ordering?: OrderingType; // 정렬 기준
   page_size?: number; // 페이지 당 결과 수
   search?: string; // 검색어
 };
@@ -22,13 +23,11 @@ type ProductCategoryParamsType = {
   page_size?: number;
 };
 
-type OrderingType = "present_price" | "-discount_rate";
-
 // 임시로 만듦
 type SearchParamsType = {
   cursor?: string; // 페이지네이션 커서 값
-  is_lowest_price_ever?: string; // 최저가 상품 여부 필터
-  is_out_of_stock?: string; // 품절 상품 여부 필터
+  is_lowest_price_ever?: string; // 최저가 상품 여부 필터/클릭했을때: true
+  is_out_of_stock?: string; // 품절 상품 여부 필터/클릭했을때:boolean
   ordering: OrderingType; // 정렬 기준
   search: string; // 검색어
 };

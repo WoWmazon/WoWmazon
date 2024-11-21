@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import {
   useRecentKeywordsStore,
   useSearchParamsStore,
-} from "@/stores/search/stores";
+} from "@/stores/prooduct/stores";
 import CustomInput from "../common/custom-input";
 import CustomButton from "../common/custom-button";
 
