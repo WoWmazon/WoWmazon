@@ -44,7 +44,6 @@ type GetRelatedProductListResponse = {
   isStopSelling: boolean; // 판매 중지 상품 여부
   presentPriceUpdatedAt: string; // 현재가 갱신 날짜
   title: string; // 상품명
-  exchangeData: GetExchangeResponse;
 };
 
 type GetFavoriteProductResponse = {
@@ -74,4 +73,10 @@ type PostProductResponse = {
 
 type DeleteAndPutProductResponse = {
   detail: string;
+};
+
+type FavoriteProductParamsType = {
+  cursor?: string; // 페이지네이션 커서 값
+  ordering?: "product_priority" | "present_price" | "-discount_rate"; // 정렬 기준
+  page_size?: number; // 페이지 당 결과 수
 };
