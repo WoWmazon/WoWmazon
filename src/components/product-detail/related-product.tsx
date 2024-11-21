@@ -1,10 +1,11 @@
 import { getRelatedProductList } from "@/api/product/apis";
 import { isNull, isUndefined } from "@/utils/type-guard";
 import RelatedProductCard from "./related-product-card";
+import { getExchangeLatest } from "@/api/exchange/apis";
 
 const RelatedProduct = async ({ productId }: { productId: string }) => {
   const relatedProducts = await getRelatedProductList(productId);
-
+  const exchangeData = await getExchangeLatest();
   if (isNull(relatedProducts) || isUndefined(relatedProducts)) {
     console.log("관련된 상품 데이터가 비어있습니다.");
     return null;
@@ -15,9 +16,15 @@ const RelatedProduct = async ({ productId }: { productId: string }) => {
       <div className="px-4 py-[30px]">
         <p className="font-bold mb-3">해당 상품과 비슷한 상품</p>
         <div className="w-full flex gap-3 overflow-x-auto">
-          {relatedProducts.map((item) => (
-            <RelatedProductCard key={item.id} {...item} />
-          ))}
+          {relatedProducts.map(
+            (item) =>
+              exchangeData && (
+                <RelatedProductCard
+                  key={item.id}
+                  {...{ ...item, exchangeData }}
+                />
+              )
+          )}
         </div>
       </div>
     </div>

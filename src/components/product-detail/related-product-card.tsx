@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
@@ -9,31 +9,16 @@ import IconButton from "../common/custom-icon-button";
 import add from "@/assets/icons/addProduct.svg";
 import Toast from "../common/toast";
 import { convertToKrw } from "@/utils/exchange";
-import { getExchangeLatest } from "@/api/exchange/apis";
 import { useRouter } from "next/navigation";
 
 const RelatedProductCard = (props: GetRelatedProductListResponse) => {
   const router = useRouter();
   const [isWished, setIsWished] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [exchangeData, setExchangeData] = useState<GetExchangeResponse>();
-
   const handleIconClick = () => {
     setIsWished(!isWished);
     setIsActive(!isActive);
   };
-
-  useEffect(() => {
-    const fetchExchange = async () => {
-      try {
-        const result = await getExchangeLatest();
-        setExchangeData(result);
-      } catch (error) {
-        console.log("에러 : ", error);
-      }
-    };
-    fetchExchange();
-  }, []);
 
   return (
     <div className="bg-SYSTEM-white">
@@ -77,7 +62,7 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
         </p>
         <p className="font-bold text-md text-SYSTEM-black">{`$ ${props.price}`}</p>
         <p className="text-md text-ELSE-76">
-          {convertToKrw(Number(exchangeData?.usdToKrw), props.price)}
+          {convertToKrw(Number(props.exchangeData.usdToKrw), props.price)}
         </p>
         {(props.isLowestPriceEver || props.discountRate !== 0) && (
           <div className="flex gap-1.5 mt-2">

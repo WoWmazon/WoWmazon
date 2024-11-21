@@ -1,10 +1,10 @@
 "use server";
 
-import { setCookie } from "@/utils/cookie";
 import { createDeviceInfo } from "@/utils/deviceUtils";
 import { LocaleTypes } from "@/utils/localization/settings";
 import { createRegisterBody } from "@/utils/registerUtils";
 import { fetchWithoutToken } from "@/api/fetchApi";
+import { setCookieServer } from "@/utils/set-cookie";
 
 export const postRegisterUser = async (
   data: FormInput,
@@ -37,10 +37,9 @@ export const postRegisterUser = async (
       secure: true,
       maxAge,
     };
-
-    setCookie("accessToken", accessToken, setCookieOptions);
-    setCookie("refreshToken", refreshToken, setCookieOptions);
-    setCookie("device", JSON.stringify(deviceInfo), setCookieOptions);
+    setCookieServer("accessToken", accessToken, setCookieOptions);
+    setCookieServer("refreshToken", refreshToken, setCookieOptions);
+    setCookieServer("device", JSON.stringify(deviceInfo), setCookieOptions);
   } catch (e) {
     console.error("Error during user registration:", e);
     throw new Error(e instanceof Error ? e.message : "Unknown error occurred");
