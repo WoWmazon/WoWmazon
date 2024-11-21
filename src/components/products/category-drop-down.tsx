@@ -14,7 +14,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleSelect = (category: string, idx: number) => {
+  const handleSelect = (category: string) => {
     setActiveCategory(category);
     onSelect(category);
     setIsOpen(false);
@@ -82,7 +82,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
               <CategoryDropDownButton
                 label={category}
                 isActive={activeCategory === category}
-                onClick={() => handleSelect(category, idx)}
+                onClick={() => handleSelect(category)}
               />
             </div>
           ))}
