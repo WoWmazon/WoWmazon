@@ -99,26 +99,3 @@ export const getRelatedProductList = async (id: string) => {
     console.log("에러 : ", error);
   }
 };
-
-export const getProductListBySearch = async (
-  queryParams?: SearchParamsType
-) => {
-  try {
-    let stringRecord: Record<string, string> = {};
-    if (queryParams) {
-      stringRecord = createQueryString(queryParams);
-    }
-    const data = await fetchWithToken<GetProductListResponse>(
-      "product/",
-      {
-        method: "GET",
-      },
-      stringRecord
-    );
-
-    return data;
-  } catch (error) {
-    console.error("에러:", error);
-    return { count: 0, cursor: "", results: [] };
-  }
-};

@@ -1,17 +1,18 @@
 "use client";
 
-import { useInfiniteSearchProduct } from "@/api/product/queries";
+import { useProductParamsStore } from "@/stores/prooduct/stores";
+import { useInfiniteScrollProductList } from "@/hooks/useInfiniteProductList";
 import SearchBar from "@/components/search/search-bar";
 import SearchResult from "@/components/search/search-result";
 import SearchRecentKeywords from "./search-recent-keywords";
 import SearchFilter from "./search-filter";
-import { useSearchParamsStore } from "@/stores/prooduct/stores";
 
 const SearchContainer = () => {
-  const searchParams = useSearchParamsStore((state) => state.searchParams);
-  // react-query로 데이터 페칭
-  const { data, isPending, hasNextPage, fetchNextPage } =
-    useInfiniteSearchProduct(searchParams);
+  const searchParams = useProductParamsStore((state) => state.searchParams);
+  const hasSearchKeyword = searchParams.search !== "";
+
+  const { data, isPending, isError, hasNextPage, fetchNextPage } =
+    useInfiniteScrollProductList(searchParams, hasSearchKeyword);
 
   const resultCount = data?.pages[0].count ?? 0;
   const resultData = data?.pages.flatMap((page) => page.results) ?? [];
@@ -19,7 +20,7 @@ const SearchContainer = () => {
   return (
     <div className="px-4 pt-16 text-ELSE-33">
       <SearchBar />
-      {searchParams.search === "" ? (
+      {!hasSearchKeyword ? (
         <SearchRecentKeywords />
       ) : (
         <>
@@ -27,6 +28,7 @@ const SearchContainer = () => {
           <SearchResult
             data={resultData}
             isLoading={isPending}
+            isError={isError}
             hasNextPage={hasNextPage}
             fetchNextPage={fetchNextPage}
           />

@@ -6,10 +6,15 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 const SearchResult = ({
   data,
   isLoading,
+  isError,
   hasNextPage,
   fetchNextPage,
 }: SearchResultProps) => {
   const observerRef = useIntersectionObserver({ fetchNextPage, hasNextPage });
+
+  if (isError) {
+    return <p>상품을 불러올 수 없습니다.</p>;
+  }
 
   if (isLoading) {
     return <ProductCardSkelton />;

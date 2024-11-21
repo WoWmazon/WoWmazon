@@ -1,6 +1,7 @@
 type SearchResultProps = {
   data: ProductResultType[];
   isLoading: boolean;
+  isError: boolean;
   hasNextPage: boolean;
   fetchNextPage: (
     options?: FetchNextPageOptions
