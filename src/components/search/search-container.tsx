@@ -5,7 +5,7 @@ import SearchBar from "@/components/search/search-bar";
 import SearchResult from "@/components/search/search-result";
 import SearchRecentKeywords from "./search-recent-keywords";
 import { isUndefined } from "@/utils/type-guard";
-import { useSearchParamsStore } from "@/stores/search/stores";
+import { useSearchParamsStore } from "@/stores/prooduct/stores";
 
 const SearchContainer = () => {
   const searchParams = useSearchParamsStore((state) => state.searchParams);

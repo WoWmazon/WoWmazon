@@ -33,7 +33,14 @@ export const useRecentKeywordsStore = create<RecentKeywordsState>()(
   )
 );
 
+//수정필요
 export const useSearchParamsStore = create<SearchParamsState>()((set) => ({
+  searchParams: { search: "", ordering: "-discount_rate" },
+  setSearchParams: (key, value) =>
+    set((state) => ({ searchParams: { ...state.searchParams, [key]: value } })),
+}));
+
+export const useProductParamsStore = create<ProductParamsState>()((set) => ({
   searchParams: { search: "", ordering: "-discount_rate" },
   setSearchParams: (key, value) =>
     set((state) => ({ searchParams: { ...state.searchParams, [key]: value } })),
