@@ -10,7 +10,8 @@ import Toast from "../common/toast";
 import { useToastStore } from "@/stores/common/stores";
 
 const ProductDetailNav = (product: GetProductDatailResponse) => {
-  const { id, isFavorite } = product;
+  // const { id, isFavorite } = product;
+  const { isFavorite } = product;
 
   const [isWished, setIsWished] = useState(false);
   const [isAlarmState, setIsAlarmState] = useState(false);
