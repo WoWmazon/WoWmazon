@@ -54,7 +54,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
       </div>
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute  w-[343px] h-[352px] overflow-auto shadow-lg rounded-sm z-10">
+        <div className="absolute  w-[343px] h-[352px] overflow-auto shadow-lg rounded-sm z-10 bg-SYSTEM-white">
           {categories.map((category, idx) => (
             <CategoryDropDownButton
               key={idx}
