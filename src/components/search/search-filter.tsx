@@ -1,10 +1,10 @@
 import { twMerge } from "tailwind-merge";
 import CustomCheckBox from "../common/custom-checkbox";
 import CustomButton from "../common/custom-button";
-import { useSearchParamsStore } from "@/stores/search/stores";
+import { useProductParamsStore } from "@/stores/prooduct/stores";
 
 const SearchFilter = ({ count }: { count: number }) => {
-  const { searchParams, setSearchParams } = useSearchParamsStore();
+  const { searchParams, setSearchParams } = useProductParamsStore();
 
   const handleClickOrdering = (order: OrderingType) => {
     setSearchParams("ordering", order);
@@ -18,8 +18,8 @@ const SearchFilter = ({ count }: { count: number }) => {
     const isChecked = e.target.checked;
     const value = isChecked
       ? key === "is_lowest_price_ever"
-        ? "true"
-        : "false"
+        ? true
+        : false
       : "";
 
     setSearchParams(key, value);
