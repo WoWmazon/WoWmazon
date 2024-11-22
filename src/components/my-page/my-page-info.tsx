@@ -40,7 +40,7 @@ const MyPageInfo = () => {
           src={Rename}
           alt="mypage-rename"
           width={24}
-          height={24}
+          height={30}
           onClick={setNicknameBottomSheet}
         />
       </div>
