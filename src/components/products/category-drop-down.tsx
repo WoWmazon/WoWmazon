@@ -73,10 +73,9 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
         <div className="absolute  w-[343px] max-h-[352px] overflow-y-auto shadow-lg rounded-sm z-10 bg-SYSTEM-white">
           {categories.map((category, idx) => (
             <div
-              key={idx}
+              key={category}
               ref={(el) => {
                 categoryRefs.current[idx] = el;
-                return undefined;
               }}
             >
               <CategoryDropDownButton
