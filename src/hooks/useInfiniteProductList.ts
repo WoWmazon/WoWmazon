@@ -2,7 +2,10 @@ import { getProductList } from "@/api/product/apis";
 import { PRODUCT_LIST } from "@/constants/query-keys";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export const useInfiniteScrollProductList = (params: ProductParamsType) => {
+export const useInfiniteScrollProductList = (
+  params: ProductParamsType,
+  isEnable: boolean = true
+) => {
   return useInfiniteQuery({
     queryKey: [PRODUCT_LIST, params],
     queryFn: ({ pageParam = "" }) => {
@@ -19,5 +22,6 @@ export const useInfiniteScrollProductList = (params: ProductParamsType) => {
       }
       return lastPage.cursor;
     },
+    enabled: isEnable,
   });
 };

@@ -23,15 +23,6 @@ type ProductCategoryParamsType = {
   page_size?: number;
 };
 
-// 임시로 만듦
-type SearchParamsType = {
-  cursor?: string; // 페이지네이션 커서 값
-  is_lowest_price_ever?: string; // 최저가 상품 여부 필터/클릭했을때: true
-  is_out_of_stock?: string; // 품절 상품 여부 필터/클릭했을때:boolean
-  ordering: OrderingType; // 정렬 기준
-  search: string; // 검색어
-};
-
 type GetProductListResponse = {
   count: number;
   cursor: string;
