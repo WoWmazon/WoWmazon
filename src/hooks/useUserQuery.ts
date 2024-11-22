@@ -6,7 +6,7 @@ export const USER_INFO = "userInfo";
 export const useQueryUserInfo = () =>
   useQuery({
     queryKey: [USER_INFO],
-    queryFn: getUserInfo,
+    queryFn: () => getUserInfo("me"),
   });
 
 export const useMutaionUserInfo = () => {
