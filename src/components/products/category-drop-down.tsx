@@ -45,7 +45,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
       if (activeIndex === -1) return;
       const scrollOptions: ScrollIntoViewOptions = {
         behavior: "smooth",
-        block: activeIndex === categories.length - 1 ? "nearest" : "center",
+        block: activeIndex > categories.length - 4 ? "nearest" : "center",
       };
       categoryRefs.current[activeIndex]?.scrollIntoView(scrollOptions);
     }
