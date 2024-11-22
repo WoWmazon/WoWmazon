@@ -1,6 +1,11 @@
 "use server";
 
-import { fetchWithoutToken, fetchWithToken } from "../fetchApi";
+import { cookies } from "next/headers";
+import {
+  fetchWithoutToken,
+  fetchWithToken,
+  fetchWithTokenReturnResponse,
+} from "../fetchApi";
 
 export const getNicknameValidate = async (nickname: string) => {
   try {
@@ -115,4 +120,26 @@ export const patchUserNickname = async (info: {
     method: "PATCH",
     body: JSON.stringify(info),
   });
+};
+
+export const postUserWithdrawal = async (id: string) => {
+  try {
+    const response = await fetchWithTokenReturnResponse(
+      `user/${id}/withdrawal/`,
+      {
+        method: "POST",
+        body: JSON.stringify({ reason: "resaon" }),
+      }
+    );
+    if (response.ok) {
+      const cookieStore = cookies();
+      cookieStore.delete("accessToken");
+      cookieStore.delete("refreshToken");
+      cookieStore.delete("device");
+    } else {
+      throw new Error("Withdrawal Failed");
+    }
+  } catch (e) {
+    throw new Error(e instanceof Error ? e.message : "Unknown error occurred");
+  }
 };
