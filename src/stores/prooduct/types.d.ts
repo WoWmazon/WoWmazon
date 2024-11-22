@@ -16,3 +16,9 @@ type ProductParamsState = {
   searchParams: ProductParamsType;
   setSearchParams: (key: string, value: boolean | null | string) => void;
 };
+
+// 찜한 상품
+type WishProductParamsState = {
+  favoriteParams: FavoriteProductParamsType;
+  setFavoriteParams: (key: string, value: string) => void;
+};
