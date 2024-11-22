@@ -19,20 +19,23 @@ const Toast = () => {
     if (isShow) {
       setIsShow(false);
     }
-    setTimeout(() => {
+
+    const firstTimer = setTimeout(() => {
       setIsShow(true);
       setIsOpen(true);
     }, 100);
-    const timer = setTimeout(async () => {
+
+    const secondTimer = setTimeout(() => {
       setIsOpen(false);
-      await new Promise((resolve) => {
-        setTimeout(resolve, 450);
-      });
-      onChange(false);
+      setTimeout(() => {
+        onChange(false);
+        setIsShow(false);
+      }, 450);
     }, autoHideDuration);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(firstTimer);
+      clearTimeout(secondTimer);
     };
   }, [open, message, autoHideDuration, error, onChange]);
 
