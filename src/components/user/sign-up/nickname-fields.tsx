@@ -37,6 +37,7 @@ const NicknameFields = ({
     onChange(e);
     if (!errors.nickname) {
       setIsAvailableNickname(false);
+      setValidation({ message: "", isError: false });
     }
   };
 
