@@ -45,3 +45,13 @@ export const useProductParamsStore = create<ProductParamsState>()((set) => ({
   setSearchParams: (key, value) =>
     set((state) => ({ searchParams: { ...state.searchParams, [key]: value } })),
 }));
+
+export const useWishListParamStore = create<WishProductParamsState>()(
+  (set) => ({
+    favoriteParams: { ordering: "product_priority" },
+    setFavoriteParams: (key, value) =>
+      set((state) => ({
+        favoriteParams: { ...state.favoriteParams, [key]: value },
+      })),
+  })
+);

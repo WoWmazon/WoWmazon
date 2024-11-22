@@ -1,21 +1,61 @@
-"use server";
+"use client";
 
-import { useFavoriteProductList } from "@/hooks/useFavoriteProduct";
 import WishListHeader from "./wish-list-header";
 import WishListNoContents from "./wish-list-nonecontents";
-// import { QueryClient } from "@tanstack/react-query";
+import WishList from "./wish-list";
+import { useFavoriteProductList } from "@/hooks/useFavoriteProduct";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useWishListParamStore } from "@/stores/prooduct/stores";
 
-const WishListContainer = async ({ params: { locale } }: PageProps) => {
+const WishListContainer = ({ params: { locale } }: PageProps) => {
+  const favoriteParams = useWishListParamStore((state) => state.favoriteParams);
 
-  // const queryClient = new QueryClient();
-  // const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useFavoriteProductList(params);
+  const {
+    data: wishProducts,
+    isError,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useFavoriteProductList({
+    ...favoriteParams,
+  });
 
-  const number = 5; //예시
+  const wishProductData =
+    wishProducts?.pages.flatMap((page) =>
+      page.results.map((result) => ({
+        wishId: result.id,
+        id: result.product.id,
+        image: result.product.image,
+        presentPrice: result.product.presentPrice,
+        isOutOfStock: result.product.isOutOfStock,
+        discountRate: result.product.discountRate,
+        isStopSelling: result.product.isStopSelling,
+        title: result.product.title,
+        isLowestPriceEver: result.product.isLowestPriceEver,
+        isAlarm: result.isAlarm,
+      }))
+    ) || [];
+
+  const intersectionObserverRef = useIntersectionObserver({
+    fetchNextPage: fetchNextPage,
+    hasNextPage: hasNextPage,
+  });
 
   return (
     <>
-      <WishListHeader wishListNumber={number} />
-      <WishListNoContents locale={locale} />
+      <WishListHeader wishListNumber={wishProductData.length || 0} />
+      {wishProductData.length ? (
+        <WishList
+          products={wishProductData}
+          isFetchingNextPage={isFetchingNextPage}
+          isLoading={isLoading}
+          isError={isError}
+          intersectionObserverRef={intersectionObserverRef}
+        />
+      ) : (
+        <WishListNoContents locale={locale} />
+      )}
     </>
   );
 };
