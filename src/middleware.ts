@@ -9,8 +9,10 @@ import { isUndefined } from "./utils/type-guard";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const newPathname =
-    pathname === "" || pathname === "/" ? "/wish-list" : pathname;
+
+  if (pathname === "" || pathname === "/") {
+    return NextResponse.redirect(new URL("/wish-list", request.url));
+  }
 
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
@@ -34,7 +36,7 @@ export async function middleware(request: NextRequest) {
 
   if (pathnameIsMissingLocale) {
     return NextResponse.rewrite(
-      new URL(`/${fallbackLng}${newPathname}`, request.url)
+      new URL(`/${fallbackLng}${pathname}`, request.url)
     );
   }
 
