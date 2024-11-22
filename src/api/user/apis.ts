@@ -1,3 +1,5 @@
+"use server";
+
 import { fetchWithoutToken, fetchWithToken } from "../fetchApi";
 
 export const getNicknameValidate = async (nickname: string) => {
@@ -11,7 +13,6 @@ export const getNicknameValidate = async (nickname: string) => {
     );
 
     const { ok, status } = response;
-
     const data = await response.json();
 
     if (!ok && !(status === 400)) {
