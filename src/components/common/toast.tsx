@@ -12,16 +12,16 @@ const Toast = () => {
     error = false,
     autoHideDuration = 3000,
   } = useToastStore();
-  const [isShow, setIsShow] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isShow) {
-      setIsShow(false);
+    if (isVisible) {
+      setIsVisible(false);
     }
 
     const firstTimer = setTimeout(() => {
-      setIsShow(true);
+      setIsVisible(true);
       setIsOpen(true);
     }, 100);
 
@@ -29,7 +29,7 @@ const Toast = () => {
       setIsOpen(false);
       setTimeout(() => {
         onChange(false);
-        setIsShow(false);
+        setIsVisible(false);
       }, 450);
     }, autoHideDuration);
 
@@ -46,7 +46,7 @@ const Toast = () => {
       <div
         className={twMerge(
           "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
-          isShow ? "block" : "hidden",
+          isVisible ? "block" : "hidden",
           isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",
           error && "bg-ELSE-FF2 text-ELSE-F60"
