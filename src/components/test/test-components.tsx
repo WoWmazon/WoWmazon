@@ -7,17 +7,25 @@ import CustomRadio from "../common/custom-radio";
 import CustomToggle from "../common/custom-toggle";
 import Toast from "../common/toast";
 import CustomButton from "../common/custom-button";
+import { useToastStore } from "@/stores/common/stores";
 
 const TestComponents = () => {
   const [value, setValue] = useState("");
-  const [value3, setValue3] = useState(false);
-  const [message, setMessage] = useState("");
   const ref = useRef<HTMLInputElement>(null);
+  const { handleToast } = useToastStore();
 
   const focusInput = () => {
     if (ref.current) {
       ref.current.focus();
     }
+  };
+
+  const setToast = () => {
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: "Toast",
+    });
   };
 
   return (
@@ -51,25 +59,10 @@ const TestComponents = () => {
         />
         <CustomButton onClick={focusInput}>포커스 인풋</CustomButton>
       </div>
-      <CustomButton
-        variant="outlineColor"
-        onClick={() => {
-          setValue3(true);
-          setMessage("toast");
-        }}
-      >
+      <CustomButton variant="outlineColor" onClick={setToast}>
         토스트
       </CustomButton>
-      <CustomButton
-        variant="outlineColor"
-        onClick={() => {
-          setValue3(true);
-          setMessage("toastfff");
-        }}
-      >
-        토스트
-      </CustomButton>
-      <Toast open={value3} onChange={setValue3} message={message} />
+      <Toast />
     </div>
   );
 };

@@ -2,12 +2,12 @@ import SearchRecentKeywordItem from "./search-recent-keyword-item";
 import CustomButton from "../common/custom-button";
 import {
   useRecentKeywordsStore,
-  useSearchParamsStore,
-} from "@/stores/search/stores";
+  useProductParamsStore,
+} from "@/stores/prooduct/stores";
 
 const SearchRecentKeywordsContainer = () => {
   const { recentKeyword, clear: clearRecentSearch } = useRecentKeywordsStore();
-  const setSearchParams = useSearchParamsStore(
+  const setSearchParams = useProductParamsStore(
     (state) => state.setSearchParams
   );
 

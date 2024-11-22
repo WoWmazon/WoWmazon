@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
@@ -9,31 +9,29 @@ import IconButton from "../common/custom-icon-button";
 import add from "@/assets/icons/addProduct.svg";
 import Toast from "../common/toast";
 import { convertToKrw } from "@/utils/exchange";
-import { getExchangeLatest } from "@/api/exchange/apis";
 import { useRouter } from "next/navigation";
+import { useToastStore } from "@/stores/common/stores";
 
 const RelatedProductCard = (props: GetRelatedProductListResponse) => {
   const router = useRouter();
-  const [isWished, setIsWished] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [exchangeData, setExchangeData] = useState<GetExchangeResponse>();
 
-  const handleIconClick = () => {
-    setIsWished(!isWished);
+  const { handleToast } = useToastStore();
+
+  const setToast = () => {
     setIsActive(!isActive);
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: isActive ? "찜하기 추가되었습니다" : "찜하기 삭제되었습니다",
+    });
   };
 
-  useEffect(() => {
-    const fetchExchange = async () => {
-      try {
-        const result = await getExchangeLatest();
-        setExchangeData(result);
-      } catch (error) {
-        console.log("에러 : ", error);
-      }
-    };
-    fetchExchange();
-  }, []);
+  const wishAddButton = () => (
+    <div className="absolute bottom-2 right-3 z-10">
+      <IconButton icon={add} size={32} alt="WishAddButton" onClick={setToast} />
+    </div>
+  );
 
   return (
     <div className="bg-SYSTEM-white">
@@ -50,26 +48,12 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
               height={120}
               className="size-full object-contain object-center"
             />
-            <div className="absolute bottom-2 right-3 z-10">
-              <IconButton
-                icon={add}
-                size={32}
-                alt="WishAddButton"
-                onClick={handleIconClick}
-              />
-            </div>
+            {wishAddButton()}
           </div>
         ) : (
           <div className="relative bg-ELSE-EC size-[120px] rounded-md content-center justify-items-center">
             <Image src={noImage} alt="no-image" className="size-[80px] pb-3" />
-            <div className="absolute bottom-2 right-3 z-10">
-              <IconButton
-                icon={add}
-                size={32}
-                alt="WishAddButton"
-                onClick={handleIconClick}
-              />
-            </div>
+            {wishAddButton()}
           </div>
         )}
         <p className="line-clamp-2 text-md text-ELSE-55 mt-3 mb-2">
@@ -77,7 +61,7 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
         </p>
         <p className="font-bold text-md text-SYSTEM-black">{`$ ${props.price}`}</p>
         <p className="text-md text-ELSE-76">
-          {convertToKrw(Number(exchangeData?.usdToKrw), props.price)}
+          {convertToKrw(Number(props.exchangeData.usdToKrw), props.price)}
         </p>
         {(props.isLowestPriceEver || props.discountRate !== 0) && (
           <div className="flex gap-1.5 mt-2">
@@ -107,13 +91,7 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
           </div>
         )}
       </div>
-      {isWished && (
-        <Toast
-          open={isWished}
-          onChange={setIsWished}
-          message={isActive ? "찜하기 추가되었습니다" : "찜하기 삭제되었습니다"}
-        />
-      )}
+      <Toast />
     </div>
   );
 };

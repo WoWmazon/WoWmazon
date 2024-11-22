@@ -2,20 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useToastStore } from "@/stores/common/stores";
 
-const Toast = ({
-  message,
-  onChange,
-  error = false,
-  autoHideDuration = 3000,
-}: ToastProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+const Toast = () => {
+  const {
+    message,
+    open,
+    onChange,
+    error = false,
+    autoHideDuration = 3000,
+  } = useToastStore();
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setIsOpen(true);
-      setToastMessage(message);
     }, 100);
 
     const timer = setTimeout(async () => {
@@ -24,18 +25,14 @@ const Toast = ({
         setTimeout(resolve, 450);
       });
       onChange(false);
-      setToastMessage("");
     }, autoHideDuration);
 
     return () => {
       clearTimeout(timer);
-      setToastMessage("");
     };
   }, [message, autoHideDuration, error, onChange]);
 
-  if (toastMessage === "") {
-    return <></>;
-  }
+  if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 
   return (
     <div className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px]">
@@ -48,7 +45,7 @@ const Toast = ({
         )}
         role="alert"
       >
-        {toastMessage}
+        {message}
       </div>
     </div>
   );

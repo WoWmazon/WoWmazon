@@ -37,3 +37,13 @@ type BottomSheetState = {
   handleOptional?: () => void; // modal optional outline button action
   handleBottomSheet: (bottomSheetState: Partial<BottomSheetState>) => void;
 };
+
+// Custom Toast
+type ToastState = {
+  message: string;
+  open: boolean;
+  onChange: (isOpen: boolean) => void;
+  error?: boolean;
+  autoHideDuration?: number;
+  handleToast: (toastState: Partial<ToastState>) => void;
+}

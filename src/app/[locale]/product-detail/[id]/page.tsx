@@ -23,7 +23,7 @@ const page = async ({ params }: { params: { id: string } }) => {
       <div>
         <RelatedProduct productId={params.id} />
       </div>
-      <ProductDetailNav isFavorite={product!.isFavorite} />
+      <ProductDetailNav {...product} />
     </div>
   );
 };

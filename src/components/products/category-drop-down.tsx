@@ -8,6 +8,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>("All");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const categoryRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -35,6 +36,21 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
     };
   }, []);
 
+  // 드롭다운 열릴 때 선택된 항목으로 스크롤
+  useEffect(() => {
+    if (isOpen && activeCategory) {
+      const activeIndex = categories.findIndex(
+        (category) => category === activeCategory
+      );
+      if (activeIndex === -1) return;
+      const scrollOptions: ScrollIntoViewOptions = {
+        behavior: "smooth",
+        block: activeIndex > categories.length - 4 ? "nearest" : "center",
+      };
+      categoryRefs.current[activeIndex]?.scrollIntoView(scrollOptions);
+    }
+  }, [isOpen, activeCategory, categories]);
+
   return (
     <div className="relative" ref={dropdownRef}>
       {/* 드롭다운 버튼 */}
@@ -54,14 +70,20 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
       </div>
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute  w-[343px] h-[352px] overflow-auto shadow-lg rounded-sm z-10">
+        <div className="absolute  w-[343px] max-h-[352px] overflow-y-auto shadow-lg rounded-sm z-10 bg-SYSTEM-white">
           {categories.map((category, idx) => (
-            <CategoryDropDownButton
-              key={idx}
-              label={category}
-              isActive={activeCategory === category}
-              onClick={() => handleSelect(category)}
-            />
+            <div
+              key={category}
+              ref={(el) => {
+                categoryRefs.current[idx] = el;
+              }}
+            >
+              <CategoryDropDownButton
+                label={category}
+                isActive={activeCategory === category}
+                onClick={() => handleSelect(category)}
+              />
+            </div>
           ))}
         </div>
       )}
