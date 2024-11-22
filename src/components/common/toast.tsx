@@ -12,13 +12,17 @@ const Toast = () => {
     error = false,
     autoHideDuration = 3000,
   } = useToastStore();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isShow, setIsShow] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    if (isShow) {
+      setIsShow(false);
+    }
     setTimeout(() => {
+      setIsShow(true);
       setIsOpen(true);
     }, 100);
-
     const timer = setTimeout(async () => {
       setIsOpen(false);
       await new Promise((resolve) => {
@@ -30,7 +34,7 @@ const Toast = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [message, autoHideDuration, error, onChange]);
+  }, [open, message, autoHideDuration, error, onChange]);
 
   if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 
@@ -39,6 +43,7 @@ const Toast = () => {
       <div
         className={twMerge(
           "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
+          isShow ? "block" : "hidden",
           isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",
           error && "bg-ELSE-FF2 text-ELSE-F60"
