@@ -1,11 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
-import {
-  fetchWithoutToken,
-  fetchWithToken,
-  fetchWithTokenReturnResponse,
-} from "../fetchApi";
+import { fetchWithoutToken, fetchWithToken } from "../fetchApi";
+import { getValidAccessToken } from "@/auth/token";
 
 export const getNicknameValidate = async (nickname: string) => {
   try {
@@ -124,13 +121,24 @@ export const patchUserNickname = async (info: {
 
 export const postUserWithdrawal = async (id: string) => {
   try {
-    const response = await fetchWithTokenReturnResponse(
-      `user/${id}/withdrawal/`,
+    const token = await getValidAccessToken();
+
+    if (!token) {
+      throw new Error("token error");
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_NITO_URL}/user/${id}/withdrawal/`,
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ reason: "resaon" }),
       }
     );
+
     if (response.ok) {
       const cookieStore = cookies();
       cookieStore.delete("accessToken");

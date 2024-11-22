@@ -2,7 +2,6 @@
 
 import { createURLWithParams } from "@/utils/apis/create-URL-Params";
 import { getValidAccessToken } from "@/auth/token";
-import { NextResponse } from "next/server";
 
 const NITO_BASE_URL = process.env.NEXT_PUBLIC_NITO_URL;
 
@@ -50,32 +49,6 @@ export const fetchWithoutToken = async (
       ...options.headers,
     },
     credentials: "include",
-  });
-
-  return response;
-};
-
-export const fetchWithTokenReturnResponse = async (
-  endpoint: string,
-  options: RequestInit = {},
-  queryParams?: Record<string, string> // 쿼리 파라미터를 위한 인수 추가
-): Promise<Response> => {
-  const url = createURLWithParams(`${NITO_BASE_URL}`, endpoint, queryParams);
-
-  const token = await getValidAccessToken();
-
-  if (!token) {
-    throw new Error();
-  }
-  const response = await fetch(url, {
-    method: options.method || "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      ...options.headers, // 추가 헤더 병합
-    },
-    credentials: "include", // 자격증명 포함
-    ...options,
   });
 
   return response;
