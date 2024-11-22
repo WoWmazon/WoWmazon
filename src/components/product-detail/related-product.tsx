@@ -21,7 +21,8 @@ const RelatedProduct = async ({ productId }: { productId: string }) => {
               exchangeData && (
                 <RelatedProductCard
                   key={item.id}
-                  {...{ ...item, exchangeData }}
+                  relatedProduct={item}
+                  exchangeData={exchangeData}
                 />
               )
           )}

@@ -12,7 +12,15 @@ import { convertToKrw } from "@/utils/exchange";
 import { useRouter } from "next/navigation";
 import { useToastStore } from "@/stores/common/stores";
 
-const RelatedProductCard = (props: GetRelatedProductListResponse) => {
+const RelatedProductCard = ({
+  relatedProduct,
+  exchangeData,
+}: {
+  relatedProduct: GetRelatedProductListResponse;
+  exchangeData: GetExchangeResponse;
+}) => {
+  const { id, image, title, price, isLowestPriceEver, discountRate } =
+    relatedProduct;
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
 
@@ -37,12 +45,12 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
     <div className="bg-SYSTEM-white">
       <div
         className="h-full w-[120px] cursor-pointer"
-        onClick={() => router.push(`/product-detail/${props.id}`)}
+        onClick={() => router.push(`/product-detail/${id}`)}
       >
-        {props.image ? (
+        {image ? (
           <div className="relative size-[120px] rounded-md bg-ELSE-EC overflow-hidden">
             <Image
-              src={props.image}
+              src={image}
               alt="product-image"
               width={120}
               height={120}
@@ -56,16 +64,14 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
             {wishAddButton()}
           </div>
         )}
-        <p className="line-clamp-2 text-md text-ELSE-55 mt-3 mb-2">
-          {props.title}
-        </p>
-        <p className="font-bold text-md text-SYSTEM-black">{`$ ${props.price}`}</p>
+        <p className="line-clamp-2 text-md text-ELSE-55 mt-3 mb-2">{title}</p>
+        <p className="font-bold text-md text-SYSTEM-black">{`$ ${price}`}</p>
         <p className="text-md text-ELSE-76">
-          {convertToKrw(Number(props.exchangeData.usdToKrw), props.price)}
+          {convertToKrw(Number(exchangeData.usdToKrw), price)}
         </p>
-        {(props.isLowestPriceEver || props.discountRate !== 0) && (
+        {(isLowestPriceEver || discountRate !== 0) && (
           <div className="flex gap-1.5 mt-2">
-            {props.isLowestPriceEver && (
+            {isLowestPriceEver && (
               <Badge
                 text="역대최저가"
                 height="h-[18px]"
@@ -76,9 +82,9 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
                 iconWidth={12}
               />
             )}
-            {props.discountRate !== 0 && (
+            {discountRate !== 0 && (
               <Badge
-                text={`${props.discountRate}%`}
+                text={`${discountRate}%`}
                 height="h-[18px]"
                 hasIcon={true}
                 iconSrc={arrowDown}
