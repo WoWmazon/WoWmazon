@@ -1,22 +1,37 @@
+import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import NicknameFields from "../user/sign-up/nickname-fields";
-import { useState } from "react";
+import CustomButton from "../common/custom-button";
+import { useMutaionUserInfo } from "@/hooks/useUserQuery";
 
-const NicknameEditForm = ({ nickname }: { nickname: string }) => {
+const NicknameEditForm = ({
+  nickname,
+  onClose,
+}: {
+  nickname: string;
+  onClose: () => void;
+}) => {
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
-
-  const formMethods = useForm<FormInput>({
+  const { mutate } = useMutaionUserInfo();
+  const formMethods = useForm<EditNicknameFormType>({
     mode: "onChange",
     defaultValues: {
       nickname: nickname,
     },
   });
 
-  const { handleSubmit } = formMethods;
+  const { getValues, handleSubmit } = formMethods;
 
-  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+  const onSubmit: SubmitHandler<EditNicknameFormType> = async (data) => {
     if (!isAvailableNickname) return;
-    console.log(data.nickname);
+    if (getValues("nickname") === nickname) {
+      alert("변경 내용이 없습니다.");
+      onClose();
+      return;
+    }
+    mutate({ nickname: data.nickname });
+    setIsAvailableNickname(false);
+    onClose();
   };
 
   return (
@@ -28,6 +43,12 @@ const NicknameEditForm = ({ nickname }: { nickname: string }) => {
             setIsAvailableNickname={setIsAvailableNickname}
             hasLabel={false}
           />
+          <CustomButton
+            variant={isAvailableNickname ? "filled" : "disabled"}
+            type="submit"
+          >
+            완료
+          </CustomButton>
         </form>
       </FormProvider>
     </div>

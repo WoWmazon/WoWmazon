@@ -13,3 +13,7 @@ type UserInfoType = {
   };
   hasUnreadNoti: boolean;
 };
+
+type EditNicknameFormType = {
+  nickname: string;
+};

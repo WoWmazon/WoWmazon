@@ -1,32 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useBottomSheetStore } from "@/stores/common/stores";
-import BottomSheet from "@/components/common/bottom-sheet";
+import { useQueryUserInfo } from "@/hooks/useUserQuery";
+import { useSimpleBottomSheetStore } from "@/stores/common/stores";
+import SimpleBottomSheet from "@/components/common/simple-bottom-sheet";
 import NicknameEditForm from "./nickname-edit-form";
 
 import Rename from "@/assets/icons/mypage_rename.svg";
-import { useMutaionUserInfo, useQueryUserInfo } from "@/hooks/useUserQuery";
 
 const MyPageInfo = () => {
+  const [editFormNickname, setEditFormNickname] = useState("");
   const { data } = useQueryUserInfo();
-  const { mutate } = useMutaionUserInfo();
-  const { handleBottomSheet } = useBottomSheetStore();
+  const { handleSimpleBottomSheet } = useSimpleBottomSheetStore();
 
   const setNicknameBottomSheet = () => {
-    handleBottomSheet({
-      children: <NicknameEditForm nickname={data?.nickname} />,
+    handleSimpleBottomSheet({
+      children: (
+        <NicknameEditForm
+          nickname={editFormNickname}
+          onClose={() => handleSimpleBottomSheet({ isShow: false })}
+        />
+      ),
       isShow: true,
-      hasDelBtn: true,
-      handleClose: () => handleBottomSheet({ isShow: false }),
-      title: "닉네임 변경하기",
-      btnText: "완료",
-      handleAction: () => {
-        mutate({ nickname: "newJeans1" });
-        handleBottomSheet({ isShow: false });
-      },
+      handleClose: () => handleSimpleBottomSheet({ isShow: false }),
     });
   };
+
+  useEffect(() => {
+    setEditFormNickname(data?.nickname ?? "");
+  }, [data]);
 
   return (
     <div className="py-5 px-4">
@@ -41,7 +44,7 @@ const MyPageInfo = () => {
           onClick={setNicknameBottomSheet}
         />
       </div>
-      <BottomSheet />
+      <SimpleBottomSheet />
     </div>
   );
 };
