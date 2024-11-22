@@ -33,18 +33,10 @@ const ProductDetailNav = (product: GetProductDatailResponse) => {
     }
     setIsWished(!isWished);
     setIsAlarmState(true);
-    setIsAlarmState(true);
   };
 
   // isFavorite: true(찜한 상품)일 경우 알림 허용/비허용으로 toast 처리만
-  // isFavorite: true(찜한 상품)일 경우 알림 허용/비허용으로 toast 처리만
   const handleAlarm = () => {
-    setIsAlarmState(!isAlarmState);
-    handleToast({
-      open: true,
-      onChange: () => handleToast({ open: false }),
-      message: isAlarmState ? "알림 설정되었습니다" : "알림 해제되었습니다",
-    });
     setIsAlarmState(!isAlarmState);
     handleToast({
       open: true,
@@ -64,22 +56,18 @@ const ProductDetailNav = (product: GetProductDatailResponse) => {
             alt="AddButton"
             onClick={handleAdd}
             className="cursor-pointer"
-            className="cursor-pointer"
           />
         )}
         {isFavorite && (
           <IconButton
             icon={isAlarmState ? alarmOn : alarmOff}
-            icon={isAlarmState ? alarmOn : alarmOff}
             size={60}
             alt="AlarmOn"
             onClick={handleAlarm}
             className="cursor-pointer"
-            className="cursor-pointer"
           />
         )}
       </div>
-      <Toast />
       <Toast />
     </div>
   );
