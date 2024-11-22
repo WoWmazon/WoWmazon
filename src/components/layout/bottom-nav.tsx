@@ -1,14 +1,28 @@
 "use client";
 import IconButton from "../common/custom-icon-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { iconButtons } from "@/constants/bottom-nav-button";
 import BottomNavIconButton from "./bottom-nav-iconButton";
 import add from "@/assets/icons/addProduct.svg";
 import { useRouter } from "next/navigation";
 
 const BottomNav = () => {
-  const [isActiveButton, setIsActiveButton] = useState<number | null>(null);
+  const currentPath = window.location.pathname;
+  console.log(currentPath, "나 커렌트 패쓰야 건들지마!!");
+  const initialActiveIndex = iconButtons.findIndex(
+    (btn) => btn.path === currentPath
+  );
+  const [isActiveButton, setIsActiveButton] = useState<number | null>(
+    initialActiveIndex
+  );
   const router = useRouter();
+
+  useEffect(() => {
+    const activeIndex = iconButtons.findIndex(
+      (btn) => btn.path === currentPath
+    );
+    setIsActiveButton(activeIndex !== -1 ? activeIndex : null);
+  }, [currentPath]);
 
   const handleIconClick = (
     index: number,
