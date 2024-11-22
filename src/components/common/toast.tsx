@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useToastStore } from "@/stores/common/stores";
 
-const Toast = ({
-  message,
-  open,
-  onChange,
-  error = false,
-  autoHideDuration = 3000,
-}: ToastProps) => {
+const Toast = () => {
+  const {
+    message,
+    open,
+    onChange,
+    error = false,
+    autoHideDuration = 3000,
+  } = useToastStore();
   const [isOpen, setIsOpen] = useState(true);
 
   setTimeout(async () => {
@@ -19,6 +21,8 @@ const Toast = ({
     });
     onChange(false);
   }, autoHideDuration);
+
+  if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 
   return (
     <div className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px]">
