@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   useRecentKeywordsStore,
-  useSearchParamsStore,
+  useProductParamsStore,
 } from "@/stores/prooduct/stores";
 import CustomInput from "../common/custom-input";
 import CustomButton from "../common/custom-button";
@@ -19,7 +19,7 @@ const SearchBar = () => {
   const {
     searchParams: { search },
     setSearchParams,
-  } = useSearchParamsStore();
+  } = useProductParamsStore();
 
   const handleSearchSubmit = () => {
     if (inputValue === "") return;
@@ -42,7 +42,7 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
-    setInputValue(search);
+    setInputValue(search ?? "");
   }, [search, setInputValue]);
 
   return (
