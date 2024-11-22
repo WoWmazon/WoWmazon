@@ -4,33 +4,29 @@ import { useEffect, useState } from "react";
 import { iconButtons } from "@/constants/bottom-nav-button";
 import BottomNavIconButton from "./bottom-nav-iconButton";
 import add from "@/assets/icons/addProduct.svg";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const BottomNav = () => {
-  const currentPath = window.location.pathname;
-  console.log(currentPath, "나 커렌트 패쓰야 건들지마!!");
-  const initialActiveIndex = iconButtons.findIndex(
-    (btn) => btn.path === currentPath
-  );
-  const [isActiveButton, setIsActiveButton] = useState<number | null>(
-    initialActiveIndex
-  );
+  const pathName = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    const activeIndex = iconButtons.findIndex(
-      (btn) => btn.path === currentPath
-    );
-    setIsActiveButton(activeIndex !== -1 ? activeIndex : null);
-  }, [currentPath]);
+  //버튼경로랑 현재 경로가 같은 인덱스 찾는 함수
+  const activeIndex = iconButtons.findIndex((btn) => btn.path === pathName);
 
+  const [isActiveButton, setIsActiveButton] = useState<number | null>(
+    activeIndex
+  );
+  useEffect(() => {
+    setIsActiveButton(activeIndex);
+  }, [activeIndex]);
   const handleIconClick = (
     index: number,
     action?: () => void,
     path?: string
   ) => {
-    setIsActiveButton((prev) => (prev === index ? null : index));
-
+    if (isActiveButton !== index) {
+      setIsActiveButton(index);
+    }
     if (action) {
       action();
     } else if (path) {
