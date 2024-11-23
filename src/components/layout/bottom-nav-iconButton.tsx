@@ -20,7 +20,7 @@ const BottomNavIconButton = ({
       />
       <p
         className={twMerge(
-          "text-sm font-bold",
+          "text-sm font-bold transition-all duration-300",
           isActive ? "text-SYSTEM-main" : "text-ELSE-55"
         )}
       >

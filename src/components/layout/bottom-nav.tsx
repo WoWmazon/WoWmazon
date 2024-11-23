@@ -1,22 +1,32 @@
 "use client";
 import IconButton from "../common/custom-icon-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { iconButtons } from "@/constants/bottom-nav-button";
 import BottomNavIconButton from "./bottom-nav-iconButton";
 import add from "@/assets/icons/addProduct.svg";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const BottomNav = () => {
-  const [isActiveButton, setIsActiveButton] = useState<number | null>(null);
+  const pathName = usePathname();
   const router = useRouter();
 
+  //버튼경로랑 현재 경로가 같은 인덱스 찾는 함수
+  const activeIndex = iconButtons.findIndex((btn) => btn.path === pathName);
+
+  const [isActiveButton, setIsActiveButton] = useState<number | null>(
+    activeIndex
+  );
+  useEffect(() => {
+    setIsActiveButton(activeIndex);
+  }, [activeIndex]);
   const handleIconClick = (
     index: number,
     action?: () => void,
     path?: string
   ) => {
-    setIsActiveButton((prev) => (prev === index ? null : index));
-
+    if (isActiveButton !== index) {
+      setIsActiveButton(index);
+    }
     if (action) {
       action();
     } else if (path) {
