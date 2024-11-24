@@ -22,3 +22,12 @@ type MyPageNotificationSettingProps = {
   agreement: boolean;
   pushNotification: boolean;
 };
+
+type MutationUserInfoType = {
+  id: string;
+  info: { nickname?: string; lang?: string };
+};
+
+type MutationAgreementType = { id: string; agreement: boolean };
+
+type MutationPushNotificationType = { id: string; isAlarm: boolean };

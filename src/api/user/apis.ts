@@ -109,24 +109,27 @@ export const getUserInfo = async (id: string) => {
   return await fetchWithToken<UserInfoType>(`user/${id}/`);
 };
 
-export const patchUserNickname = async (info: {
-  nickname?: string;
-  lang?: string;
-}) => {
-  return await fetchWithToken<UserInfoType>("user/me/", {
+export const patchUserNickname = async (
+  id: string,
+  info: {
+    nickname?: string;
+    lang?: string;
+  }
+) => {
+  return await fetchWithToken<UserInfoType>(`user/${id}/`, {
     method: "PATCH",
     body: JSON.stringify(info),
   });
 };
 
-export const putAgreement = async (agreement: boolean) => {
-  return await fetchWithToken("agreement/me/", {
+export const putAgreement = async (id: string, agreement: boolean) => {
+  return await fetchWithToken(`agreement/${id}/`, {
     method: "PUT",
     body: JSON.stringify({ isMarketing: agreement }),
   });
 };
-export const patchPushNotification = async (isAlarm: boolean) => {
-  return await fetchWithToken("push_notification/me/", {
+export const patchPushNotification = async (id: string, isAlarm: boolean) => {
+  return await fetchWithToken(`push_notification/${id}/`, {
     method: "PATCH",
     body: JSON.stringify({ isAlarm }),
   });

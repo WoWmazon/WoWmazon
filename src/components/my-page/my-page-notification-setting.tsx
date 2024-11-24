@@ -35,7 +35,7 @@ const MyPageNotificationSetting = ({
         </>
       ),
     });
-    mutatePushNotification(checked);
+    mutatePushNotification({ id: "me", isAlarm: checked });
   };
 
   const handleAgreement = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +48,7 @@ const MyPageNotificationSetting = ({
         ? `${currentDatetime}, 마케팅정보 수신 동의를 유지해요.`
         : `${currentDatetime}, 마케팅정보 수신 동의를 철회했어요.`,
     });
-    mutateAgreement(checked);
+    mutateAgreement({ id: "me", agreement: checked });
   };
 
   return (
