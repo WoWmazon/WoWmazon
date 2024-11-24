@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import NicknameFields from "../user/sign-up/nickname-fields";
 import CustomButton from "../common/custom-button";
-import { useMutaionUserInfo } from "@/hooks/useUserQuery";
+import { useMutationUserInfo } from "@/hooks/useUserQuery";
 
 const NicknameEditForm = ({
   nickname,
@@ -12,7 +12,7 @@ const NicknameEditForm = ({
   onClose: () => void;
 }) => {
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
-  const { mutate } = useMutaionUserInfo();
+  const { mutate } = useMutationUserInfo();
   const formMethods = useForm<EditNicknameFormType>({
     mode: "onChange",
     defaultValues: {

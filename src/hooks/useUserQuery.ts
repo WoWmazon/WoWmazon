@@ -2,6 +2,7 @@ import {
   getUserInfo,
   patchPushNotification,
   patchUserNickname,
+  postUserWithdrawal,
   putAgreement,
 } from "@/api/user/apis";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,7 +15,7 @@ export const useQueryUserInfo = (id: string) =>
     queryFn: () => getUserInfo(id),
   });
 
-export const useMutaionUserInfo = () => {
+export const useMutationUserInfo = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, info }: MutationUserInfoType) =>
