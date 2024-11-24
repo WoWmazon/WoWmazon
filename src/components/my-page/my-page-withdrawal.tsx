@@ -1,15 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/common/stores";
 import CustomButton from "../common/custom-button";
-import { postUserWithdrawal } from "@/api/user/apis";
 import Modal from "../common/modal";
+import { useMutationWithdrawal } from "@/hooks/useUserQuery";
 
 const MyPageWithdrawal = () => {
-  const router = useRouter();
   const { handleModal } = useModalStore();
-
+  const { mutate } = useMutationWithdrawal();
   const handleCloseModal = () => {
     handleModal({
       isShow: true,
@@ -18,17 +16,9 @@ const MyPageWithdrawal = () => {
       content:
         "탈퇴하시면 찜한 상품, 언어 설정, 가격 할인 설정 등 모든 정보가 삭제되며 복구가 불가능해요.",
       btnText: "탈퇴할래요",
-      handleAction: async () => {
-        try {
-          await postUserWithdrawal("me");
-          alert("탈퇴되었습니다.");
-          router.push("/");
-        } catch (e) {
-          console.error(e);
-          alert("오류가 발생했습니다.");
-        } finally {
-          handleModal({ isShow: false });
-        }
+      handleAction: () => {
+        mutate("me");
+        handleModal({ isShow: false });
       },
       optionalBtnText: "유지할래요",
       handleOptional: () => {

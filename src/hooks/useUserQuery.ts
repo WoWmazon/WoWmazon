@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getUserInfo,
   patchPushNotification,
@@ -5,7 +7,6 @@ import {
   postUserWithdrawal,
   putAgreement,
 } from "@/api/user/apis";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const USER_INFO = "userInfo";
 
@@ -53,6 +54,21 @@ export const useMutationPushNotification = () => {
     },
     onError: (error) => {
       console.error(error);
+    },
+  });
+};
+
+export const useMutationWithdrawal = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: postUserWithdrawal,
+    onSuccess: () => {
+      alert("탈퇴되었습니다.");
+      router.push("/");
+    },
+    onError: (e) => {
+      console.error(e);
+      alert("오류가 발생했습니다.");
     },
   });
 };
