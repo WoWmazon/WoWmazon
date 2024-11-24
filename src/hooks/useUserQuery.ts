@@ -10,17 +10,16 @@ import {
 
 export const USER_INFO = "userInfo";
 
-export const useQueryUserInfo = (id: string) =>
+export const useQueryUserInfo = () =>
   useQuery({
     queryKey: [USER_INFO],
-    queryFn: () => getUserInfo(id),
+    queryFn: () => getUserInfo("me"),
   });
 
 export const useMutationUserInfo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, info }: MutationUserInfoType) =>
-      patchUserNickname(id, info),
+    mutationFn: patchUserNickname,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [USER_INFO] });
     },
@@ -33,8 +32,7 @@ export const useMutationUserInfo = () => {
 export const useMutationAgreement = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, agreement }: MutationAgreementType) =>
-      putAgreement(id, agreement),
+    mutationFn: putAgreement,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [USER_INFO] });
     },
@@ -47,8 +45,7 @@ export const useMutationAgreement = () => {
 export const useMutationPushNotification = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, isAlarm }: MutationPushNotificationType) =>
-      patchPushNotification(id, isAlarm),
+    mutationFn: patchPushNotification,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [USER_INFO] });
     },

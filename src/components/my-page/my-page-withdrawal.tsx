@@ -17,7 +17,7 @@ const MyPageWithdrawal = () => {
         "탈퇴하시면 찜한 상품, 언어 설정, 가격 할인 설정 등 모든 정보가 삭제되며 복구가 불가능해요.",
       btnText: "탈퇴할래요",
       handleAction: () => {
-        mutate("me");
+        mutate();
         handleModal({ isShow: false });
       },
       optionalBtnText: "유지할래요",

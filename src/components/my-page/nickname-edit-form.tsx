@@ -29,7 +29,7 @@ const NicknameEditForm = ({
       onClose();
       return;
     }
-    mutate({ id: "me", info: { nickname: data.nickname } });
+    mutate({ nickname: data.nickname });
     setIsAvailableNickname(false);
     onClose();
   };

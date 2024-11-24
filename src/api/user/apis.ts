@@ -109,33 +109,30 @@ export const getUserInfo = async (id: string) => {
   return await fetchWithToken<UserInfoType>(`user/${id}/`);
 };
 
-export const patchUserNickname = async (
-  id: string,
-  info: {
-    nickname?: string;
-    lang?: string;
-  }
-) => {
-  return await fetchWithToken<UserInfoType>(`user/${id}/`, {
+export const patchUserNickname = async (info: {
+  nickname?: string;
+  lang?: string;
+}) => {
+  return await fetchWithToken<UserInfoType>("user/me/", {
     method: "PATCH",
     body: JSON.stringify(info),
   });
 };
 
-export const putAgreement = async (id: string, agreement: boolean) => {
-  return await fetchWithToken(`agreement/${id}/`, {
+export const putAgreement = async (agreement: boolean) => {
+  return await fetchWithToken("agreement/me/", {
     method: "PUT",
     body: JSON.stringify({ isMarketing: agreement }),
   });
 };
-export const patchPushNotification = async (id: string, isAlarm: boolean) => {
-  return await fetchWithToken(`push_notification/${id}/`, {
+export const patchPushNotification = async (isAlarm: boolean) => {
+  return await fetchWithToken("push_notification/me/", {
     method: "PATCH",
     body: JSON.stringify({ isAlarm }),
   });
 };
 
-export const postUserWithdrawal = async (id: string) => {
+export const postUserWithdrawal = async () => {
   try {
     const token = await getValidAccessToken();
 
@@ -144,7 +141,7 @@ export const postUserWithdrawal = async (id: string) => {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_NITO_URL}/user/${id}/withdrawal/`,
+      `${process.env.NEXT_PUBLIC_NITO_URL}/user/me/withdrawal/`,
       {
         method: "POST",
         headers: {

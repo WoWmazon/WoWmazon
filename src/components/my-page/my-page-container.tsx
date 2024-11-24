@@ -7,7 +7,7 @@ import MyPageWithdrawal from "@/components/my-page/my-page-withdrawal";
 import { useQueryUserInfo } from "@/hooks/useUserQuery";
 
 const MyPageContainer = () => {
-  const { data } = useQueryUserInfo("me");
+  const { data } = useQueryUserInfo();
 
   return (
     <>
