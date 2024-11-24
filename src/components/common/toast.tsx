@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useToastStore } from "@/stores/common/stores";
 
@@ -12,15 +12,32 @@ const Toast = () => {
     error = false,
     autoHideDuration = 3000,
   } = useToastStore();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  setTimeout(async () => {
-    setIsOpen(false);
-    await new Promise((resolve) => {
-      setTimeout(resolve, 450);
-    });
-    onChange(false);
-  }, autoHideDuration);
+  useEffect(() => {
+    if (isVisible) {
+      setIsVisible(false);
+    }
+
+    const firstTimer = setTimeout(() => {
+      setIsVisible(true);
+      setIsOpen(true);
+    }, 100);
+
+    const secondTimer = setTimeout(() => {
+      setIsOpen(false);
+      setTimeout(() => {
+        onChange(false);
+        setIsVisible(false);
+      }, 450);
+    }, autoHideDuration);
+
+    return () => {
+      clearTimeout(firstTimer);
+      clearTimeout(secondTimer);
+    };
+  }, [open, message, autoHideDuration, error, onChange]);
 
   if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 
@@ -29,7 +46,8 @@ const Toast = () => {
       <div
         className={twMerge(
           "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
-          open && isOpen && "animate-slideUp",
+          isVisible ? "block" : "hidden",
+          isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",
           error && "bg-ELSE-FF2 text-ELSE-F60"
         )}

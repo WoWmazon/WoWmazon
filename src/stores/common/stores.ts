@@ -62,8 +62,6 @@ export const useToastStore = create<ToastState>((set) => ({
   message: "",
   open: false,
   onChange: () => set({ open: false }),
-  error: undefined,
-  autoHideDuration: undefined,
   handleToast: (toastState: Partial<ToastState>) =>
     set((state) => ({
       ...state,
