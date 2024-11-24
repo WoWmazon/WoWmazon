@@ -11,7 +11,7 @@ export const getFavoriteProduct = async (
   if (queryParams) {
     stringRecord = createQueryString(queryParams);
   }
-  const data = await fetchWithToken<GetFavoriteProductResponse>(
+  const data = await fetchWithToken<GetFavoriteProductList>(
     "favorite_product/",
     {},
     stringRecord
@@ -20,7 +20,7 @@ export const getFavoriteProduct = async (
 };
 
 // favorite product 등록 (상품 찜하기 추가)  POST /v1/favorite_product/
-export const postFavoriteProduct = async (productId: string) => {
+export const postFavoriteProduct = async (productId: number) => {
   try {
     const data = await fetchWithToken<PostProductResponse>(
       "favorite_product/",
@@ -36,7 +36,7 @@ export const postFavoriteProduct = async (productId: string) => {
 };
 
 // favorite product 삭제 (상품 찜하기 삭제)  DELETE /v1/favorite_product/delete_multiple/
-export const deleteFavoriteProduct = async (productId: string) => {
+export const deleteFavoriteProduct = async (productId: number) => {
   try {
     const data = await fetchWithToken<DeleteAndPutProductResponse>(
       `favorite_product/delete_multiple/?ids=${productId}`,
@@ -51,9 +51,9 @@ export const deleteFavoriteProduct = async (productId: string) => {
 };
 
 // favorite product 수정 (찜한 상품 알림여부 수정)  PUT /v1/favorite_product/{id}/
-export const putFavoriteProduct = async (id: string, isAlarm: boolean) => {
+export const putFavoriteProduct = async (id: number, isAlarm: boolean) => {
   try {
-    const data = await fetchWithToken<DeleteAndPutProductResponse>(
+    const data = await fetchWithToken<FavoriteProductList>(
       `favorite_product/${id}`,
       {
         method: "PUT",

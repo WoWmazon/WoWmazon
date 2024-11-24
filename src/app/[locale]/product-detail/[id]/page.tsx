@@ -4,10 +4,10 @@ import ProductDetailContent from "@/components/product-detail/product-detail-con
 import ProductPriceInfo from "@/components/product-detail/product-price-info";
 import RelatedProduct from "@/components/product-detail/related-product";
 import ProductDetailNav from "@/components/layout/product-detail-nav";
-import { getProductDatail } from "@/api/product/apis";
+import { getProductDetail } from "@/api/product/apis";
 
 const page = async ({ params }: { params: { id: string } }) => {
-  const product = await getProductDatail(params.id);
+  const product = await getProductDetail(params.id);
 
   if (!product) return null;
 

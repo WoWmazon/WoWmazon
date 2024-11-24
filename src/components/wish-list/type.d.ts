@@ -4,17 +4,22 @@ type FavoriteProductParamsType = {
   page_size?: number; // 페이지 당 결과 수
 };
 
-type GetFavoritProductList = {
+type GetFavoriteProductList = {
   count: number;
   cursor: string;
-  results: FavoriteResultType[];
+  results: FavoriteProductList[];
 };
 
-type FavoriteResultType = {
+type FavoriteProductList = {
   id: number;
+  product: FavoriteProduct;
   isAlarm: boolean;
-  product: FavoriteProductType[];
 };
+
+type FavoriteProduct = Omit<
+  ProductResultType,
+  price | crawlingUpdatedAt | isFavorite | affiliateUrl | presentPriceUpdatedAt
+>;
 
 type FavoriteProductType = {
   id: number;
@@ -28,7 +33,7 @@ type FavoriteProductType = {
 };
 
 type WishProductCardProps = {
-  wishId: number;
+  favoriteId: number;
   isAlarm: boolean;
   id: number;
   image: string;
@@ -39,4 +44,12 @@ type WishProductCardProps = {
   isStopSelling: boolean;
   title: string;
   isLowestPriceEver: boolean;
+};
+
+type PostProductResponse = {
+  productId: number;
+};
+
+type DeleteAndPutProductResponse = {
+  detail: string;
 };

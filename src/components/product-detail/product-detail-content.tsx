@@ -8,7 +8,7 @@ import { ko } from "date-fns/locale";
 import { getExchangeLatest } from "@/api/exchange/apis";
 import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
 
-const ProductDetailContent = async (product: GetProductDatailResponse) => {
+const ProductDetailContent = async (product: GetProductDetailResponse) => {
   const {
     image,
     title,
@@ -68,7 +68,7 @@ const ProductDetailContent = async (product: GetProductDatailResponse) => {
         <div className="flex gap-2 content-center">
           <p className="text-xxl font-bold">{`\$ ${presentPrice}`}</p>
           <p className="content-center text-ELSE-55">
-            {convertToKrw(Number(exchangeData?.usdToKrw), presentPrice)}
+            {convertToKrw(Number(exchangeData?.usdToKrw), Number(presentPrice))}
           </p>
         </div>
         <p className="text-sm text-ELSE-76 mb-3">

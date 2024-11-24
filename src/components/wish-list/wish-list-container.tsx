@@ -24,7 +24,7 @@ const WishListContainer = ({ params: { locale } }: PageProps) => {
   const wishProductData =
     wishProducts?.pages.flatMap((page) =>
       page.results.map((result) => ({
-        wishId: result.id,
+        favoriteId: result.id,
         id: result.product.id,
         image: result.product.image,
         presentPrice: result.product.presentPrice,

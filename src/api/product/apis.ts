@@ -35,9 +35,9 @@ export const getCategoryId = async (
 };
 
 // product 상세 조회 GET /v1/product/{id}
-export const getProductDatail = async (id: string) => {
+export const getProductDetail = async (id: string) => {
   try {
-    const data = await fetchWithToken<GetProductDatailResponse>(
+    const data = await fetchWithToken<GetProductDetailResponse>(
       `product/${id}/`,
       {
         method: "GET",
@@ -58,7 +58,7 @@ export const getProductPriceGraph = async () => {
   const id = "127085";
   const month = "3";
   try {
-    const data = await fetchWithToken<GetProductDatailResponse>(
+    const data = await fetchWithToken<GetProductDetailResponse>(
       `price_history/?period=${month}&product_id=${id}/`,
       {
         method: "GET",
@@ -96,7 +96,7 @@ export const getProductPriceInfo = async (id: string) => {
 // 관련 product 목록 조회 GET /v1/product/{id}/related_product_list
 export const getRelatedProductList = async (id: string) => {
   try {
-    const data = await fetchWithToken<GetRelatedProductListResponse[]>(
+    const data = await fetchWithToken<ProductResultType[]>(
       `product/${id}/related_product_list/`,
       {
         method: "GET",

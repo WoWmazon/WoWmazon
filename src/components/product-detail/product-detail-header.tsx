@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteFavoriteProduct } from "@/api/favorite/apis";
 
-const ProductDetailHeader = (product: GetProductDatailResponse) => {
+const ProductDetailHeader = (product: GetProductDetailResponse) => {
   const { id, isFavorite } = product;
 
   const router = useRouter();
