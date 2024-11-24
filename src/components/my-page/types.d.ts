@@ -17,3 +17,8 @@ type UserInfoType = {
 type EditNicknameFormType = {
   nickname: string;
 };
+
+type MyPageNotificationSettingProps = {
+  agreement: boolean;
+  pushNotification: boolean;
+};

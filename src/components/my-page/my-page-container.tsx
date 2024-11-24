@@ -8,6 +8,7 @@ import { useQueryUserInfo } from "@/hooks/useUserQuery";
 
 const MyPageContainer = () => {
   const { data } = useQueryUserInfo();
+
   return (
     <>
       <MyPageHeader />

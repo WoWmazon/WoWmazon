@@ -1,4 +1,9 @@
-import { getUserInfo, patchUserNickname } from "@/api/user/apis";
+import {
+  getUserInfo,
+  patchPushNotification,
+  patchUserNickname,
+  putAgreement,
+} from "@/api/user/apis";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const USER_INFO = "userInfo";
@@ -18,7 +23,33 @@ export const useMutaionUserInfo = () => {
       queryClient.invalidateQueries({ queryKey: [USER_INFO] });
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
+    },
+  });
+};
+
+export const useMutationAgreement = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (agreement: boolean) => putAgreement(agreement),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [USER_INFO] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useMutationPushNotification = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (isAlarm: boolean) => patchPushNotification(isAlarm),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [USER_INFO] });
+    },
+    onError: (error) => {
+      console.error(error);
     },
   });
 };

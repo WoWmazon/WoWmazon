@@ -119,6 +119,19 @@ export const patchUserNickname = async (info: {
   });
 };
 
+export const putAgreement = async (agreement: boolean) => {
+  return await fetchWithToken("agreement/me/", {
+    method: "PUT",
+    body: JSON.stringify({ isMarketing: agreement }),
+  });
+};
+export const patchPushNotification = async (isAlarm: boolean) => {
+  return await fetchWithToken("push_notification/me/", {
+    method: "PATCH",
+    body: JSON.stringify({ isAlarm }),
+  });
+};
+
 export const postUserWithdrawal = async (id: string) => {
   try {
     const token = await getValidAccessToken();
