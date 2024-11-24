@@ -40,10 +40,10 @@ type BottomSheetState = {
 
 // Custom Toast
 type ToastState = {
-  message: string;
+  message: React.ReactNode;
   open: boolean;
   onChange: (isOpen: boolean) => void;
   error?: boolean;
   autoHideDuration?: number;
   handleToast: (toastState: Partial<ToastState>) => void;
-}
+};
