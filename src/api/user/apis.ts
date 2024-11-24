@@ -105,8 +105,8 @@ export const postLogin = async (device: string, refreshToken: string) => {
   }
 };
 
-export const getUserInfo = async (id: string) => {
-  return await fetchWithToken<UserInfoType>(`user/${id}/`);
+export const getUserInfo = async () => {
+  return await fetchWithToken<UserInfoType>("user/me/");
 };
 
 export const patchUserNickname = async (info: {
