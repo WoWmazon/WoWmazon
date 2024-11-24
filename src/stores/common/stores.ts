@@ -19,7 +19,6 @@ export const useModalStore = create<ModalState>((set) => ({
     })),
 }));
 
-
 // Custom SimpleBottomSheet
 export const useSimpleBottomSheetStore = create<SimpleBottomSheetState>(
   (set) => ({
@@ -48,10 +47,25 @@ export const useBottomSheetStore = create<BottomSheetState>((set) => ({
   className: "",
   btnText: "",
   handleAction: () => {},
+  optionalBtnText: undefined,
+  handleOptional: undefined,
   handleBottomSheet: (bottomSheetState: Partial<SimpleBottomSheetState>) =>
     set((state) => ({
       ...state,
       isShow: false,
       ...bottomSheetState,
+    })),
+}));
+
+// Custom Toast
+export const useToastStore = create<ToastState>((set) => ({
+  message: "",
+  open: false,
+  onChange: () => set({ open: false }),
+  handleToast: (toastState: Partial<ToastState>) =>
+    set((state) => ({
+      ...state,
+      open: false,
+      ...toastState,
     })),
 }));

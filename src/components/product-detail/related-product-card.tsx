@@ -10,15 +10,28 @@ import add from "@/assets/icons/addProduct.svg";
 import Toast from "../common/toast";
 import { convertToKrw } from "@/utils/exchange";
 import { useRouter } from "next/navigation";
+import { useToastStore } from "@/stores/common/stores";
 
 const RelatedProductCard = (props: GetRelatedProductListResponse) => {
   const router = useRouter();
-  const [isWished, setIsWished] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const handleIconClick = () => {
-    setIsWished(!isWished);
+
+  const { handleToast } = useToastStore();
+
+  const setToast = () => {
     setIsActive(!isActive);
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: isActive ? "찜하기 추가되었습니다" : "찜하기 삭제되었습니다",
+    });
   };
+
+  const wishAddButton = () => (
+    <div className="absolute bottom-2 right-3 z-10">
+      <IconButton icon={add} size={32} alt="WishAddButton" onClick={setToast} />
+    </div>
+  );
 
   return (
     <div className="bg-SYSTEM-white">
@@ -35,26 +48,12 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
               height={120}
               className="size-full object-contain object-center"
             />
-            <div className="absolute bottom-2 right-3 z-10">
-              <IconButton
-                icon={add}
-                size={32}
-                alt="WishAddButton"
-                onClick={handleIconClick}
-              />
-            </div>
+            {wishAddButton()}
           </div>
         ) : (
           <div className="relative bg-ELSE-EC size-[120px] rounded-md content-center justify-items-center">
             <Image src={noImage} alt="no-image" className="size-[80px] pb-3" />
-            <div className="absolute bottom-2 right-3 z-10">
-              <IconButton
-                icon={add}
-                size={32}
-                alt="WishAddButton"
-                onClick={handleIconClick}
-              />
-            </div>
+            {wishAddButton()}
           </div>
         )}
         <p className="line-clamp-2 text-md text-ELSE-55 mt-3 mb-2">
@@ -92,13 +91,7 @@ const RelatedProductCard = (props: GetRelatedProductListResponse) => {
           </div>
         )}
       </div>
-      {isWished && (
-        <Toast
-          open={isWished}
-          onChange={setIsWished}
-          message={isActive ? "찜하기 추가되었습니다" : "찜하기 삭제되었습니다"}
-        />
-      )}
+      <Toast />
     </div>
   );
 };

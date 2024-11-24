@@ -13,6 +13,7 @@ import {
   useModalStore,
   useSimpleBottomSheetStore,
   useBottomSheetStore,
+  useToastStore,
 } from "@/stores/common/stores";
 import Toast from "./common/toast";
 
@@ -23,6 +24,7 @@ const TestButton = () => {
   const { handleModal } = useModalStore();
   const { handleSimpleBottomSheet } = useSimpleBottomSheetStore();
   const { handleBottomSheet } = useBottomSheetStore();
+  const { handleToast } = useToastStore();
 
   const [isWished, setIsWished] = useState(false);
   const inputRef = useRef(""); // 최신 값을 담기 위한 ref
@@ -101,9 +103,15 @@ const TestButton = () => {
       title: "링크로 상품 추가",
       btnText: t("check"),
       handleAction: () => {
-        setIsWished(!isWished);
         if (inputRef.current) {
           handleBottomSheet({ isShow: false });
+          handleToast({
+            open: true,
+            onChange: () => handleToast({ open: false }),
+            message: inputRef.current
+              ? "찜하기 추가되었습니다"
+              : "링크를 입력해주세요",
+          });
         }
       },
     });
@@ -173,15 +181,7 @@ const TestButton = () => {
       <Modal />
       <SimpleBottomSheet />
       <BottomSheet />
-      {isWished && (
-        <Toast
-          open={isWished}
-          onChange={setIsWished}
-          message={
-            inputRef.current ? "찜하기 추가되었습니다" : "링크를 입력해주세요"
-          }
-        />
-      )}
+      <Toast />
     </>
   );
 };
