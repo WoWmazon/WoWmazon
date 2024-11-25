@@ -7,7 +7,7 @@ import { useFavoriteProductList } from "@/hooks/useFavoriteProduct";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useWishListParamStore } from "@/stores/prooduct/stores";
 
-const WishListContainer = ({ params: { locale } }: PageProps) => {
+const WishListContainer = () => {
   const favoriteParams = useWishListParamStore((state) => state.favoriteParams);
 
   const {
@@ -54,7 +54,7 @@ const WishListContainer = ({ params: { locale } }: PageProps) => {
           intersectionObserverRef={intersectionObserverRef}
         />
       ) : (
-        <WishListNoContents locale={locale} />
+        <WishListNoContents />
       )}
     </>
   );
