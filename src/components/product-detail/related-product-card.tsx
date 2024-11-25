@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
 import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import IconButton from "../common/custom-icon-button";
-import add from "@/assets/icons/addProduct.svg";
-import Toast from "../common/toast";
+import addProduct from "@/assets/icons/addProduct.svg";
+import addProductGray from "@/assets/icons/addProduct_gray.svg";
 import { convertToKrw } from "@/utils/exchange";
 import { useRouter } from "next/navigation";
 import { useToastStore } from "@/stores/common/stores";
+import { RELATED_PRODUCT } from "@/constants/query-keys";
+import { useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
 
 const RelatedProductCard = ({
   relatedProduct,
@@ -19,25 +20,41 @@ const RelatedProductCard = ({
   relatedProduct: ProductResultType;
   exchangeData: GetExchangeResponse;
 }) => {
-  const { id, image, title, price, isLowestPriceEver, discountRate } =
-    relatedProduct;
+  const {
+    id,
+    image,
+    title,
+    price,
+    isLowestPriceEver,
+    discountRate,
+    isFavorite,
+  } = relatedProduct;
   const router = useRouter();
-  const [isActive, setIsActive] = useState(false);
 
   const { handleToast } = useToastStore();
+  const { addWishList } = useSetFavoriteProduct([RELATED_PRODUCT]);
 
-  const setToast = () => {
-    setIsActive(!isActive);
-    handleToast({
-      open: true,
-      onChange: () => handleToast({ open: false }),
-      message: isActive ? "찜하기 추가되었습니다" : "찜하기 삭제되었습니다",
-    });
+  const handleAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (!isFavorite) {
+      await addWishList(id);
+    } else {
+      handleToast({
+        open: true,
+        onChange: () => handleToast({ open: false }),
+        message: "이미 찜한 상품입니다",
+      });
+    }
   };
 
   const wishAddButton = () => (
     <div className="absolute bottom-2 right-3 z-10">
-      <IconButton icon={add} size={32} alt="WishAddButton" onClick={setToast} />
+      <IconButton
+        icon={isFavorite ? addProductGray : addProduct}
+        size={32}
+        alt="WishAddButton"
+        onClick={handleAdd}
+      />
     </div>
   );
 
@@ -97,7 +114,6 @@ const RelatedProductCard = ({
           </div>
         )}
       </div>
-      <Toast />
     </div>
   );
 };
