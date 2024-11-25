@@ -37,7 +37,7 @@ const Toast = () => {
       clearTimeout(firstTimer);
       clearTimeout(secondTimer);
     };
-  }, [open, message, autoHideDuration, error, onChange]);
+  }, [open, message, autoHideDuration, error, onChange, isVisible]);
 
   if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 

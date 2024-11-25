@@ -22,7 +22,7 @@ const ProductPriceInfo = ({
       setProductInfo(result);
     };
     getProductInfo();
-  }, []);
+  }, [productId]);
 
   if (!productInfo) return null;
 
