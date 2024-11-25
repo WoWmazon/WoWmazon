@@ -1,30 +1,34 @@
-import ProductDetailHeader from "@/components/product-detail/product-detail-header";
-import ProductDetailContent from "@/components/product-detail/product-detail-content";
-// import ProductPriceGraph from "@/components/product-detail/product-price-graph";
-import ProductPriceInfo from "@/components/product-detail/product-price-info";
-import RelatedProduct from "@/components/product-detail/related-product";
-import ProductDetailNav from "@/components/layout/product-detail-nav";
 import { getProductDetail } from "@/api/product/apis";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { PRODUCT_DETAIL } from "@/constants/query-keys";
+import ProductDetailContainer from "@/components/product-detail/product-detail-container";
 
 const page = async ({ params }: { params: { id: string } }) => {
-  const product = await getProductDetail(params.id);
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        // With SSR, we usually want to set some default staleTime
+        // above 0 to avoid refetching immediately on the client
+        staleTime: 60 * 60 * 1000,
+      },
+    },
+  });
 
-  if (!product) return null;
+  await queryClient.prefetchQuery({
+    queryKey: [PRODUCT_DETAIL, params.id],
+    queryFn: () => getProductDetail(params.id),
+  });
 
   return (
-    <div className="bg-ELSE-EC">
-      <div className="mb-3">
-        <ProductDetailHeader {...product} />
-        <ProductDetailContent {...product} />
-        {/* TODO: 그래프 추후 개발 */}
-        {/* <ProductPriceGraph /> */}
-        <ProductPriceInfo productId={params.id} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="bg-ELSE-EC">
+        <ProductDetailContainer params={params} />
       </div>
-      <div>
-        <RelatedProduct productId={params.id} />
-      </div>
-      <ProductDetailNav {...product} />
-    </div>
+    </HydrationBoundary>
   );
 };
 export default page;
