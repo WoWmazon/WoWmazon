@@ -2,9 +2,12 @@ type productPostCardProps = {
   id: number;
   image: string;
   title: string;
-  price: string;
+  price?: string;
   presentPrice: string;
   discountRate: number;
+  isFavorite?: boolean;
+  isAlarm: boolean;
+  favoriteId?:number;
 };
 type OrderingType = "present_price" | "-discount_rate";
 

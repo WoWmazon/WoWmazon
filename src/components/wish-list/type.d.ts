@@ -37,8 +37,7 @@ type WishProductCardProps = {
   isAlarm: boolean;
   id: number;
   image: string;
-  // presentPrice: string;
-  presentPrice: number;
+  presentPrice: string;
   isOutOfStock: boolean;
   discountRate: number;
   isStopSelling: boolean;
