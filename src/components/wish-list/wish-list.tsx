@@ -1,6 +1,6 @@
 "use client";
 
-// import ProductCard from "../products/productCard";
+import ProductCard from "../products/productCard";
 
 const WishList = ({
   products,
@@ -20,13 +20,13 @@ const WishList = ({
 
   return (
     <div className="flex flex-col justify-center items-center">
-      {/* {products.length > 0 ? (
+      {products.length > 0 ? (
         products.map((product, index) => (
           <ProductCard key={`${product.id}-${index}`} {...product} />
         ))
       ) : (
         <p>상품이 없습니다.</p>
-      )} */}
+      )}
       <div ref={intersectionObserverRef}>
         {isFetchingNextPage && <p>추가 데이터를 로딩 중...</p>}
       </div>
