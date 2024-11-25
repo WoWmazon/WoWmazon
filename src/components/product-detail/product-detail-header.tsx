@@ -6,10 +6,12 @@ import detailTrash from "@/assets/icons/detail_trash.svg";
 import IconButton from "../common/custom-icon-button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteFavoriteProduct } from "@/api/favorite/apis";
+import { PRODUCT_DETAIL } from "@/constants/query-keys";
+import { useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
 
 const ProductDetailHeader = (product: GetProductDetailResponse) => {
-  const { id, isFavorite } = product;
+  const { id, favoriteId, isFavorite } = product;
+  const { deleteWishList } = useSetFavoriteProduct([PRODUCT_DETAIL, `${id}`]);
 
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState<string>("");
@@ -30,11 +32,11 @@ const ProductDetailHeader = (product: GetProductDetailResponse) => {
 
   const deleteFavorite = () => {
     try {
-      deleteFavoriteProduct(id)
+      deleteWishList(favoriteId);
     } catch (error) {
       console.log("에러 : ", error);
     }
-  }
+  };
 
   return (
     <div className="fixed top-0 w-full max-w-[375px] h-[66px] p-4 border border-ELSE-EC bg-SYSTEM-white">
