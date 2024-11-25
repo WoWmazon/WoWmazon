@@ -15,7 +15,6 @@ import {
   useBottomSheetStore,
   useToastStore,
 } from "@/stores/common/stores";
-import Toast from "./common/toast";
 
 const TestButton = () => {
   const locale = useParams()?.locale as LocaleTypes;
@@ -181,7 +180,6 @@ const TestButton = () => {
       <Modal />
       <SimpleBottomSheet />
       <BottomSheet />
-      <Toast />
     </>
   );
 };
