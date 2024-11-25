@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
@@ -5,10 +7,15 @@ import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import CustomButton from "../common/custom-button";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-import { getExchangeLatest } from "@/api/exchange/apis";
 import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
 
-const ProductDetailContent = async (product: GetProductDetailResponse) => {
+const ProductDetailContent = ({
+  product,
+  exchangeData,
+}: {
+  product: GetProductDetailResponse;
+  exchangeData: GetExchangeResponse;
+}) => {
   const {
     image,
     title,
@@ -20,8 +27,6 @@ const ProductDetailContent = async (product: GetProductDetailResponse) => {
     presentPriceUpdatedAt,
     optionStatus,
   } = product;
-
-  const exchangeData = await getExchangeLatest();
 
   if (!product) return null;
 
