@@ -1,43 +1,25 @@
 "use client";
 
-// import { useState } from "react";
 import CustomButton from "../common/custom-button";
 import IconButton from "../common/custom-icon-button";
 import add from "@/assets/icons/addProduct.svg";
 import alarmOn from "@/assets/icons/product_alarmOn.svg";
 import alarmOff from "@/assets/icons/product_alarmOff.svg";
-import Toast from "../common/toast";
-// import { useToastStore } from "@/stores/common/stores";
-import { useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
+import { useSetAlarm, useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
+import { PRODUCT_DETAIL } from "@/constants/query-keys";
 
 const ProductDetailNav = (product: GetProductDetailResponse) => {
-  const { id, isFavorite, isAlarm } = product;
+  const { id, favoriteId, isFavorite, isAlarm } = product;
 
-  // const [isWished, setIsWished] = useState(false);
-  // const [isAlarmState, setIsAlarmState] = useState(false);
+  const { addWishList } = useSetFavoriteProduct([PRODUCT_DETAIL, `${id}`]);
+  const { editAlarm } = useSetAlarm([PRODUCT_DETAIL, `${id}`]);
 
-  // const { handleToast } = useToastStore();
-  const { addWishList, editAlarm } = useSetFavoriteProduct([
-    "WISH_LIST",
-    id.toString(),
-  ]);
-
-  // + 버튼 클릭 시 찜하기 추가 함수
   const handleAdd = async () => {
     await addWishList(id);
-    // setIsWished(!isWished);
-    // setIsAlarmState(true);
   };
 
-  // isFavorite: true(찜한 상품)일 경우 알림 허용/비허용으로 toast 처리만
   const handleAlarm = async () => {
-    await editAlarm({ id: id, isAlarm: !isFavorite });
-    // setIsAlarmState(!isAlarmState);
-    // handleToast({
-    //   open: true,
-    //   onChange: () => handleToast({ open: false }),
-    //   message: isAlarmState ? "알림 설정되었습니다" : "알림 해제되었습니다",
-    // });
+    await editAlarm({ id: favoriteId, isAlarm: !isAlarm });
   };
 
   return (
@@ -50,7 +32,6 @@ const ProductDetailNav = (product: GetProductDetailResponse) => {
             size={60}
             alt="AddButton"
             onClick={handleAdd}
-            className="cursor-pointer"
           />
         )}
         {isFavorite && (
@@ -59,11 +40,9 @@ const ProductDetailNav = (product: GetProductDetailResponse) => {
             size={60}
             alt="AlarmOn"
             onClick={handleAlarm}
-            className="cursor-pointer"
           />
         )}
       </div>
-      <Toast />
     </div>
   );
 };
