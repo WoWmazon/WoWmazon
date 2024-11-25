@@ -15,7 +15,6 @@ const ProductDetailHeader = (product: GetProductDetailResponse) => {
 
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState<string>("");
-  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     setCurrentURL(window.location.href);
@@ -45,7 +44,6 @@ const ProductDetailHeader = (product: GetProductDetailResponse) => {
           icon={headerArrow}
           size={32}
           alt="arrow-icon"
-          isActive={isActive}
           onClick={() => router.back()}
           className="justify-self-end rounded-md hover:bg-ELSE-F5"
         />
@@ -57,7 +55,6 @@ const ProductDetailHeader = (product: GetProductDetailResponse) => {
             icon={detailExport}
             size={32}
             alt="arrow-icon"
-            isActive={isActive}
             onClick={() => handleCopyClipBoard(currentURL)}
             className="rounded-md hover:bg-ELSE-F5"
           />
@@ -66,7 +63,6 @@ const ProductDetailHeader = (product: GetProductDetailResponse) => {
               icon={detailTrash}
               size={32}
               alt="arrow-icon"
-              isActive={isActive}
               onClick={() => deleteFavorite()}
               className="ml-4 rounded-md hover:bg-ELSE-F5"
             />
