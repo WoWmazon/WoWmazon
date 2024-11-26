@@ -94,14 +94,16 @@ const NicknameFields = ({
           {t("sign-up.double-check")}
         </CustomButton>
       </div>
-      <div
-        className={twMerge(
-          "text-sm text-SYSTEM-main leading-[18px]",
-          !validation.isError && "text-ELSE-48"
-        )}
-      >
-        {validation.message}
-      </div>
+      {validation.message && (
+        <div
+          className={twMerge(
+            "text-sm text-SYSTEM-main leading-[18px]",
+            !validation.isError && "text-ELSE-48"
+          )}
+        >
+          {validation.message}
+        </div>
+      )}
     </div>
   );
 };

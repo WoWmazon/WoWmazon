@@ -44,6 +44,7 @@ const NicknameEditForm = ({
             hasLabel={false}
           />
           <CustomButton
+            className="mt-5"
             variant={isAvailableNickname ? "filled" : "disabled"}
             type="submit"
           >
