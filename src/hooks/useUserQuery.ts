@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -7,8 +9,7 @@ import {
   postUserWithdrawal,
   putAgreement,
 } from "@/api/user/apis";
-
-export const USER_INFO = "userInfo";
+import { USER_INFO } from "@/constants/query-keys";
 
 export const useQueryUserInfo = () =>
   useQuery({
