@@ -9,7 +9,7 @@ import SearchFilter from "./search-filter";
 
 const SearchContainer = () => {
   const searchParams = useProductParamsStore((state) => state.searchParams);
-  const hasSearchKeyword = searchParams.search !== "";
+  const hasSearchKeyword = !!searchParams.search;
 
   const { data, isPending, isError, hasNextPage, fetchNextPage } =
     useInfiniteScrollProductList(searchParams, hasSearchKeyword);
