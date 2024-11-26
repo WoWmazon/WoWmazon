@@ -28,6 +28,14 @@ const TestComponents = () => {
     });
   };
 
+  const setToast2 = () => {
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: "Toast2",
+    });
+  };
+
   return (
     <div className="flex flex-col gap-4 mt-4">
       <div className="flex flex-row gap-2">
@@ -61,6 +69,9 @@ const TestComponents = () => {
       </div>
       <CustomButton variant="outlineColor" onClick={setToast}>
         토스트
+      </CustomButton>
+      <CustomButton variant="outlineColor" onClick={setToast2}>
+        토스트2
       </CustomButton>
       <Toast />
     </div>

@@ -32,8 +32,9 @@ const ProductListCategoryFilter = () => {
     isLoading,
     isError,
   } = useInfiniteScrollProductList({
-    category_id: selectedCategoryId,
     ...searchParams,
+    category_id: selectedCategoryId,
+    search: undefined,
   });
 
   /**[카테고리 옵저버] */
