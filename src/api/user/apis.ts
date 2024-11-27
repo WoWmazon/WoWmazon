@@ -1,6 +1,8 @@
 "use server";
 
-import { fetchWithoutToken } from "../fetchApi";
+import { cookies } from "next/headers";
+import { fetchWithoutToken, fetchWithToken } from "../fetchApi";
+import { getValidAccessToken } from "@/auth/token";
 
 export const getNicknameValidate = async (nickname: string) => {
   try {
@@ -13,7 +15,6 @@ export const getNicknameValidate = async (nickname: string) => {
     );
 
     const { ok, status } = response;
-
     const data = await response.json();
 
     if (!ok && !(status === 400)) {
@@ -101,5 +102,65 @@ export const postLogin = async (device: string, refreshToken: string) => {
     return {
       error: e instanceof Error ? e.message : "Unknown error occurred",
     };
+  }
+};
+
+export const getUserInfo = async () => {
+  return await fetchWithToken<UserInfoType>("user/me/");
+};
+
+export const patchUserNickname = async (info: {
+  nickname?: string;
+  lang?: string;
+}) => {
+  return await fetchWithToken<UserInfoType>("user/me/", {
+    method: "PATCH",
+    body: JSON.stringify(info),
+  });
+};
+
+export const putAgreement = async (agreement: boolean) => {
+  return await fetchWithToken("agreement/me/", {
+    method: "PUT",
+    body: JSON.stringify({ isMarketing: agreement }),
+  });
+};
+export const patchPushNotification = async (isAlarm: boolean) => {
+  return await fetchWithToken("push_notification/me/", {
+    method: "PATCH",
+    body: JSON.stringify({ isAlarm }),
+  });
+};
+
+export const postUserWithdrawal = async () => {
+  try {
+    const token = await getValidAccessToken();
+
+    if (!token) {
+      throw new Error("token error");
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_NITO_URL}/user/me/withdrawal/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ reason: "resaon" }),
+      }
+    );
+
+    if (response.ok) {
+      const cookieStore = cookies();
+      cookieStore.delete("accessToken");
+      cookieStore.delete("refreshToken");
+      cookieStore.delete("device");
+    } else {
+      throw new Error("Withdrawal Failed");
+    }
+  } catch (e) {
+    throw new Error(e instanceof Error ? e.message : "Unknown error occurred");
   }
 };

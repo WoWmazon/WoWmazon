@@ -1,33 +1,22 @@
-import MyPageHeader from "@/components/my-page/my-page-header";
-import MyPageInfo from "@/components/my-page/my-page-info";
-import MyPageNotificationSetting from "@/components/my-page/my-page-notification-setting";
-import MyPageWithdrawal from "@/components/my-page/my-page-withdrawal";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { getUserInfo } from "@/api/user/apis";
+import MyPageContainer from "@/components/my-page/my-page-container";
+import { USER_INFO } from "@/constants/query-keys";
 
-// dummy data
-const data = {
-  id: 670,
-  nickname: "QuickRobin8270",
-  lang: "ko",
-  social: null,
-  pushNotification: {
-    isAlarm: true,
-    isNightAlarm: false,
-    pricePercent: 3,
-  },
-  agreement: {
-    isMarketing: true,
-  },
-  hasUnreadNoti: false,
-};
-
-const page = () => {
+const page = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: [USER_INFO],
+    queryFn: () => getUserInfo(),
+  });
   return (
-    <>
-      <MyPageHeader />
-      <MyPageInfo data={data} />
-      <MyPageNotificationSetting />
-      <MyPageWithdrawal />
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <MyPageContainer />
+    </HydrationBoundary>
   );
 };
 export default page;
