@@ -5,10 +5,13 @@ import { iconButtons } from "@/constants/bottom-nav-button";
 import BottomNavIconButton from "./bottom-nav-iconButton";
 import add from "@/assets/icons/addProduct.svg";
 import { usePathname, useRouter } from "next/navigation";
+import { useSimpleBottomSheetStore } from "@/stores/common/stores";
+import BottomSheetAddProducts from "./bottom-sheet-add-products";
 
 const BottomNav = () => {
   const pathName = usePathname();
   const router = useRouter();
+  const { handleSimpleBottomSheet } = useSimpleBottomSheetStore();
 
   //버튼경로랑 현재 경로가 같은 인덱스 찾는 함수
   const activeIndex = iconButtons.findIndex((btn) => btn.path === pathName);
@@ -33,6 +36,12 @@ const BottomNav = () => {
       router.push(path);
     }
   };
+  const handleAddButtonClick = () => {
+    handleSimpleBottomSheet({
+      isShow: true,
+      children: <BottomSheetAddProducts />,
+    });
+  };
 
   return (
     <div className="fixed bottom-0 w-full max-w-[375px] h-16 border-t border-ELSE-EC bg-SYSTEM-white px-4">
@@ -49,7 +58,8 @@ const BottomNav = () => {
                     size={56}
                     alt="AddButton"
                     isActive={isActiveButton === index}
-                    onClick={() => handleIconClick(index, action, path)}
+                    // onClick={() => handleIconClick(index, action, path)}
+                    onClick={handleAddButtonClick}
                   />
                 </div>
               </div>
