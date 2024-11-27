@@ -18,31 +18,17 @@ type FavoriteProductList = {
 
 type FavoriteProduct = Omit<
   ProductResultType,
-  price | crawlingUpdatedAt | isFavorite | affiliateUrl | presentPriceUpdatedAt
+  | "price"
+  | "code"
+  | "crawlingUpdatedAt"
+  | "isFavorite"
+  | "affiliateUrl"
+  | "presentPriceUpdatedAt"
 >;
 
-type FavoriteProductType = {
-  id: number;
-  image: string;
-  presentPrice: string;
-  isOutOfStock: boolean;
-  discountRate: number;
-  isStopSelling: boolean;
-  title: string;
-  isLowestPriceEver: boolean;
-};
-
-type WishProductCardProps = {
+type WishProductCardProps = FavoriteProduct & {
   favoriteId: number;
   isAlarm: boolean;
-  id: number;
-  image: string;
-  presentPrice: string;
-  isOutOfStock: boolean;
-  discountRate: number;
-  isStopSelling: boolean;
-  title: string;
-  isLowestPriceEver: boolean;
 };
 
 type PostProductResponse = {
