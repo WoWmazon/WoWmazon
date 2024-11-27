@@ -17,6 +17,7 @@ const SearchRecentKeywordItem = ({
         className="size-5 justify-items-center rounded-full hover:bg-ELSE-FA"
         icon={DeleteButton}
         alt="delete-btn"
+        size={10}
         onClick={() => deleteRecentKeyword(keyword)}
       />
     </div>

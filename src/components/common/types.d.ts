@@ -13,7 +13,10 @@ type InputProps = React.ComponentPropsWithoutRef<"input">;
 
 type InputOmitProps = Omit<InputProps, "type" | "id">;
 
-type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type IconButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "size"
+> & {
   icon: string;
   activeIcon?: string;
   size: number;
@@ -21,9 +24,9 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isActive?: boolean;
 };
 
-type CustomButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type CustomButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   smallSize?: boolean;
-  variant: "filled" | "disabled" | "outline" | "outlineColor";
+  variant: "filled" | "disabled" | "outline" | "outlineColor" | "none";
 };
 
 type CustomInputProps = Omit<InputProps, "size"> & {

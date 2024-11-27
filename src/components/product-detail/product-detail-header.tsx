@@ -6,11 +6,15 @@ import detailTrash from "@/assets/icons/detail_trash.svg";
 import IconButton from "../common/custom-icon-button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { PRODUCT_DETAIL } from "@/constants/query-keys";
+import { useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
 
-const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
+const ProductDetailHeader = (product: GetProductDetailResponse) => {
+  const { id, favoriteId, isFavorite } = product;
+  const { deleteWishList } = useSetFavoriteProduct([PRODUCT_DETAIL, `${id}`]);
+
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState<string>("");
-  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     setCurrentURL(window.location.href);
@@ -25,6 +29,14 @@ const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
     }
   };
 
+  const deleteFavorite = () => {
+    try {
+      deleteWishList(favoriteId);
+    } catch (error) {
+      console.log("에러 : ", error);
+    }
+  };
+
   return (
     <div className="fixed top-0 w-full max-w-[375px] h-[66px] p-4 border border-ELSE-EC bg-SYSTEM-white">
       <div className="grid grid-cols-[32px_auto_80px] items-center h-8 gap-[6px]">
@@ -32,7 +44,6 @@ const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
           icon={headerArrow}
           size={32}
           alt="arrow-icon"
-          isActive={isActive}
           onClick={() => router.back()}
           className="justify-self-end rounded-md hover:bg-ELSE-F5"
         />
@@ -44,7 +55,6 @@ const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
             icon={detailExport}
             size={32}
             alt="arrow-icon"
-            isActive={isActive}
             onClick={() => handleCopyClipBoard(currentURL)}
             className="rounded-md hover:bg-ELSE-F5"
           />
@@ -53,8 +63,7 @@ const ProductDetailHeader = ({ isFavorite }: { isFavorite: boolean }) => {
               icon={detailTrash}
               size={32}
               alt="arrow-icon"
-              isActive={isActive}
-              onClick={() => setIsActive(false)}
+              onClick={() => deleteFavorite()}
               className="ml-4 rounded-md hover:bg-ELSE-F5"
             />
           )}

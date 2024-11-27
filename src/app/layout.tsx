@@ -5,6 +5,7 @@ import LocaleButton from "@/components/locale-button";
 import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
 import QueryProviders from "@/providers/query-provider";
+import CommonContainer from "@/components/layout/common-container";
 
 export const metadata: Metadata = {
   title: "Nito",
@@ -36,7 +37,10 @@ export default function RootLayout({
                   id="chidrenWrapper"
                   className="relative h-full overflow-y-auto scrollbar-none"
                 >
-                  <QueryProviders>{children}</QueryProviders>
+                  <QueryProviders>
+                    {children}
+                    <CommonContainer />
+                  </QueryProviders>
                 </div>
               </div>
             </div>

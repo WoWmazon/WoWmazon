@@ -5,7 +5,6 @@ import CustomCheckBox from "../common/custom-checkbox";
 import CustomInput from "../common/custom-input";
 import CustomRadio from "../common/custom-radio";
 import CustomToggle from "../common/custom-toggle";
-import Toast from "../common/toast";
 import CustomButton from "../common/custom-button";
 import { useToastStore } from "@/stores/common/stores";
 
@@ -65,15 +64,16 @@ const TestComponents = () => {
           onChange={(e) => setValue(e.target.value)}
           hasDelBtn
         />
-        <CustomButton onClick={focusInput}>포커스 인풋</CustomButton>
+        <CustomButton variant="outlineColor" onClick={focusInput}>
+          포커스 인풋
+        </CustomButton>
       </div>
-      <CustomButton variant="outlineColor" onClick={setToast}>
+      <CustomButton variant="filled" onClick={setToast}>
         토스트
       </CustomButton>
-      <CustomButton variant="outlineColor" onClick={setToast2}>
+      <CustomButton variant="filled" onClick={setToast2}>
         토스트2
       </CustomButton>
-      <Toast />
     </div>
   );
 };
