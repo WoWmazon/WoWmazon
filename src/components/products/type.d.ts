@@ -6,8 +6,8 @@ type productPostCardProps = {
   presentPrice: string;
   discountRate: number;
   isFavorite?: boolean;
-  isAlarm: boolean;
-  favoriteId?:number;
+  isAlarm?: boolean;
+  favoriteId?: number;
 };
 type OrderingType = "present_price" | "-discount_rate";
 
