@@ -13,7 +13,9 @@ export const getFavoriteProduct = async (
   }
   const data = await fetchWithToken<GetFavoriteProductList>(
     "favorite_product/",
-    {},
+    {
+      method: "GET",
+    },
     stringRecord
   );
   return data;
