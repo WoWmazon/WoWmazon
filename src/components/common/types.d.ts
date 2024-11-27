@@ -13,7 +13,10 @@ type InputProps = React.ComponentPropsWithoutRef<"input">;
 
 type InputOmitProps = Omit<InputProps, "type" | "id">;
 
-type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type IconButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "size"
+> & {
   icon: string;
   activeIcon?: string;
   size: number;
