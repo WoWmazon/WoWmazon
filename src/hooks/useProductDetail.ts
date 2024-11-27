@@ -6,7 +6,6 @@ export const useProductDetail = (id: string) => {
   return useQuery<GetProductDetailResponse | undefined>({
     queryKey: [PRODUCT_DETAIL, id],
     queryFn: async () => await getProductDetail(id),
-    staleTime: 60 * 60 * 1000,
   });
 };
 
@@ -14,6 +13,5 @@ export const useRelatedProduct = (id: string) => {
   return useQuery<ProductResultType[] | undefined>({
     queryKey: [RELATED_PRODUCT, id],
     queryFn: async () => await getRelatedProductList(id),
-    staleTime: 60 * 60 * 1000,
   });
 };
