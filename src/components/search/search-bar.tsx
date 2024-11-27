@@ -46,7 +46,7 @@ const SearchBar = () => {
   }, [search, setInputValue]);
 
   return (
-    <div className="fixed grid grid-cols-[32px_auto_32px] top-0 items-center w-full max-w-[343px] h-[62px] py-2 gap-1.5 bg-SYSTEM-white">
+    <div className="fixed grid grid-cols-[32px_auto_32px] top-0 items-center w-full max-w-[500px] h-[62px] py-2 px-4 gap-1.5 bg-SYSTEM-white">
       <Image
         src={HeaderArrow}
         className="cursor-pointer rounded-md hover:bg-ELSE-F5"

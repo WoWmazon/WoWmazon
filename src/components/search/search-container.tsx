@@ -18,12 +18,12 @@ const SearchContainer = () => {
   const resultData = data?.pages.flatMap((page) => page.results) ?? [];
 
   return (
-    <div className="px-4 pt-16 text-ELSE-33">
+    <div className="pt-16 text-ELSE-33">
       <SearchBar />
       {!hasSearchKeyword ? (
         <SearchRecentKeywords />
       ) : (
-        <>
+        <div className="px-4">
           <SearchFilter count={resultCount} />
           <SearchResult
             data={resultData}
@@ -32,7 +32,7 @@ const SearchContainer = () => {
             hasNextPage={hasNextPage}
             fetchNextPage={fetchNextPage}
           />
-        </>
+        </div>
       )}
     </div>
   );
