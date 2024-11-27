@@ -42,7 +42,10 @@ const Toast = () => {
   if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 
   return (
-    <div className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px]">
+    <div
+      className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px] cursor-pointer"
+      onClick={() => onChange(false)}
+    >
       <div
         className={twMerge(
           "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
