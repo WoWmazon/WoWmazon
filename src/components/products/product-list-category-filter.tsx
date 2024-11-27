@@ -34,7 +34,6 @@ const ProductListCategoryFilter = () => {
   } = useInfiniteScrollProductList({
     ...searchParams,
     category_id: selectedCategoryId,
-    search: undefined,
   });
 
   /**[카테고리 옵저버] */
