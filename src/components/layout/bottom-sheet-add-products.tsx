@@ -36,6 +36,7 @@ const BottomSheetAddProducts = ({ onClose }: { onClose: () => void }) => {
               onChange: () => handleToast({ open: false }),
               message: "이미 등록되어 있거나, 유효하지 않는 링크입니다.",
             });
+            console.error("에러 발생: ", error);
           }
         } else {
           handleToast({
