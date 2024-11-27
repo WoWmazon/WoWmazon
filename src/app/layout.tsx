@@ -5,7 +5,7 @@ import LocaleButton from "@/components/locale-button";
 import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
 import QueryProviders from "@/providers/query-provider";
-import Toast from "@/components/common/toast";
+import CommonContainer from "@/components/layout/common-container";
 
 export const metadata: Metadata = {
   title: "Nito",
@@ -39,7 +39,7 @@ export default function RootLayout({
                 >
                   <QueryProviders>
                     {children}
-                    <Toast />
+                    <CommonContainer />
                   </QueryProviders>
                 </div>
               </div>
