@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import noImage from "@/assets/images/noImage.svg";
 import Badge from "../common/badge";
@@ -5,32 +7,42 @@ import arrowDown from "@/assets/icons/badge_arrow_down.svg";
 import CustomButton from "../common/custom-button";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-import { getExchangeLatest } from "@/api/exchange/apis";
 import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
 
-const ProductDetailContent = async (product: GetProductDatailResponse) => {
-  const exchangeData = await getExchangeLatest();
+const ProductDetailContent = ({
+  product,
+  exchangeData,
+}: {
+  product: GetProductDetailResponse;
+  exchangeData: GetExchangeResponse;
+}) => {
+  const {
+    image,
+    title,
+    isLowestPriceEver,
+    discountRate,
+    price,
+    presentPrice,
+    crawlingUpdatedAt,
+    presentPriceUpdatedAt,
+    optionStatus,
+  } = product;
 
   if (!product) return null;
 
   return (
     <div className="bg-SYSTEM-white">
-      {product.image ? (
-        <Image
-          src={product.image}
-          alt="product-image"
-          width={375}
-          height={295}
-        />
+      {image ? (
+        <Image src={image} alt="product-image" width={375} height={295} />
       ) : (
         <div className="bg-ELSE-EC h-[295px] w-[375px] content-center justify-items-center">
           <Image src={noImage} alt="no-image" />
         </div>
       )}
       <div className="p-4 border border-ELSE-EC">
-        <p className="mb-2.5">{product?.title}</p>
+        <p className="mb-2.5">{title}</p>
         <div className="flex gap-1.5 mb-1">
-          {product.isLowestPriceEver && (
+          {isLowestPriceEver && (
             <Badge
               text="역대최저가"
               height="h-[18px]"
@@ -41,9 +53,9 @@ const ProductDetailContent = async (product: GetProductDatailResponse) => {
               iconWidth={12}
             />
           )}
-          {product.discountRate !== 0 && (
+          {discountRate !== 0 && (
             <Badge
-              text={`${product.discountRate}%`}
+              text={`${discountRate}%`}
               height="h-[18px]"
               hasIcon={true}
               iconSrc={arrowDown}
@@ -56,12 +68,12 @@ const ProductDetailContent = async (product: GetProductDatailResponse) => {
         </div>
         <div className="flex gap-2 text-ELSE-F8">
           <p>List Price</p>
-          <p className="line-through">{`$ ${product.price}`}</p>
+          <p className="line-through">{`$ ${price}`}</p>
         </div>
         <div className="flex gap-2 content-center">
-          <p className="text-xxl font-bold">{`\$ ${product.presentPrice}`}</p>
+          <p className="text-xxl font-bold">{`\$ ${presentPrice}`}</p>
           <p className="content-center text-ELSE-55">
-            {convertToKrw(Number(exchangeData?.usdToKrw), product.presentPrice)}
+            {convertToKrw(Number(exchangeData?.usdToKrw), Number(presentPrice))}
           </p>
         </div>
         <p className="text-sm text-ELSE-76 mb-3">
@@ -74,20 +86,17 @@ const ProductDetailContent = async (product: GetProductDatailResponse) => {
           <p className="font-bold">아마존 가격</p>
           <p className="text-ELSE-55">
             {`마지막 업데이트 : 
-            ${formatDistanceToNow(product.crawlingUpdatedAt, {
+            ${formatDistanceToNow(crawlingUpdatedAt, {
               addSuffix: true,
               locale: ko,
             })}
-            , 마지막 가격 변경: ${formatDistanceToNow(
-              product.presentPriceUpdatedAt,
-              {
-                addSuffix: true,
-                locale: ko,
-              }
-            )}`}
+            , 마지막 가격 변경: ${formatDistanceToNow(presentPriceUpdatedAt, {
+              addSuffix: true,
+              locale: ko,
+            })}`}
           </p>
         </div>
-        {product.optionStatus && (
+        {optionStatus && (
           <CustomButton variant="outlineColor">
             더 많은 옵션 보러가기
           </CustomButton>

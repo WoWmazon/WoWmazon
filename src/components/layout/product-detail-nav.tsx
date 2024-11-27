@@ -1,49 +1,25 @@
 "use client";
-import { useState } from "react";
+
 import CustomButton from "../common/custom-button";
 import IconButton from "../common/custom-icon-button";
 import add from "@/assets/icons/addProduct.svg";
 import alarmOn from "@/assets/icons/product_alarmOn.svg";
 import alarmOff from "@/assets/icons/product_alarmOff.svg";
-import Toast from "../common/toast";
-// import { postFavoriteProduct } from "@/api/favorite/apis";
-import { useToastStore } from "@/stores/common/stores";
+import { useSetAlarm, useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
+import { PRODUCT_DETAIL } from "@/constants/query-keys";
 
-const ProductDetailNav = (product: GetProductDatailResponse) => {
-  // const { id, isFavorite } = product;
-  const { isFavorite } = product;
+const ProductDetailNav = (product: GetProductDetailResponse) => {
+  const { id, favoriteId, isFavorite, isAlarm } = product;
 
-  const [isWished, setIsWished] = useState(false);
-  const [isAlarmState, setIsAlarmState] = useState(false);
+  const { addWishList } = useSetFavoriteProduct([PRODUCT_DETAIL, `${id}`]);
+  const { editAlarm } = useSetAlarm([PRODUCT_DETAIL, `${id}`]);
 
-  const { handleToast } = useToastStore();
-
-  // + 버튼 클릭 시 찜하기 추가 함수
   const handleAdd = async () => {
-    try {
-      // const response = await postFavoriteProduct(id);
-      // if (response?.productId) {
-        handleToast({
-          open: true,
-          onChange: () => handleToast({ open: false }),
-          message: "찜하기 추가되었습니다",
-        });
-      // }
-    } catch (error) {
-      console.log("에러 : ", error);
-    }
-    setIsWished(!isWished);
-    setIsAlarmState(true);
+    await addWishList(id);
   };
 
-  // isFavorite: true(찜한 상품)일 경우 알림 허용/비허용으로 toast 처리만
-  const handleAlarm = () => {
-    setIsAlarmState(!isAlarmState);
-    handleToast({
-      open: true,
-      onChange: () => handleToast({ open: false }),
-      message: isAlarmState ? "알림 설정되었습니다" : "알림 해제되었습니다",
-    });
+  const handleAlarm = async () => {
+    await editAlarm({ id: favoriteId, isAlarm: !isAlarm });
   };
 
   return (
@@ -56,20 +32,17 @@ const ProductDetailNav = (product: GetProductDatailResponse) => {
             size={60}
             alt="AddButton"
             onClick={handleAdd}
-            className="cursor-pointer"
           />
         )}
         {isFavorite && (
           <IconButton
-            icon={isAlarmState ? alarmOn : alarmOff}
+            icon={isAlarm ? alarmOn : alarmOff}
             size={60}
             alt="AlarmOn"
             onClick={handleAlarm}
-            className="cursor-pointer"
           />
         )}
       </div>
-      <Toast />
     </div>
   );
 };

@@ -14,6 +14,11 @@ type UserInfoType = {
   hasUnreadNoti: boolean;
 };
 
-type MyPageInfoProps = {
-  data: UserInfoType;
+type EditNicknameFormType = {
+  nickname: string;
+};
+
+type MyPageNotificationSettingProps = {
+  agreement: boolean;
+  pushNotification: boolean;
 };

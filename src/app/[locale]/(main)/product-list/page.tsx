@@ -8,12 +8,13 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import { PRODUCT_LIST } from "@/constants/query-keys";
 
 const page = async () => {
   const queryClient = new QueryClient();
   //수정 필요, 동작 안하고있음
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["productList"],
+    queryKey: [PRODUCT_LIST],
     queryFn: async ({ pageParam = "" }) => {
       return await getProductList({
         cursor: pageParam,

@@ -12,6 +12,7 @@ import { handleDoubleCheckNickname } from "./handlers";
 const NicknameFields = ({
   isAvailableNickname,
   setIsAvailableNickname,
+  hasLabel = true,
 }: NicknameFieldProps) => {
   const locale = useParams()?.locale as LocaleTypes;
   const { t } = useTranslation(locale, "user");
@@ -36,6 +37,7 @@ const NicknameFields = ({
     onChange(e);
     if (!errors.nickname) {
       setIsAvailableNickname(false);
+      setValidation({ message: "", isError: false });
     }
   };
 
@@ -53,10 +55,12 @@ const NicknameFields = ({
 
   return (
     <div className="flex flex-col gap-[6px]">
-      <p className="font-bold">
-        {t("sign-up.nickname")}
-        <span className="text-SYSTEM-main">*</span>
-      </p>
+      {hasLabel && (
+        <p className="font-bold">
+          {t("sign-up.nickname")}
+          <span className="text-SYSTEM-main">*</span>
+        </p>
+      )}
       <div className="grid grid-cols-[auto_auto] gap-2">
         <CustomInput
           className={twMerge(
@@ -90,14 +94,16 @@ const NicknameFields = ({
           {t("sign-up.double-check")}
         </CustomButton>
       </div>
-      <div
-        className={twMerge(
-          "text-sm text-SYSTEM-main leading-[18px]",
-          !validation.isError && "text-ELSE-48"
-        )}
-      >
-        {validation.message}
-      </div>
+      {validation.message && (
+        <div
+          className={twMerge(
+            "text-sm text-SYSTEM-main leading-[18px]",
+            !validation.isError && "text-ELSE-48"
+          )}
+        >
+          {validation.message}
+        </div>
+      )}
     </div>
   );
 };
