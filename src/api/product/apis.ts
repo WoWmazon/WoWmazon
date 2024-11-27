@@ -111,3 +111,24 @@ export const getRelatedProductList = async (id: string) => {
     console.log("에러 : ", error);
   }
 };
+
+// 링크로 찜한 상품에 추가하는 api
+export const postLinkAddProduct = async (url: string) => {
+  try {
+    const data = await fetchWithToken<LinkAddProductResponse>(
+      "product/add_product_by_link/",
+      {
+        method: "POST",
+        body: JSON.stringify({ url }),
+      }
+    );
+    if (isUndefined(data) || isNull(data)) {
+      console.error("유효하지 않은 데이터에요!");
+      throw new Error();
+    }
+    return data;
+  } catch (error) {
+    console.error("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    throw error;
+  }
+};
