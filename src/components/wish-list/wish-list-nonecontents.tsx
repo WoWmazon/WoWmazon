@@ -9,8 +9,8 @@ const WishListNoContents = () => {
   const { t } = useTranslation(locale, "wish-list");
 
   return (
-    <div className="grid  place-items-center w-[343px] h-[478px]">
-      <div className="grid  place-items-center w-[343px] h-[154px] ">
+    <div className="grid  place-items-center w-full max-w-[500px] h-[478px]">
+      <div className="grid place-items-center h-[154px] ">
         <Image src={heartIcon} alt="heartIcon" width={80} height={80} />
         <div className="grid grid-cols-1 gap-[6px] text-center ">
           <p className="text-lg text-ELSE-55">{t("wishListNoContents")}</p>
