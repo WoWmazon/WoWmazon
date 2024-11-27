@@ -7,6 +7,7 @@ const variantStyles = {
     "bg-SYSTEM-white border border-ELSE-D9 text-ELSE-D9 hover:bg-gray-100 hover:text-gray-400",
   outlineColor:
     "bg-SYSTEM-white border border-SYSTEM-main text-SYSTEM-main hover:bg-red-100",
+  none: "",
 };
 const sizeStyles = {
   small: "h-11 font-normal",

@@ -23,7 +23,7 @@ type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 type CustomButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   smallSize?: boolean;
-  variant: "filled" | "disabled" | "outline" | "outlineColor";
+  variant: "filled" | "disabled" | "outline" | "outlineColor" | "none";
 };
 
 type CustomInputProps = Omit<InputProps, "size"> & {
