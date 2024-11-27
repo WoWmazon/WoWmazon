@@ -2,9 +2,12 @@ type productPostCardProps = {
   id: number;
   image: string;
   title: string;
-  price: string;
+  price?: string;
   presentPrice: string;
   discountRate: number;
+  isFavorite?: boolean;
+  isAlarm?: boolean;
+  favoriteId?: number;
 };
 type OrderingType = "present_price" | "-discount_rate";
 
@@ -41,20 +44,20 @@ type ProductCategoryTypeId = {
 };
 
 type ProductResultType = {
-  id: number;
-  image: string;
-  isOutOfStock: boolean;
-  presentPrice: string;
-  price: string;
-  isLowestPriceEver: boolean;
-  discountRate: number;
-  code: string;
-  crawlingUpdatedAt: string; // ISO date string
-  isFavorite: boolean;
-  affiliateUrl: string;
-  isStopSelling: boolean;
-  presentPriceUpdatedAt: string; // ISO date string
-  title: string;
+  id: number; // 상품 ID
+  image: string; // 상품 이미지
+  isOutOfStock: boolean; // 품절 여부
+  presentPrice: string; // 현재가
+  price: string; // 원가
+  isLowestPriceEver: boolean; // 역대 최저가 상품 여부
+  discountRate: number; // 할인율
+  code: string; // 아마존 상품 코드
+  crawlingUpdatedAt: string; // 최근 크롤링일자 // ISO date string
+  isFavorite: boolean; // 찜한 상품 여부
+  affiliateUrl: string; // 아마존 어필리에이트 url
+  isStopSelling: boolean; // 판매 중지 상품 여부
+  presentPriceUpdatedAt: string; // 현재가 갱신 날짜 // ISO date string
+  title: string; // 상품명
 };
 
 type GetExchangeResponse = {

@@ -41,9 +41,7 @@ export default async function Home({
             placeholder="닉네임을 입력해주세요"
             className="border border-bg-black h-14 px-4 py-[14px] bg-SYSTEM-white"
           />
-          <CustomButton size="large" variant="outlineColor">
-            중복확인
-          </CustomButton>
+          <CustomButton variant="outlineColor">중복확인</CustomButton>
         </div>
         <TestComponents />
       </div>

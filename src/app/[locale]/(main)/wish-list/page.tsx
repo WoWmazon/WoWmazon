@@ -1,12 +1,9 @@
-import WishListHeader from "@/components/wish-list/wish-list-header";
-import WishListNoContents from "@/components/wish-list/wish-list-nonecontents";
+import WishListContainer from "@/components/wish-list/wish-list-container";
 
-const page = ({ params: { locale } }: PageProps) => {
-  const number = 5; //예시
+const page = () => {
   return (
     <div className="grid gap-4 p-4">
-      <WishListHeader wishListNumber={number} />
-      <WishListNoContents locale={locale} />
+      <WishListContainer />
     </div>
   );
 };

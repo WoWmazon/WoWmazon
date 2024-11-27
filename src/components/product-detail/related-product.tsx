@@ -1,11 +1,18 @@
-import { getRelatedProductList } from "@/api/product/apis";
+"use client";
+
 import { isNull, isUndefined } from "@/utils/type-guard";
 import RelatedProductCard from "./related-product-card";
-import { getExchangeLatest } from "@/api/exchange/apis";
+import { useRelatedProduct } from "@/hooks/useProductDetail";
 
-const RelatedProduct = async ({ productId }: { productId: string }) => {
-  const relatedProducts = await getRelatedProductList(productId);
-  const exchangeData = await getExchangeLatest();
+const RelatedProduct = ({
+  productId,
+  exchangeData,
+}: {
+  productId: string;
+  exchangeData: GetExchangeResponse;
+}) => {
+  const { data: relatedProducts } = useRelatedProduct(productId);
+
   if (isNull(relatedProducts) || isUndefined(relatedProducts)) {
     console.log("관련된 상품 데이터가 비어있습니다.");
     return null;
@@ -21,7 +28,8 @@ const RelatedProduct = async ({ productId }: { productId: string }) => {
               exchangeData && (
                 <RelatedProductCard
                   key={item.id}
-                  {...{ ...item, exchangeData }}
+                  relatedProduct={item}
+                  exchangeData={exchangeData}
                 />
               )
           )}

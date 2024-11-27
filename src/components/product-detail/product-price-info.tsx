@@ -1,12 +1,28 @@
+"use client";
+
 import { getProductPriceInfo } from "@/api/product/apis";
 import { format } from "date-fns";
-import { getExchangeLatest } from "@/api/exchange/apis";
 import { convertToKrw } from "@/utils/exchange";
+import { useEffect, useState } from "react";
 
-const ProductPriceInfo = async ({ productId }: { productId: string }) => {
+const ProductPriceInfo = ({
+  productId,
+  exchangeData,
+}: {
+  productId: string;
+  exchangeData: GetExchangeResponse;
+}) => {
+  const [productInfo, setProductInfo] = useState<GetProductInfoResponse>();
+
   const dateFormat = (date: string) => format(new Date(date), "yyyy/MM/dd");
-  const productInfo = await getProductPriceInfo(productId);
-  const exchangeData = await getExchangeLatest();
+
+  useEffect(() => {
+    const getProductInfo = async () => {
+      const result = await getProductPriceInfo(productId);
+      setProductInfo(result);
+    };
+    getProductInfo();
+  }, [productId]);
 
   if (!productInfo) return null;
 
