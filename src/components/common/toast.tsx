@@ -10,7 +10,7 @@ const Toast = () => {
     open,
     onChange,
     error = false,
-    autoHideDuration = 3000,
+    autoHideDuration = 1500,
   } = useToastStore();
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
