@@ -33,20 +33,9 @@ const WishListHeader = ({ wishListNumber }: WishListHeaderProps) => {
           className="justify-self-end"
         />
       </div>
-      <div className="grid grid-cols-[auto_auto]  items-center mt-4  text-ELSE-D9">
-        <div className="grid grid-flow-col auto-cols-max items-center gap-2">
-          <button className=" text-md hover:text-ELSE-55">
-            {t("discountRateOrder")}
-          </button>
-          <span className="mx-2"> | </span>
-          <button className=" text-md hover:text-ELSE-55">
-            {t("lowToHigh")}
-          </button>
-        </div>
-        <button className=" text-md justify-self-end hover:text-ELSE-55">
-          {t("edit")}
-        </button>
-      </div>
+      <button className="mt-2 text-md justify-self-end text-ELSE-D9 hover:text-ELSE-55">
+        {t("edit")}
+      </button>
     </>
   );
 };
