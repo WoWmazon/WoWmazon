@@ -11,7 +11,7 @@ import BottomSheetAddProducts from "./bottom-sheet-add-products";
 const BottomNav = () => {
   const pathName = usePathname();
   const router = useRouter();
-  const { handleSimpleBottomSheet } = useSimpleBottomSheetStore();
+  const { handleSimpleBottomSheet, handleClose } = useSimpleBottomSheetStore();
 
   //버튼경로랑 현재 경로가 같은 인덱스 찾는 함수
   const activeIndex = iconButtons.findIndex((btn) => btn.path === pathName);
@@ -39,7 +39,7 @@ const BottomNav = () => {
   const handleAddButtonClick = () => {
     handleSimpleBottomSheet({
       isShow: true,
-      children: <BottomSheetAddProducts />,
+      children: <BottomSheetAddProducts onClose={handleClose} />,
     });
   };
 
@@ -58,7 +58,6 @@ const BottomNav = () => {
                     size={56}
                     alt="AddButton"
                     isActive={isActiveButton === index}
-                    // onClick={() => handleIconClick(index, action, path)}
                     onClick={handleAddButtonClick}
                   />
                 </div>
