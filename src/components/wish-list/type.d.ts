@@ -38,3 +38,8 @@ type PostProductResponse = {
 type DeleteAndPutProductResponse = {
   detail: string;
 };
+
+type WishListHeaderProps = {
+  wishListNumber: number;
+  openEdit: () => void;
+};
