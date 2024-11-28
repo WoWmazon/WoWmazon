@@ -16,9 +16,9 @@ const Toast = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isVisible) {
-      setIsVisible(false);
-    }
+    if (!open) return;
+
+    setIsVisible(false);
 
     const firstTimer = setTimeout(() => {
       setIsVisible(true);
@@ -37,7 +37,7 @@ const Toast = () => {
       clearTimeout(firstTimer);
       clearTimeout(secondTimer);
     };
-  }, [open, message, autoHideDuration, error, onChange]);
+  }, [open, autoHideDuration, onChange]);
 
   if (!open) return null; // Toast 호출 안한 경우 렌더링 방지
 
