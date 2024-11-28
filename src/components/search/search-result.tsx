@@ -27,15 +27,7 @@ const SearchResult = ({
   return (
     <>
       {data.map((product: ProductResultType) => (
-        <ProductCard
-          key={product.id}
-          id={product.id}
-          image={product.image}
-          title={product.title}
-          presentPrice={product.presentPrice}
-          price={product.price}
-          discountRate={product.discountRate}
-        />
+        <ProductCard key={product.id} {...product} />
       ))}
       {hasNextPage && (
         <div ref={observerRef}>
