@@ -1,6 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/products/productCard";
+import ProductCardSkeleton from "../skeletons/product-card-skeleton";
 
 const ProductList = ({
   products,
@@ -19,7 +20,7 @@ const ProductList = ({
     return <p>상품없음</p>;
   }
 
-  if (isLoading) return <p>로딩 중...</p>;
+  if (isLoading) return <ProductCardSkeleton />;
   if (isError) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
 
   return (

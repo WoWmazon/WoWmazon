@@ -1,5 +1,3 @@
-"use server";
-
 import { getProductList } from "@/api/product/apis";
 import ProductListCategoryFilter from "@/components/products/product-list-category-filter";
 import ProductListHeader from "@/components/products/product-list-header";
@@ -10,17 +8,26 @@ import {
 } from "@tanstack/react-query";
 import { PRODUCT_LIST } from "@/constants/query-keys";
 
+const queryParams = { ordering: "-discount_rate" };
+
 const page = async () => {
   const queryClient = new QueryClient();
-  //수정 필요, 동작 안하고있음
   await queryClient.prefetchInfiniteQuery({
-    queryKey: [PRODUCT_LIST],
+    queryKey: [PRODUCT_LIST, queryParams],
     queryFn: async ({ pageParam = "" }) => {
-      return await getProductList({
+      const queryParams: ProductParamsType = {
         cursor: pageParam,
-      });
+        ordering: "-discount_rate",
+      };
+      return await getProductList(queryParams);
     },
     initialPageParam: "",
+    getNextPageParam: (lastPage: GetProductListResponse) => {
+      if (!lastPage || !lastPage.cursor) {
+        return undefined;
+      }
+      return lastPage.cursor;
+    },
   });
 
   const dehydratedState = dehydrate(queryClient);
