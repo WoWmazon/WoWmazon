@@ -43,3 +43,23 @@ type WishListHeaderProps = {
   wishListNumber: number;
   openEdit: () => void;
 };
+
+type WishListProductCardPros = {
+  children: React.ReactNode;
+  isEditing: boolean;
+  isChecked: boolean;
+  onCheck: () => void;
+};
+
+type WishListProps = {
+  products: Array<WishProductCardProps>;
+  isFetchingNextPage: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  intersectionObserverRef: React.RefObject<HTMLDivElement>;
+};
+
+type WishListEditHeaderProps = {
+  count: number;
+  onClose: () => void;
+};
