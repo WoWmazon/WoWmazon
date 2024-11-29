@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 
 const ProductPriceInfo = ({
   productId,
-  exchangeData,
+  exchangeRate,
 }: {
   productId: string;
-  exchangeData: GetExchangeResponse;
+  exchangeRate: GetExchangeRateResponse;
 }) => {
   const [productInfo, setProductInfo] = useState<GetProductInfoResponse>();
 
@@ -37,7 +37,7 @@ const ProductPriceInfo = ({
             <p className="font-bold text-ELSE-33">{`$${productInfo.presentPrice}`}</p>
             <p className="text-sm text-ELSE-55">
               {convertToKrw(
-                Number(exchangeData?.usdToKrw),
+                exchangeRate.usdToKrw,
                 productInfo.presentPrice
               )}
             </p>
@@ -51,7 +51,7 @@ const ProductPriceInfo = ({
             <p className="font-bold text-ELSE-33">{`$${productInfo.lowPrice}`}</p>
             <p className="text-sm text-ELSE-55">
               {convertToKrw(
-                Number(exchangeData?.usdToKrw),
+                exchangeRate.usdToKrw,
                 productInfo.lowPrice
               )}
             </p>
@@ -65,7 +65,7 @@ const ProductPriceInfo = ({
             <p className="font-bold text-ELSE-33">{`$${productInfo.averagePrice}`}</p>
             <p className="text-sm text-ELSE-55">
               {convertToKrw(
-                Number(exchangeData?.usdToKrw),
+                exchangeRate.usdToKrw,
                 productInfo.averagePrice
               )}
             </p>
@@ -79,7 +79,7 @@ const ProductPriceInfo = ({
             <p className="font-bold text-ELSE-33">{`$${productInfo.highPrice}`}</p>
             <p className="text-sm text-ELSE-55">
               {convertToKrw(
-                Number(exchangeData?.usdToKrw),
+                exchangeRate.usdToKrw,
                 productInfo.highPrice
               )}
             </p>

@@ -9,8 +9,10 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { PRODUCT_LIST } from "@/constants/query-keys";
+import { getExchangeLatest } from "@/api/exchange/apis";
 
 const page = async () => {
+  const exchangeRate = await getExchangeLatest();
   const queryClient = new QueryClient();
   //수정 필요, 동작 안하고있음
   await queryClient.prefetchInfiniteQuery({
@@ -26,8 +28,8 @@ const page = async () => {
   const dehydratedState = dehydrate(queryClient);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ProductListHeader />
-      <ProductListCategoryFilter />
+      <ProductListHeader exchangeRate={exchangeRate}/>
+      <ProductListCategoryFilter exchangeRate={exchangeRate}/>
     </HydrationBoundary>
   );
 };
