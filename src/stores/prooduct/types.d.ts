@@ -16,9 +16,3 @@ type WishProductParamsState = {
   favoriteParams: FavoriteProductParamsType;
   setFavoriteParams: (key: string, value: string) => void;
 };
-
-// 환율
-type ExchangeRateState = {
-  exchangeRate: GetExchangeRateResponse,
-  fetchExchangeRate: () => Promise<void>;
-}
