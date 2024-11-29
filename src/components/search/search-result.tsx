@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getExchangeLatest } from "@/api/exchange/apis";
 import ProductCard from "../products/productCard";
-import ProductCardSkelton from "../skeletons/product-card-skeleton";
+import ProductCardSkeleton from "../skeletons/product-card-skeleton";
 import SearchNoneProduct from "./search-none-product";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
@@ -32,7 +32,7 @@ const SearchResult = ({
   }
 
   if (isLoading) {
-    return <ProductCardSkelton />;
+    return <ProductCardSkeleton />;
   }
 
   if (data.length === 0) {
@@ -52,7 +52,7 @@ const SearchResult = ({
         ))}
       {hasNextPage && (
         <div ref={observerRef}>
-          <ProductCardSkelton />
+          <ProductCardSkeleton />
         </div>
       )}
     </>
