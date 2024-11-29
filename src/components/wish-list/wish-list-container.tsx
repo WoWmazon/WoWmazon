@@ -44,7 +44,12 @@ const WishListContainer = () => {
 
   return (
     <>
-      <WishListHeader wishListNumber={wishProductData.length || 0} />
+      <WishListHeader
+        wishListNumber={
+          wishProductData.filter((product) => product.presentPrice !== null)
+            .length || 0
+        }
+      />
       {wishProductData.length ? (
         <WishList
           products={wishProductData}
