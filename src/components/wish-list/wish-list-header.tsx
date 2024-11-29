@@ -33,9 +33,11 @@ const WishListHeader = ({ wishListNumber }: WishListHeaderProps) => {
           className="justify-self-end"
         />
       </div>
-      <button className="mt-2 text-md justify-self-end text-ELSE-D9 hover:text-ELSE-55">
-        {t("edit")}
-      </button>
+      <div className="mt-2 px-1 justify-self-end hover:bg-gray-100 hover:rounded-full">
+        <button className="text-md text-ELSE-D9 hover:text-ELSE-55">
+          {t("edit")}
+        </button>
+      </div>
     </>
   );
 };
