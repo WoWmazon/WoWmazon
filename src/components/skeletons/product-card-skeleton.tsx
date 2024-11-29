@@ -1,4 +1,4 @@
-const ProductCardSkelton = () => {
+const ProductCardSkeleton = () => {
   return (
     <div className="relative grid grid-cols-[80px_auto] gap-4 items-center py-4">
       <div className="h-20 skeleton" />
@@ -13,4 +13,4 @@ const ProductCardSkelton = () => {
   );
 };
 
-export default ProductCardSkelton;
+export default ProductCardSkeleton;
