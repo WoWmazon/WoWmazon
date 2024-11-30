@@ -9,7 +9,11 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { PRODUCT_DETAIL, WISH_LIST } from "@/constants/query-keys";
+import {
+  PRODUCT_DETAIL,
+  PRODUCT_LIST,
+  WISH_LIST,
+} from "@/constants/query-keys";
 import { useToastStore } from "@/stores/common/stores";
 
 export const useFavoriteProductList = (params: FavoriteProductParamsType) => {
@@ -40,6 +44,8 @@ export const useSetFavoriteProduct = (queryKey?: string[]) => {
     mutationFn: (id: number) => postFavoriteProduct(id),
     onSuccess: () => {
       if (queryKey) queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: [WISH_LIST] });
+      queryClient.invalidateQueries({ queryKey: [PRODUCT_LIST] });
       handleToast({
         open: true,
         onChange: () => handleToast({ open: false }),
@@ -61,6 +67,8 @@ export const useSetFavoriteProduct = (queryKey?: string[]) => {
     mutationFn: (id: number) => deleteFavoriteProduct(id),
     onSuccess: () => {
       if (queryKey) queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: [WISH_LIST] });
+      queryClient.invalidateQueries({ queryKey: [PRODUCT_LIST] });
       handleToast({
         open: true,
         onChange: () => handleToast({ open: false }),
@@ -109,6 +117,7 @@ export const useSetAlarm = (queryKey?: string[]) => {
     },
     onSuccess: (data: FavoriteProductList | undefined) => {
       if (queryKey) queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: [WISH_LIST] });
       handleToast({
         open: true,
         onChange: () => handleToast({ open: false }),

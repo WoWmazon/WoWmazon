@@ -18,7 +18,7 @@ export const formatToKoreanTime = (isoString: string): string => {
  * 환율과 시간을 포맷팅하는 함수
  */
 export const getFormattedExchangeText = (
-  usdToKrw: string,
+  usdToKrw: number,
   createdAt: string
 ) => {
   return `USD/KRW = ${usdToKrw}, ${formatToKoreanTime(createdAt)}`;

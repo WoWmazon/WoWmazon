@@ -1,7 +1,12 @@
 "use server";
 import ExchangeBadge from "./exchage-badge";
 
-const ProductListHeader = () => {
+const ProductListHeader = ({
+  exchangeRate,
+}: {
+  exchangeRate: GetExchangeRateResponse;
+}) => {
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -9,8 +14,9 @@ const ProductListHeader = () => {
           상품 리스트
         </div>
       </div>
-      <ExchangeBadge />
+      <ExchangeBadge exchangeRate={exchangeRate} />
     </>
   );
 };
+
 export default ProductListHeader;

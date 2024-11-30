@@ -7,10 +7,12 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { PRODUCT_LIST } from "@/constants/query-keys";
+import { getExchangeLatest } from "@/api/exchange/apis";
 
 const queryParams = { ordering: "-discount_rate" };
 
 const page = async () => {
+  const exchangeRate = await getExchangeLatest();
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey: [PRODUCT_LIST, queryParams],
@@ -33,8 +35,8 @@ const page = async () => {
   const dehydratedState = dehydrate(queryClient);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ProductListHeader />
-      <ProductListCategoryFilter />
+      <ProductListHeader exchangeRate={exchangeRate}/>
+      <ProductListCategoryFilter exchangeRate={exchangeRate}/>
     </HydrationBoundary>
   );
 };
