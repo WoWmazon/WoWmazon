@@ -9,7 +9,11 @@ import SearchFilter from "../search/search-filter";
 import { useInfiniteScrollProductList } from "@/hooks/useInfiniteProductList";
 import { useProductParamsStore } from "@/stores/prooduct/stores";
 
-const ProductListCategoryFilter = () => {
+const ProductListCategoryFilter = ({
+  exchangeRate,
+}: {
+  exchangeRate: GetExchangeRateResponse;
+}) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<
     number | undefined
   >(undefined);
@@ -34,7 +38,6 @@ const ProductListCategoryFilter = () => {
   } = useInfiniteScrollProductList({
     ...searchParams,
     category_id: selectedCategoryId,
-    search: undefined,
   });
 
   /**[카테고리 옵저버] */
@@ -78,6 +81,7 @@ const ProductListCategoryFilter = () => {
         isLoading={isLoading}
         isError={isError}
         productIntersectionObserverRef={productIntersectionObserverRef}
+        exchangeRate={exchangeRate}
       />
     </>
   );

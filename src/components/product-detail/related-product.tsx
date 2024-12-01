@@ -6,15 +6,14 @@ import { useRelatedProduct } from "@/hooks/useProductDetail";
 
 const RelatedProduct = ({
   productId,
-  exchangeData,
+  exchangeRate,
 }: {
   productId: string;
-  exchangeData: GetExchangeResponse;
+  exchangeRate: GetExchangeRateResponse;
 }) => {
   const { data: relatedProducts } = useRelatedProduct(productId);
 
   if (isNull(relatedProducts) || isUndefined(relatedProducts)) {
-    console.log("관련된 상품 데이터가 비어있습니다.");
     return null;
   }
 
@@ -23,16 +22,18 @@ const RelatedProduct = ({
       <div className="px-4 py-[30px]">
         <p className="font-bold mb-3">해당 상품과 비슷한 상품</p>
         <div className="w-full flex gap-3 overflow-x-auto">
-          {relatedProducts.map(
-            (item) =>
-              exchangeData && (
-                <RelatedProductCard
-                  key={item.id}
-                  relatedProduct={item}
-                  exchangeData={exchangeData}
-                />
-              )
-          )}
+          {relatedProducts
+            .filter((product) => product.presentPrice !== null)
+            .map(
+              (item) =>
+                exchangeRate && (
+                  <RelatedProductCard
+                    key={item.id}
+                    relatedProduct={item}
+                    exchangeRate={exchangeRate}
+                  />
+                )
+            )}
         </div>
       </div>
     </div>

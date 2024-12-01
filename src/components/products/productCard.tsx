@@ -14,19 +14,26 @@ import { useSetAlarm, useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
 import { PRODUCT_LIST, WISH_LIST } from "@/constants/query-keys";
 import { useToastStore } from "@/stores/common/stores";
 import { isUndefined } from "@/utils/type-guard";
+import { convertToKrw } from "@/utils/exchange";
 
-const ProductCard = (productProps: productPostCardProps) => {
+const ProductCard = ({
+  product,
+  exchangeRate,
+}: {
+  product: productPostCardProps;
+  exchangeRate: GetExchangeRateResponse;
+}) => {
   const {
     id,
     image,
     title,
     presentPrice,
-    price,
     discountRate,
     isFavorite = true,
     isAlarm,
     favoriteId,
-  } = productProps;
+    isLowestPriceEver,
+  } = product;
   const router = useRouter();
   const { handleToast } = useToastStore();
   const { addWishList } = useSetFavoriteProduct([PRODUCT_LIST]);
@@ -68,9 +75,9 @@ const ProductCard = (productProps: productPostCardProps) => {
           />
         </div>
         {/* 이미지 제외 컴포넌트 */}
-        <div className=" flex flex-col gap-5">
+        <div className="flex flex-col gap-5">
           {/* 상품명과 아이콘버튼 */}
-          <div className=" w-[251px] h-10 gap-4 flex">
+          <div className="w-[251px] h-10 gap-3 flex">
             <p className="w-[203px] h-10  text-md text-ELSE-55 line-clamp-2">
               {title}
             </p>
@@ -90,34 +97,42 @@ const ProductCard = (productProps: productPostCardProps) => {
               />
             )}
           </div>
-          <div>
+          <div className="flex justify-between">
             {/* 뱃지랑 최저가 */}
-            <div className="flex justify-between">
-              <Badge
-                text="역대최저가"
-                height="h-[18px]"
-                hasIcon={false}
-                backgroundColor="bg-ELSE-F0"
-                textColor="text-ELSE-C1"
-                textSize="text-sm"
-                iconWidth={12}
-              />
-              <p className="tabular-nums text-md font-bold">
-                $ {price ?? presentPrice}
-              </p>
+            <div>
+              {isLowestPriceEver && (
+                <Badge
+                  text="역대최저가"
+                  height="h-[18px]"
+                  hasIcon={false}
+                  backgroundColor="bg-ELSE-F0"
+                  textColor="text-ELSE-C1"
+                  textSize="text-sm"
+                  iconWidth={12}
+                />
+              )}
             </div>
             {/* 현재 가격이랑 뱃지 */}
-            <div className="flex justify-end gap-[6px]">
-              <p className="text-md text-ELSE-76">{presentPrice} 원</p>
-              <Badge
-                text={discountRate}
-                height="h-[18px]"
-                hasIcon={true}
-                iconSrc={arrowDowm}
-                backgroundColor="bg-ELSE-FF3"
-                textColor="text-SYSTEM-main"
-                textSize="text-sm"
-              />
+            <div className="justify-end">
+              <div className="justify-self-end mb-1">
+                <p className="tabular-nums text-md font-bold ">
+                  $ {presentPrice}
+                </p>
+              </div>
+              <div className="flex gap-[6px]">
+                <p className="text-md text-ELSE-76">
+                  {convertToKrw(exchangeRate.usdToKrw, Number(presentPrice))}
+                </p>
+                <Badge
+                  text={discountRate}
+                  height="h-[18px]"
+                  hasIcon={true}
+                  iconSrc={arrowDowm}
+                  backgroundColor="bg-ELSE-FF3"
+                  textColor="text-SYSTEM-main"
+                  textSize="text-sm"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -125,4 +140,5 @@ const ProductCard = (productProps: productPostCardProps) => {
     </div>
   );
 };
+
 export default ProductCard;

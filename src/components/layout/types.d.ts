@@ -5,3 +5,7 @@ type BottomNavIconButtonProps = {
   isActive?: boolean;
   onClick: () => void;
 };
+
+type LinkAddProductResponse = {
+  url: string;
+};

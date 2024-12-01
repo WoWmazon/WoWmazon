@@ -1,4 +1,4 @@
-const SearchFilterSkelton = () => {
+const SearchFilterSkeleton = () => {
   return (
     <div className="flex flex-col gap-5 py-2 w-full">
       <div className="h-14 w-full skeleton" />
@@ -7,4 +7,4 @@ const SearchFilterSkelton = () => {
   );
 };
 
-export default SearchFilterSkelton;
+export default SearchFilterSkeleton;

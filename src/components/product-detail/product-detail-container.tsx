@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import ProductDetailHeader from "./product-detail-header";
 import ProductDetailContent from "./product-detail-content";
 // import ProductPriceGraph from "@/components/product-detail/product-price-graph";
@@ -8,34 +7,41 @@ import ProductPriceInfo from "./product-price-info";
 import RelatedProduct from "./related-product";
 import ProductDetailNav from "../layout/product-detail-nav";
 import { useProductDetail } from "@/hooks/useProductDetail";
+import { useEffect, useState } from "react";
 import { getExchangeLatest } from "@/api/exchange/apis";
+import { isNull, isUndefined } from "@/utils/type-guard";
 
 const ProductDetailContainer = ({ params }: { params: { id: string } }) => {
   const { data: product } = useProductDetail(params.id);
 
-  const [exchangeData, setExchangeData] = useState<GetExchangeResponse>();
+  const [exchangeRate, setExchangeRate] = useState<GetExchangeRateResponse>({
+    usdToKrw: 1350,
+    createdAt: new Date("2024-11-28T10:42:54.451916+09:00"),
+  });
 
   useEffect(() => {
     const getExchange = async () => {
       const result = await getExchangeLatest();
-      setExchangeData(result);
+      setExchangeRate(result);
     };
     getExchange();
   }, []);
 
-  if (!product) return null;
-  if (!exchangeData) return null;
+  if (isNull(product) || isUndefined(product)) {
+    return null;
+  }
+
   return (
     <>
       <div className="mb-3">
         <ProductDetailHeader {...product} />
-        <ProductDetailContent product={product} exchangeData={exchangeData} />
+        <ProductDetailContent product={product} exchangeRate={exchangeRate} />
         {/* TODO: 그래프 추후 개발 */}
         {/* <ProductPriceGraph /> */}
-        <ProductPriceInfo productId={params.id} exchangeData={exchangeData} />
+        <ProductPriceInfo productId={params.id} exchangeRate={exchangeRate} />
       </div>
       <div>
-        <RelatedProduct productId={params.id} exchangeData={exchangeData} />
+        <RelatedProduct productId={params.id} exchangeRate={exchangeRate} />
       </div>
       <ProductDetailNav {...product} />
     </>

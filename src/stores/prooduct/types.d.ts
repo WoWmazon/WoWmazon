@@ -8,7 +8,7 @@ type RecentKeywordsState = {
 //카테고리 필터 추가하여 bool값으로 만든것
 type ProductParamsState = {
   searchParams: ProductParamsType;
-  setSearchParams: (key: string, value: boolean | null | string) => void;
+  setSearchParams: (key: string, value: boolean | string | undefined) => void;
 };
 
 // 찜한 상품
