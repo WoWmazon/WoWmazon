@@ -64,7 +64,7 @@ export const useSetFavoriteProduct = (queryKey?: string[]) => {
   });
 
   const { mutateAsync: deleteWishList } = useMutation({
-    mutationFn: (id: number) => deleteFavoriteProduct(id),
+    mutationFn: (id: number | number[]) => deleteFavoriteProduct(id),
     onSuccess: () => {
       if (queryKey) queryClient.invalidateQueries({ queryKey });
       queryClient.invalidateQueries({ queryKey: [WISH_LIST] });
