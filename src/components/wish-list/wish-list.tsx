@@ -36,7 +36,6 @@ const WishList = ({
     getExchange();
   }, []);
 
-  if (isLoading) return <ProductCardSkeleton />;
   if (isError) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
 
   return (
@@ -46,7 +45,9 @@ const WishList = ({
           .filter((product) => product.presentPrice !== null)
           .map((product, index) => {
             const checked = isChecked(product.favoriteId);
-            return (
+            return isLoading ? (
+              <ProductCardSkeleton />
+            ) : (
               <WishListProductCard
                 key={`${product.id}-${index}`}
                 isEditing={isEditing}

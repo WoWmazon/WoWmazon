@@ -31,10 +31,6 @@ const SearchResult = ({
     return <p>상품을 불러올 수 없습니다.</p>;
   }
 
-  if (isLoading) {
-    return <ProductCardSkeleton />;
-  }
-
   if (data.length === 0) {
     return <SearchNoneProduct />;
   }
@@ -43,13 +39,17 @@ const SearchResult = ({
     <>
       {data
         .filter((product) => product.presentPrice !== null)
-        .map((product: ProductResultType) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            exchangeRate={exchangeRate}
-          />
-        ))}
+        .map((product: ProductResultType) =>
+          isLoading ? (
+            <ProductCardSkeleton />
+          ) : (
+            <ProductCard
+              key={product.id}
+              product={product}
+              exchangeRate={exchangeRate}
+            />
+          )
+        )}
       {hasNextPage && (
         <div ref={observerRef}>
           <ProductCardSkeleton />
