@@ -16,14 +16,15 @@ const CustomCheckBox = forwardRef<
         id={uuid}
         ref={ref}
         className={twMerge(
-          "appearance-none flex-none size-5 border border-ELSE-D9 bg-SYSTEM-white rounded-sm",
-          "checked:bi-check-sm checked:bg-SYSTEM-main checked:bg-no-repeat checked:bg-center checked:border-none",
-          large && "size-7 checked:bi-check-lg",
+          "appearance-none flex-none size-5 border border-ELSE-D9 bg-SYSTEM-white rounded-sm bg-center",
+          "checked:bi-check-sm checked:bg-no-repeat checked:bg-center checked:border-none checked:bg-SYSTEM-main",
+          "transition-all duration-300",
+          large && "size-7  checked:bi-check-lg",
           className
         )}
         {...rest}
       />
-      <label htmlFor={uuid}>{children}</label>
+      {children && <label htmlFor={uuid}>{children}</label>}
     </div>
   );
 });

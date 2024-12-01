@@ -1,49 +1,45 @@
 "use client";
 
-// import { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-// import { useDebounce } from "@/hooks/useDebounce";
-// import { useProducts } from "@/api/product/queries";
-import SearchHeader from "@/components/search/search-header";
-// import SearchResult from "@/components/search/search-result";
+import { useEffect } from "react";
+import { useProductParamsStore } from "@/stores/prooduct/stores";
+import { useInfiniteScrollProductList } from "@/hooks/useInfiniteProductList";
+import SearchBar from "@/components/search/search-bar";
+import SearchResult from "@/components/search/search-result";
+import SearchRecentKeywords from "./search-recent-keywords";
+import SearchFilter from "./search-filter";
 
 const SearchContainer = () => {
-  const method = useForm<ProductParamsType>();
-  const { handleSubmit } = method;
+  const { searchParams, setSearchParams } = useProductParamsStore();
+  const hasSearchKeyword = !!searchParams.search;
 
-  // debounce 적용할 객체
-  // const formParams: ProductParamsType = {
-  //   search: watch("search"),
-  //   is_out_of_stock: watch("is_out_of_stock"),
-  //   is_lowest_price_ever: watch("is_lowest_price_ever"),
-  //   ordering: "discount_rate", // 아직 미 적용.
-  // };
+  const { data, isPending, isError, hasNextPage, fetchNextPage } =
+    useInfiniteScrollProductList(searchParams, hasSearchKeyword);
 
-  // formParams에 debounce 적용
-  // const debouncedParams = useDebounce(formParams);
+  const resultCount = data?.pages[0].count ?? 0;
+  const resultData = data?.pages.flatMap((page) => page.results) ?? [];
 
-  // react-query로 데이터 페칭
-  // const { data, isLoading, refetch } = useProducts(debouncedParams);
-
-  const onSubmit = handleSubmit(() => {
-    // refetch();
-  });
-
-  // useEffect(() => {
-  //   if (debouncedParams.search) {
-  //     refetch();
-  //   }
-  // }, [debouncedParams]);
+  useEffect(() => {
+    return () => setSearchParams("search", undefined);
+  }, [setSearchParams]);
 
   return (
-    <FormProvider {...method}>
-      <form className="px-4 pt-14 text-ELSE-33" onSubmit={onSubmit}>
-        <SearchHeader />
-        {/* 미적용 */}
-        {/* <RecentSearchKeyword keywords={keywords} /> */}
-        {/* <SearchResult data={data?.results} isLoading={isLoading} /> */}
-      </form>
-    </FormProvider>
+    <div className="px-4 pt-16 text-ELSE-33">
+      <SearchBar />
+      {!hasSearchKeyword ? (
+        <SearchRecentKeywords />
+      ) : (
+        <>
+          <SearchFilter count={resultCount} />
+          <SearchResult
+            data={resultData}
+            isLoading={isPending}
+            isError={isError}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
+        </>
+      )}
+    </div>
   );
 };
 

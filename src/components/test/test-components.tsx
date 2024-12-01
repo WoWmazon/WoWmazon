@@ -5,18 +5,34 @@ import CustomCheckBox from "../common/custom-checkbox";
 import CustomInput from "../common/custom-input";
 import CustomRadio from "../common/custom-radio";
 import CustomToggle from "../common/custom-toggle";
-import Toast from "../common/toast";
 import CustomButton from "../common/custom-button";
+import { useToastStore } from "@/stores/common/stores";
 
 const TestComponents = () => {
   const [value, setValue] = useState("");
-  const [value3, setValue3] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
+  const { handleToast } = useToastStore();
 
   const focusInput = () => {
     if (ref.current) {
       ref.current.focus();
     }
+  };
+
+  const setToast = () => {
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: "Toast",
+    });
+  };
+
+  const setToast2 = () => {
+    handleToast({
+      open: true,
+      onChange: () => handleToast({ open: false }),
+      message: "Toast2",
+    });
   };
 
   return (
@@ -48,15 +64,16 @@ const TestComponents = () => {
           onChange={(e) => setValue(e.target.value)}
           hasDelBtn
         />
-        <CustomButton onClick={focusInput}>포커스 인풋</CustomButton>
+        <CustomButton variant="outlineColor" onClick={focusInput}>
+          포커스 인풋
+        </CustomButton>
       </div>
-      <CustomButton
-        variant="outlineColor"
-        onClick={() => setValue3((prev) => !prev)}
-      >
+      <CustomButton variant="filled" onClick={setToast}>
         토스트
       </CustomButton>
-      {value3 && <Toast open={value3} onChange={setValue3} message="Toast" />}
+      <CustomButton variant="filled" onClick={setToast2}>
+        토스트2
+      </CustomButton>
     </div>
   );
 };

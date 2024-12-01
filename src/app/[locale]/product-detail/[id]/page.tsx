@@ -1,23 +1,32 @@
-import ProductDetailHeader from "@/components/product-detail/product-detail-header";
-import ProductDetailContent from "@/components/product-detail/product-detail-content";
-// import ProductPriceGraph from "@/components/product-detail/product-price-graph";
-import ProductPriceInfo from "@/components/product-detail/product-price-info";
-import RelatedProduct from "@/components/product-detail/related-product";
+import { getProductDetail } from "@/api/product/apis";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { PRODUCT_DETAIL } from "@/constants/query-keys";
+import ProductDetailContainer from "@/components/product-detail/product-detail-container";
 
-const page = () => {
+const page = async ({ params }: { params: { id: string } }) => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 60 * 1000,
+      },
+    },
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [PRODUCT_DETAIL, params.id],
+    queryFn: () => getProductDetail(params.id),
+  });
+
   return (
-    <div className="bg-ELSE-EC">
-      <div className="mb-3">
-        <ProductDetailHeader />
-        <ProductDetailContent />
-        {/* TODO: 그래프 추후 개발 */}
-        {/* <ProductPriceGraph /> */}
-        <ProductPriceInfo />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="bg-ELSE-EC">
+        <ProductDetailContainer params={params} />
       </div>
-      <div>
-        <RelatedProduct />
-      </div>
-    </div>
+    </HydrationBoundary>
   );
 };
 export default page;

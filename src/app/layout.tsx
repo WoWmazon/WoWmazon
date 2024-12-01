@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import LocaleButton from "@/components/locale-button";
-import Providers from "./providers";
 
 import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
+import QueryProviders from "@/providers/query-provider";
+import CommonContainer from "@/components/layout/common-container";
 
 export const metadata: Metadata = {
   title: "Nito",
@@ -36,7 +37,10 @@ export default function RootLayout({
                   id="chidrenWrapper"
                   className="relative h-full overflow-y-auto scrollbar-none"
                 >
-                  <Providers>{children}</Providers>
+                  <QueryProviders>
+                    {children}
+                    <CommonContainer />
+                  </QueryProviders>
                 </div>
               </div>
             </div>

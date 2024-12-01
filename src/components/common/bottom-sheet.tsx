@@ -3,8 +3,9 @@ import CustomButton from "./custom-button";
 import Image from "next/image";
 import CloseButton from "@/assets/icons/closeButton.svg";
 import { useState, useEffect } from "react";
+import { useBottomSheetStore } from "@/stores/common/stores";
 
-export const BottomSheet = (props: BottomSheetProps) => {
+const BottomSheet = () => {
   const {
     children,
     isShow,
@@ -16,7 +17,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
     handleAction,
     optionalBtnText,
     handleOptional,
-  } = props;
+  } = useBottomSheetStore();
   const [show, setShow] = useState(isShow);
 
   const onClose = () => {
@@ -44,16 +45,18 @@ export const BottomSheet = (props: BottomSheetProps) => {
     };
   }, [isShow]);
 
+  if (!isShow) return null;
+
   return (
     <div
       id="common-bottom-sheet"
       tabIndex={-1}
-      className="absolute flex justify-center top-0 inset-0 z-50 items-end w-full h-screen bg-ELSE-A1 bg-opacity-50 scrollbar-none"
+      className="absolute flex justify-center top-0 inset-0 z-20 items-end w-full h-screen bg-ELSE-A1 bg-opacity-50 scrollbar-none"
       onClick={handleOutsideClick} // 외부 클릭 시 닫기
     >
       <div
         className={twMerge(
-          "fixed bottom-0 px-4 pt-3 pb-5 w-[375px] text-center content-center max-h-full rounded-t-[20px] bg-SYSTEM-white text-md z-30",
+          "fixed bottom-0 px-4 pt-3 pb-5 w-[375px] text-center content-center max-h-full rounded-t-[20px] bg-SYSTEM-white text-md z-10",
           show && "animate-slideUp",
           !show && "animate-slideDown",
           className
@@ -92,3 +95,5 @@ export const BottomSheet = (props: BottomSheetProps) => {
     </div>
   );
 };
+
+export default BottomSheet;

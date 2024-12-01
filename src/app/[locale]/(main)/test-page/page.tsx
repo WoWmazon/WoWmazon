@@ -1,4 +1,5 @@
 import CustomButton from "@/components/common/custom-button";
+import ProductCardSkelton from "@/components/skeletons/product-card-skeleton";
 import TestButton from "@/components/test-button";
 import TestComponents from "@/components/test/test-components";
 import { createTranslation } from "@/utils/localization/server";
@@ -31,15 +32,16 @@ export default async function Home({
             filled button
           </CustomButton>
         </div>
+        <div className="my-4">
+          <ProductCardSkelton />
+        </div>
         <br />
         <div className="grid grid-cols-[250px_auto] gap-1">
           <input
             placeholder="닉네임을 입력해주세요"
             className="border border-bg-black h-14 px-4 py-[14px] bg-SYSTEM-white"
           />
-          <CustomButton size="large" variant="outlineColor">
-            중복확인
-          </CustomButton>
+          <CustomButton variant="outlineColor">중복확인</CustomButton>
         </div>
         <TestComponents />
       </div>

@@ -1,10 +1,12 @@
 import Image from "next/image";
 import heartIcon from "@/assets/icons/nav_wishList_gray.svg";
-import { createTranslation } from "@/utils/localization/server";
 import { LocaleTypes } from "@/utils/localization/settings";
+import { useParams } from "next/navigation";
+import { useTranslation } from "@/utils/localization/client";
 
-const WishListNoContents = async ({ locale }: { locale: LocaleTypes }) => {
-  const { t } = await createTranslation(locale, "wish-list");
+const WishListNoContents = () => {
+  const locale = useParams()?.locale as LocaleTypes;
+  const { t } = useTranslation(locale, "wish-list");
 
   return (
     <div className="grid  place-items-center w-[343px] h-[478px]">

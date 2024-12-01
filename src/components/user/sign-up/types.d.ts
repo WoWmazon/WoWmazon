@@ -18,6 +18,7 @@ type FormInput = {
 type NicknameFieldProps = {
   isAvailableNickname: boolean;
   setIsAvailableNickname: Dispatch<SetStateAction<boolean>>;
+  hasLabel?: boolean;
 };
 
 type DeviceType = {

@@ -2,35 +2,46 @@
 
 import { isNull, isUndefined } from "@/utils/type-guard";
 import { fetchWithToken } from "../fetchApi";
-import { createQueryString } from "@/utils/apiUtils";
-
-// 쿼리 파라미터 생성
-// const queryParams = new URLSearchParams({
-//   category_id: "1",
-//   is_lowest_price_ever: "true",
-//   is_out_of_stock: "false",
-//   ordering: "present_price",
-//   page_size: "1",
-//   search: "bag",
-// });
+import { createQueryString } from "@/utils/apis/create-query-string";
 
 // 초기 productList를 불러오는 함수
-export const getProductList = async (queryParams?: Record<string, string>) => {
+export const getProductList = async (queryParams?: ProductParamsType) => {
+  let stringRecord: Record<string, string> = {};
+  if (queryParams) {
+    stringRecord = createQueryString(queryParams);
+  }
   const data = await fetchWithToken<GetProductListResponse>(
     "product/",
-    {
-      method: "GET",
-    },
-    queryParams
+    {},
+    stringRecord
   );
   return data;
 };
 
-// product 상세
-export const getProductDatail = async (id: string) => {
+//카테고리 불어오는 함수
+export const getCategoryId = async (
+  queryParams?: ProductCategoryParamsType
+) => {
+  let stringRecord: Record<string, string> = {};
+  if (queryParams) {
+    stringRecord = createQueryString(queryParams);
+  }
+  const data = await fetchWithToken<GetProductCategoryResponse>(
+    "category/",
+    {},
+    stringRecord
+  );
+  return data;
+};
+
+// product 상세 조회 GET /v1/product/{id}
+export const getProductDetail = async (id: string) => {
   try {
-    const data = await fetchWithToken<GetProductDatailResponse>(
+    const data = await fetchWithToken<GetProductDetailResponse>(
       `product/${id}/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("상품 데이터가 비어있습니다.");
@@ -47,8 +58,11 @@ export const getProductPriceGraph = async () => {
   const id = "127085";
   const month = "3";
   try {
-    const data = await fetchWithToken<GetProductDatailResponse>(
+    const data = await fetchWithToken<GetProductDetailResponse>(
       `price_history/?period=${month}&product_id=${id}/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("상품 데이터가 비어있습니다.");
@@ -65,6 +79,9 @@ export const getProductPriceInfo = async (id: string) => {
   try {
     const data = await fetchWithToken<GetProductInfoResponse>(
       `product/${id}/price_info/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("데이터가 비어있습니다.");
@@ -79,8 +96,11 @@ export const getProductPriceInfo = async (id: string) => {
 // 관련 product 목록 조회 GET /v1/product/{id}/related_product_list
 export const getRelatedProductList = async (id: string) => {
   try {
-    const data = await fetchWithToken<GetRelatedProductListResponse[]>(
+    const data = await fetchWithToken<ProductResultType[]>(
       `product/${id}/related_product_list/`,
+      {
+        method: "GET",
+      }
     );
     if (isUndefined(data) || isNull(data)) {
       console.log("데이터가 비어있습니다.");
@@ -92,28 +112,23 @@ export const getRelatedProductList = async (id: string) => {
   }
 };
 
-export const getProductListBySearch = async (
-  queryParams?: ProductParamsType
-) => {
+// 링크로 찜한 상품에 추가하는 api
+export const postLinkAddProduct = async (url: string) => {
   try {
-    let stringRecord: Record<string, string> = {};
-    if (queryParams) {
-      stringRecord = createQueryString(queryParams);
-    }
-    const data = await fetchWithToken<GetProductListResponse>(
-      "product/",
+    const data = await fetchWithToken<LinkAddProductResponse>(
+      "product/add_product_by_link/",
       {
-        method: "GET",
-      },
-      stringRecord
+        method: "POST",
+        body: JSON.stringify({ url }),
+      }
     );
-    if (isUndefined(data) || isNull(data) || isUndefined(data.results)) {
-      console.log("상품 데이터가 비어있습니다.");
-      return [];
+    if (isUndefined(data) || isNull(data)) {
+      console.error("유효하지 않은 데이터에요!");
+      throw new Error();
     }
     return data;
   } catch (error) {
-    console.error("에러:", error);
-    return [];
+    console.error("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    throw error;
   }
 };

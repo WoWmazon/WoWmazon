@@ -1,11 +1,28 @@
-"use server";
+"use client";
 
 import { getProductPriceInfo } from "@/api/product/apis";
 import { format } from "date-fns";
+import { convertToKrw } from "@/utils/exchange";
+import { useEffect, useState } from "react";
 
-const ProductPriceInfo = async () => {
+const ProductPriceInfo = ({
+  productId,
+  exchangeRate,
+}: {
+  productId: string;
+  exchangeRate: GetExchangeRateResponse;
+}) => {
+  const [productInfo, setProductInfo] = useState<GetProductInfoResponse>();
+
   const dateFormat = (date: string) => format(new Date(date), "yyyy/MM/dd");
-  const productInfo = await getProductPriceInfo("127184");
+
+  useEffect(() => {
+    const getProductInfo = async () => {
+      const result = await getProductPriceInfo(productId);
+      setProductInfo(result);
+    };
+    getProductInfo();
+  }, [productId]);
 
   if (!productInfo) return null;
 
@@ -18,7 +35,12 @@ const ProductPriceInfo = async () => {
           )})`}</p>
           <div className="text-right">
             <p className="font-bold text-ELSE-33">{`$${productInfo.presentPrice}`}</p>
-            <p className="text-sm text-ELSE-55">106만 8,530.36원</p>
+            <p className="text-sm text-ELSE-55">
+              {convertToKrw(
+                exchangeRate.usdToKrw,
+                productInfo.presentPrice
+              )}
+            </p>
           </div>
         </div>
         <div className="pl-3">
@@ -27,7 +49,12 @@ const ProductPriceInfo = async () => {
           </p>
           <div className="text-right">
             <p className="font-bold text-ELSE-33">{`$${productInfo.lowPrice}`}</p>
-            <p className="text-sm text-ELSE-55">97만 5,226.40원</p>
+            <p className="text-sm text-ELSE-55">
+              {convertToKrw(
+                exchangeRate.usdToKrw,
+                productInfo.lowPrice
+              )}
+            </p>
           </div>
         </div>
       </div>
@@ -36,7 +63,12 @@ const ProductPriceInfo = async () => {
           <div className="text-sm text-ELSE-76 mb-[14px]">평균가</div>
           <div className="text-right">
             <p className="font-bold text-ELSE-33">{`$${productInfo.averagePrice}`}</p>
-            <p className="text-sm text-ELSE-55">104만 972원</p>
+            <p className="text-sm text-ELSE-55">
+              {convertToKrw(
+                exchangeRate.usdToKrw,
+                productInfo.averagePrice
+              )}
+            </p>
           </div>
         </div>
         <div className="pl-3">
@@ -45,7 +77,12 @@ const ProductPriceInfo = async () => {
           </p>
           <div className="text-right">
             <p className="font-bold text-ELSE-33">{`$${productInfo.highPrice}`}</p>
-            <p className="text-sm text-ELSE-55">109만 5,924.36 원</p>
+            <p className="text-sm text-ELSE-55">
+              {convertToKrw(
+                exchangeRate.usdToKrw,
+                productInfo.highPrice
+              )}
+            </p>
           </div>
         </div>
       </div>
