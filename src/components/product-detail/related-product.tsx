@@ -3,6 +3,7 @@
 import { isNull, isUndefined } from "@/utils/type-guard";
 import RelatedProductCard from "./related-product-card";
 import { useRelatedProduct } from "@/hooks/useProductDetail";
+import RelatedProductCardSkeleton from "../skeletons/related-product-card-skeleton";
 
 const RelatedProduct = ({
   productId,
@@ -11,7 +12,7 @@ const RelatedProduct = ({
   productId: string;
   exchangeRate: GetExchangeRateResponse;
 }) => {
-  const { data: relatedProducts } = useRelatedProduct(productId);
+  const { data: relatedProducts, isLoading } = useRelatedProduct(productId);
 
   if (isNull(relatedProducts) || isUndefined(relatedProducts)) {
     return null;
@@ -24,8 +25,10 @@ const RelatedProduct = ({
         <div className="w-full flex gap-3 overflow-x-auto">
           {relatedProducts
             .filter((product) => product.presentPrice !== null)
-            .map(
-              (item) =>
+            .map((item) => {
+              return isLoading ? (
+                <RelatedProductCardSkeleton />
+              ) : (
                 exchangeRate && (
                   <RelatedProductCard
                     key={item.id}
@@ -33,10 +36,12 @@ const RelatedProduct = ({
                     exchangeRate={exchangeRate}
                   />
                 )
-            )}
+              );
+            })}
         </div>
       </div>
     </div>
   );
 };
+
 export default RelatedProduct;
