@@ -14,7 +14,7 @@ const WishListProductCard = ({
           <div
             className={twMerge(
               "w-full h-32 mt-2",
-              isChecked && "bg-SYSTEM-main bg-opacity-20 "
+              isChecked && "bg-SYSTEM-main bg-opacity-20 rounded-[4px]"
             )}
           >
             <div className="size-20 justify-items-center content-center">
