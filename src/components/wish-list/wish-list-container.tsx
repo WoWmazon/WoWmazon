@@ -64,7 +64,6 @@ const WishListContainer = () => {
   };
 
   return (
-<<<<<<< HEAD
     <div className="flex flex-col">
       {isEditing ? (
         <WishListEditHeader
@@ -77,15 +76,6 @@ const WishListContainer = () => {
           openEdit={() => setIsEditing(true)}
         />
       )}
-=======
-    <>
-      <WishListHeader
-        wishListNumber={
-          wishProductData.filter((product) => product.presentPrice !== null)
-            .length || 0
-        }
-      />
->>>>>>> origin/dev
       {wishProductData.length ? (
         <WishList
           products={wishProductData}
