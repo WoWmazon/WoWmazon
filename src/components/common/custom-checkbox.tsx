@@ -24,7 +24,7 @@ const CustomCheckBox = forwardRef<
         )}
         {...rest}
       />
-      <label htmlFor={uuid}>{children}</label>
+      {children && <label htmlFor={uuid}>{children}</label>}
     </div>
   );
 });

@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../products/productCard";
 import { getExchangeLatest } from "@/api/exchange/apis";
+import WishListProductCard from "./wish-list-product-card";
+import { useWishEditStore } from "@/stores/prooduct/stores";
 import ProductCardSkeleton from "../skeletons/product-card-skeleton";
 
 const WishList = ({
@@ -11,17 +13,20 @@ const WishList = ({
   isLoading,
   isError,
   intersectionObserverRef,
-}: {
-  products: Array<WishProductCardProps>;
-  isFetchingNextPage: boolean;
-  isLoading: boolean;
-  isError: boolean;
-  intersectionObserverRef: React.RefObject<HTMLDivElement>;
-}) => {
+}: WishListProps) => {
   const [exchangeRate, setExchangeRate] = useState<GetExchangeRateResponse>({
     usdToKrw: 1350,
     createdAt: new Date("2024-11-28T10:42:54.451916+09:00"),
   });
+  const { isEditing, isChecked, setEdit, deleteEdit } = useWishEditStore();
+
+  const handleCheckEditProduct = (id: number) => {
+    if (isChecked(id)) {
+      deleteEdit(id);
+      return;
+    }
+    setEdit(id);
+  };
 
   useEffect(() => {
     const getExchange = async () => {
@@ -39,13 +44,23 @@ const WishList = ({
       {products.length > 0 ? (
         products
           .filter((product) => product.presentPrice !== null)
-          .map((product, index) => (
-            <ProductCard
-              key={`${product.id}-${index}`}
-              product={product}
-              exchangeRate={exchangeRate}
-            />
-          ))
+          .map((product, index) => {
+            const checked = isChecked(product.favoriteId);
+            return (
+              <WishListProductCard
+                key={`${product.id}-${index}`}
+                isEditing={isEditing}
+                isChecked={checked}
+                onCheck={() => handleCheckEditProduct(product.favoriteId)}
+              >
+                <ProductCard
+                  key={`${product.id}-${index}`}
+                  product={product}
+                  exchangeRate={exchangeRate}
+                />
+              </WishListProductCard>
+            );
+          })
       ) : (
         <p>상품이 없습니다.</p>
       )}

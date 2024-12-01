@@ -20,7 +20,7 @@
 
 <h3>Links</h3>
 
-[🔗 deployed by **Vercel** Click](wowmazon.vercel.app) 👈
+[🔗 deployed by **Vercel** Click](https://wowmazon.vercel.app/) 👈
 </br>
 
 [🔗 provided by the company **Figma** Click ](https://www.figma.com/design/1l1udC9yXth2FPUSjMLms0/NITO-%EC%9E%91%EC%97%85%EC%9A%A9?node-id=3266-13686&node-type=canvas&t=R96c3oWSzPPzDSuR-0) 👈

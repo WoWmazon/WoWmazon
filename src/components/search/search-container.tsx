@@ -20,7 +20,7 @@ const SearchContainer = () => {
 
   useEffect(() => {
     return () => setSearchParams("search", undefined);
-  }, []);
+  }, [setSearchParams]);
 
   return (
     <div className="px-4 pt-16 text-ELSE-33">
