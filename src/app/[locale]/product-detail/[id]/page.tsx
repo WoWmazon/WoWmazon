@@ -7,6 +7,30 @@ import {
 import { PRODUCT_DETAIL } from "@/constants/query-keys";
 import ProductDetailContainer from "@/components/product-detail/product-detail-container";
 
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  try {
+    const product = await getProductDetail(params.id);
+
+    return {
+      title: `${product?.title} - | Wowmazon`,
+      openGraph: {
+        title: `${product?.title} - | Wowmazon`,
+        url: `https://wowmazon.vercel.app/product-detail/${params.id}`,
+        images: [
+          {
+            url:
+              product?.image ||
+              "https://wowmazon.vercel.app/images/noImage.svg",
+            alt: product?.title,
+          },
+        ],
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch product metadata", error);
+  }
+}
+
 const page = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
