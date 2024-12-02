@@ -43,7 +43,7 @@ const Toast = () => {
 
   return (
     <div
-      className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px] cursor-pointer"
+      className="absolute flex justify-center right-0 bottom-0 w-full cursor-pointer"
       onClick={() => onChange(false)}
     >
       <div
