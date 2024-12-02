@@ -38,10 +38,10 @@ export const postFavoriteProduct = async (productId: number) => {
 };
 
 // favorite product 삭제 (상품 찜하기 삭제)  DELETE /v1/favorite_product/delete_multiple/
-export const deleteFavoriteProduct = async (favoriteId: number) => {
+export const deleteFavoriteProduct = async (favoriteId: number | number[]) => {
   try {
     const data = await fetchWithToken<DeleteAndPutProductResponse>(
-      `favorite_product/delete_multiple/?ids=${favoriteId}`,
+      `favorite_product/delete_multiple/?ids=${favoriteId.toString()}`,
       {
         method: "DELETE",
       }

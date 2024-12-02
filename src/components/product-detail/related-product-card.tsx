@@ -15,16 +15,16 @@ import { useSetFavoriteProduct } from "@/hooks/useFavoriteProduct";
 
 const RelatedProductCard = ({
   relatedProduct,
-  exchangeData,
+  exchangeRate,
 }: {
   relatedProduct: ProductResultType;
-  exchangeData: GetExchangeResponse;
+  exchangeRate: GetExchangeRateResponse;
 }) => {
   const {
     id,
     image,
     title,
-    price,
+    presentPrice,
     isLowestPriceEver,
     discountRate,
     isFavorite,
@@ -82,9 +82,9 @@ const RelatedProductCard = ({
           </div>
         )}
         <p className="line-clamp-2 text-md text-ELSE-55 mt-3 mb-2">{title}</p>
-        <p className="font-bold text-md text-SYSTEM-black">{`$ ${price}`}</p>
+        <p className="font-bold text-md text-SYSTEM-black">{`$ ${presentPrice}`}</p>
         <p className="text-md text-ELSE-76">
-          {convertToKrw(Number(exchangeData.usdToKrw), Number(price))}
+          {convertToKrw(exchangeRate.usdToKrw, Number(presentPrice))}
         </p>
         {(isLowestPriceEver || discountRate !== 0) && (
           <div className="flex gap-1.5 mt-2">

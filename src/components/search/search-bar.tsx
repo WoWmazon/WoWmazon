@@ -36,7 +36,7 @@ const SearchBar = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === "") {
-      setSearchParams("search", "");
+      setSearchParams("search", undefined);
     }
     setInputValue(value);
   };

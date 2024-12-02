@@ -2,12 +2,12 @@ type productPostCardProps = {
   id: number;
   image: string;
   title: string;
-  price?: string;
   presentPrice: string;
   discountRate: number;
   isFavorite?: boolean;
   isAlarm?: boolean;
   favoriteId?: number;
+  isLowestPriceEver: boolean;
 };
 type OrderingType = "present_price" | "-discount_rate";
 
@@ -60,9 +60,9 @@ type ProductResultType = {
   title: string; // 상품명
 };
 
-type GetExchangeResponse = {
-  usdToKrw: string;
-  createdAt: string;
+type GetExchangeRateResponse = {
+  usdToKrw: number;
+  createdAt: Date;
 };
 
 type CategorytButtonProps = {

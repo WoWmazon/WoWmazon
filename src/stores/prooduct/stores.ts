@@ -48,3 +48,17 @@ export const useWishListParamStore = create<WishProductParamsState>()(
       })),
   })
 );
+
+export const useWishEditStore = create<WishEditState>()((set, get) => ({
+  editList: [],
+  isEditing: false,
+  setIsEditing: (flag: boolean) => set({ isEditing: flag }),
+  isChecked: (id: number) => get().editList.includes(id),
+  setEdit: (id: number) =>
+    set((state) => ({ editList: [...state.editList, id] })),
+  deleteEdit: (id: number) =>
+    set((state) => ({
+      editList: [...state.editList.filter((item) => item !== id)],
+    })),
+  clearEditList: () => set({ editList: [] }),
+}));

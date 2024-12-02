@@ -11,10 +11,10 @@ import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
 
 const ProductDetailContent = ({
   product,
-  exchangeData,
+  exchangeRate,
 }: {
   product: GetProductDetailResponse;
-  exchangeData: GetExchangeResponse;
+  exchangeRate: GetExchangeRateResponse;
 }) => {
   const {
     image,
@@ -73,13 +73,13 @@ const ProductDetailContent = ({
         <div className="flex gap-2 content-center">
           <p className="text-xxl font-bold">{`\$ ${presentPrice}`}</p>
           <p className="content-center text-ELSE-55">
-            {convertToKrw(Number(exchangeData?.usdToKrw), Number(presentPrice))}
+            {convertToKrw(exchangeRate.usdToKrw, Number(presentPrice))}
           </p>
         </div>
         <p className="text-sm text-ELSE-76 mb-3">
           {getFormattedExchangeText(
-            exchangeData.usdToKrw,
-            exchangeData.createdAt
+            exchangeRate.usdToKrw,
+            exchangeRate.createdAt.toString()
           )}
         </p>
         <div className="text-md px-3 py-2 bg-ELSE-F5 mb-3">

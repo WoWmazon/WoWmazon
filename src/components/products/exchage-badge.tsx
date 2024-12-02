@@ -1,12 +1,13 @@
 "use server";
 
-import { getExchangeLatest } from "@/api/exchange/apis";
 import Badge from "../common/badge";
 import { getFormattedExchangeText } from "@/utils/exchange";
 
-const ExchangeBadge = async () => {
-  const exchangeData = await getExchangeLatest();
-
+const ExchangeBadge = async ({
+  exchangeRate,
+}: {
+  exchangeRate: GetExchangeRateResponse;
+}) => {
   return (
     <div className="bg-ELSE-FF3 text-SYSTEM-black h-16 px-4 py-3  grid grid-cols-[auto,1fr] gap-4 items-center">
       <Badge
@@ -18,10 +19,10 @@ const ExchangeBadge = async () => {
         hasIcon={false}
       />
       <p className="text-md">
-        {exchangeData &&
+        {exchangeRate &&
           getFormattedExchangeText(
-            exchangeData.usdToKrw,
-            exchangeData.createdAt
+            exchangeRate.usdToKrw,
+            exchangeRate.createdAt.toString()
           )}
       </p>
     </div>

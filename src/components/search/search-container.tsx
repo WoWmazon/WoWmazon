@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useProductParamsStore } from "@/stores/prooduct/stores";
 import { useInfiniteScrollProductList } from "@/hooks/useInfiniteProductList";
 import SearchBar from "@/components/search/search-bar";
@@ -8,7 +9,7 @@ import SearchRecentKeywords from "./search-recent-keywords";
 import SearchFilter from "./search-filter";
 
 const SearchContainer = () => {
-  const searchParams = useProductParamsStore((state) => state.searchParams);
+  const { searchParams, setSearchParams } = useProductParamsStore();
   const hasSearchKeyword = !!searchParams.search;
 
   const { data, isPending, isError, hasNextPage, fetchNextPage } =
@@ -16,6 +17,10 @@ const SearchContainer = () => {
 
   const resultCount = data?.pages[0].count ?? 0;
   const resultData = data?.pages.flatMap((page) => page.results) ?? [];
+
+  useEffect(() => {
+    return () => setSearchParams("search", undefined);
+  }, [setSearchParams]);
 
   return (
     <div className="pt-16 text-ELSE-33">
