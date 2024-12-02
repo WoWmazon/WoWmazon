@@ -26,12 +26,16 @@ const ProductList = ({
   if (isError) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center px-4">
       {products.length > 0 ? (
         products
           .filter((product) => product.presentPrice !== null)
           .map((product, index) => (
-            <ProductCard key={`${product.id}-${index}`} product={product} exchangeRate={exchangeRate} />
+            <ProductCard
+              key={`${product.id}-${index}`}
+              product={product}
+              exchangeRate={exchangeRate}
+            />
           ))
       ) : (
         <p>상품이 없습니다.</p>
