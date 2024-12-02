@@ -17,7 +17,7 @@ const WishListHeader = ({ wishListNumber, openEdit }: WishListHeaderProps) => {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-4 py-5">
       <div className="grid grid-cols-[1fr_auto] items-center h-8">
         <p className="text-xxl">
           {t("wishList")}({wishListNumber})
@@ -32,7 +32,7 @@ const WishListHeader = ({ wishListNumber, openEdit }: WishListHeaderProps) => {
           className="justify-self-end"
         />
       </div>
-      <div className="mt-2 px-1 justify-self-end hover:bg-gray-100 hover:rounded-full">
+      <div className="mt-4 px-1 justify-self-end hover:bg-gray-100 hover:rounded-full">
         {wishListNumber > 0 && (
           <button
             className=" text-md justify-self-end hover:text-ELSE-55"
