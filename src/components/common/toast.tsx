@@ -48,7 +48,7 @@ const Toast = () => {
     >
       <div
         className={twMerge(
-          "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
+          "fixed bottom-0 h-[52px] w-[calc(100%-2rem)] text-center xs:w-[468px] content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
           isVisible ? "block" : "hidden",
           isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",
