@@ -26,7 +26,7 @@ export default function RootLayout({
         <div className="absolute z-50">
           <LocaleButton />
         </div>
-        <div className="max-h-screen bg-SYSTEM-main overflow-hidden">
+        <div className="max-h-screen bg-SYSTEM-main overflow-hidden select-none">
           <div className="relative px-0 sm:px-6 md:px-10">
             <div className="flex justify-center lg:justify-around">
               <div className=" hidden lg:flex flex-col">
