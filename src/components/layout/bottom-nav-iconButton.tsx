@@ -9,7 +9,7 @@ const BottomNavIconButton = ({
   onClick,
 }: BottomNavIconButtonProps) => {
   return (
-    <div className=" filex w-[53px] h-[54px] flex flex-col gap-[2px] justify-center items-center">
+    <div className=" filex h-[54px] flex flex-col gap-[2px] justify-center items-center">
       <IconButton
         icon={icon}
         activeIcon={activeIcon}
