@@ -9,7 +9,7 @@ const ExchangeBadge = async ({
   exchangeRate: GetExchangeRateResponse;
 }) => {
   return (
-    <div className="bg-ELSE-FF3 text-SYSTEM-black w-[375px] h-16 px-4 py-3  grid grid-cols-[auto,1fr] gap-4 items-center">
+    <div className="bg-ELSE-FF3 text-SYSTEM-black h-16 px-4 py-3  grid grid-cols-[auto,1fr] gap-4 items-center">
       <Badge
         text="안내"
         backgroundColor="bg-SYSTEM-main"

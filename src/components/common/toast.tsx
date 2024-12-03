@@ -43,12 +43,12 @@ const Toast = () => {
 
   return (
     <div
-      className="absolute flex justify-center left-0 bottom-0 w-full sm:w-[375px] cursor-pointer"
+      className="absolute flex justify-center right-0 bottom-0 w-full cursor-pointer"
       onClick={() => onChange(false)}
     >
       <div
         className={twMerge(
-          "fixed bottom-0 h-[52px] w-[343px] text-center content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
+          "fixed bottom-0 h-[52px] w-[calc(100%-2rem)] text-center xs:w-[468px] content-center bg-ELSE-33 text-SYSTEM-white text-md z-30",
           isVisible ? "block" : "hidden",
           isOpen && "animate-slideUp",
           !isOpen && "animate-slideDown",

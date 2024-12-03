@@ -33,6 +33,9 @@ const config: Config = {
         slideUp: "slideUp .5s ease-out",
         slideDown: "slideDown .5s ease-out",
       },
+      screens: {
+        xs: "500px",
+      },
     },
   },
   plugins: [],

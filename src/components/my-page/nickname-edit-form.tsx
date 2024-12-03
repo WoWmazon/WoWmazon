@@ -35,7 +35,7 @@ const NicknameEditForm = ({
   };
 
   return (
-    <div className="text-left">
+    <div className="w-full">
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <NicknameFields

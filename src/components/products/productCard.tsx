@@ -59,10 +59,10 @@ const ProductCard = ({
 
   return (
     <div
-      className="w-[343px] h-[136px]  py-4 border-b-[1px] border-ELSE-EC cursor-pointer"
+      className="w-full h-[136px]  py-4 border-b-[1px] border-ELSE-EC cursor-pointer"
       onClick={() => router.push(`/product-detail/${id}`)}
     >
-      <div className="flex gap-3">
+      <div className="grid grid-cols-[80px_auto] gap-3">
         {/* 상품이미지 */}
         <div className="size-20 flex justify-center items-center bg-ELSE-EC">
           <Image
@@ -77,10 +77,8 @@ const ProductCard = ({
         {/* 이미지 제외 컴포넌트 */}
         <div className="flex flex-col gap-5">
           {/* 상품명과 아이콘버튼 */}
-          <div className="w-[251px] h-10 gap-3 flex">
-            <p className="w-[203px] h-10  text-md text-ELSE-55 line-clamp-2">
-              {title}
-            </p>
+          <div className="grid grid-cols-[auto_32px] h-10 gap-3">
+            <p className="h-10  text-md text-ELSE-55 line-clamp-2">{title}</p>
             {isUndefined(favoriteId) ? (
               <IconButton
                 icon={isFavorite ? addProductGray : addProduct}

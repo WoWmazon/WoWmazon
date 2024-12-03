@@ -32,12 +32,12 @@ const SimpleBottomSheet = () => {
     <div
       id="common-simple-bottom-sheet"
       tabIndex={-1}
-      className="absolute flex justify-center top-0 left-0 items-end w-full h-screen bg-ELSE-A1 bg-opacity-50"
+      className="absolute flex justify-center top-0 left-0 z-20 items-end w-full h-screen bg-ELSE-A1 bg-opacity-50"
       onClick={handleOutsideClick} // 외부 클릭 시 모달 닫기
     >
       <div
         className={twMerge(
-          "fixed bottom-0 px-4 py-6 w-[375px] text-center content-center max-h-full bg-SYSTEM-white rounded-t-lg text-md z-30",
+          "fixed bottom-0 px-4 py-6 max-w-[500px] w-full text-center content-center max-h-full bg-SYSTEM-white rounded-t-lg text-md z-30",
           isShow && "animate-slideUp",
           !isShow && "animate-slideDown"
         )}

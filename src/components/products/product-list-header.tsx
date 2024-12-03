@@ -6,11 +6,10 @@ const ProductListHeader = ({
 }: {
   exchangeRate: GetExchangeRateResponse;
 }) => {
-
   return (
     <>
-      <div className="flex justify-center items-center">
-        <div className="text-xl font-bold w-[375px] h-[62px] text-center">
+      <div className="flex justify-center">
+        <div className="text-xl font-bold w-[375px] h-[62px] text-center items-center content-center">
           상품 리스트
         </div>
       </div>
