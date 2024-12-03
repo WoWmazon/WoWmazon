@@ -1,8 +1,6 @@
 {
   "authorization": {
-    "title1": "To conveniently use the",
-    "title2": "service, please grant the acces rights below.",
-    "title3": "You must allow it.",
+    "title": "To conveniently use the service, please grant the acces rights below. You must allow it.",
     "sub-title1": {
       "title": "Device and app history",
       "description": "Optimize app services and improve usability"

@@ -61,7 +61,7 @@ const NicknameFields = ({
           <span className="text-SYSTEM-main">*</span>
         </p>
       )}
-      <div className="grid grid-cols-[auto_auto] gap-2">
+      <div className="grid grid-cols-[auto_88px] gap-2">
         <CustomInput
           className={twMerge(
             "bg-SYSTEM-white border-ELSE-D9 border h-14",
@@ -75,7 +75,7 @@ const NicknameFields = ({
           {...nicknameRest}
         />
         <CustomButton
-          className="px-[15px]"
+          className="px-[15px] w-fit"
           variant={
             validation.isError || isAvailableNickname
               ? "disabled"
