@@ -1,8 +1,8 @@
 "use server";
 
-import { createDeviceInfo } from "@/utils/deviceUtils";
+import { createDeviceInfo } from "@/utils/device-utils";
 import { LocaleTypes } from "@/utils/localization/settings";
-import { createRegisterBody } from "@/utils/registerUtils";
+import { createRegisterBody } from "@/utils/register-utils";
 import { fetchWithoutToken } from "@/api/fetchApi";
 import { setCookieServer } from "@/utils/set-cookie";
 

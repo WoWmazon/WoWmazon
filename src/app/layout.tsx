@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import LocaleButton from "@/components/locale-button";
 
@@ -6,15 +5,9 @@ import MainImage from "@/assets/images/main-mid.png";
 import "../css/index.css";
 import QueryProviders from "@/providers/query-provider";
 import CommonContainer from "@/components/layout/common-container";
+import { DEFAULT_METADATA } from "@/utils/metadata-utils";
 
-export const metadata: Metadata = {
-  title: "Nito",
-  description: "Amazon Lowest Price Monitoring Service",
-  icons: {
-    icon: [{ rel: "icon", url: "/favicon.svg", type: "image/svg+xml" }],
-  },
-};
-
+export const metadata = DEFAULT_METADATA;
 export default function RootLayout({
   children,
 }: {
@@ -22,6 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="EVkprIhe7vdIDDGFY0-G0Z6Va_DlFFgzm1RUGdbjKWU"
+        />
+      </head>
       <body className={"font-pretendard"}>
         <div className="absolute z-50">
           <LocaleButton />
