@@ -61,6 +61,7 @@ export const useMutationWithdrawal = () => {
   return useMutation({
     mutationFn: postUserWithdrawal,
     onSuccess: () => {
+      window.localStorage.removeItem("recent-keywords");
       alert("탈퇴되었습니다.");
       router.push("/");
     },

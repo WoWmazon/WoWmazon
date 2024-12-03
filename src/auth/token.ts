@@ -1,4 +1,4 @@
-import { postRefreshUser } from "@/api/user/apis";
+import { postLogin, postRefreshUser } from "@/api/user/apis";
 import { getCookie } from "@/utils/get-cookie";
 import { setCookieServer } from "@/utils/set-cookie";
 import { jwtDecode } from "jwt-decode";
@@ -55,7 +55,9 @@ export const updateAccessToken = async (): Promise<string> => {
     return await refreshPromise;
   } catch (error) {
     console.error("토큰 갱신 실패:", error);
-    throw error;
+    const { accessToken, refreshToken } = await handleFailRefresh();
+    setValidToken(accessToken, refreshToken);
+    return accessToken;
   } finally {
     isRefreshing = false;
     refreshPromise = null;
@@ -74,4 +76,8 @@ export const setValidToken = (accessToken: string, refreshToken: string) => {
 };
 
 /*[리프레쉬 토큰 갱신 에러처리] */
-// const handleFailRefresh = () => {};
+const handleFailRefresh = async () => {
+  const currentRrefreshToken = getCookie("refreshToken") as string;
+  const device = getCookie("device") as string;
+  return await postLogin(device, currentRrefreshToken);
+};
