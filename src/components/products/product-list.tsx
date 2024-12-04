@@ -34,21 +34,17 @@ const ProductList = ({
               <ProductCardSkeleton />
             ) : (
               <ProductCard
-               
-              key={`${product.id}-${index}`}
-               
-              product={product}
-               
-              exchangeRate={exchangeRate}
-             
-            />
+                key={`${product.id}-${index}`}
+                product={product}
+                exchangeRate={exchangeRate}
+              />
             )
           )
       ) : (
         <p>상품이 없습니다.</p>
       )}
       <div ref={productIntersectionObserverRef}>
-        {isFetchingNextPage && <p>추가 데이터를 로딩 중...</p>}
+        {isFetchingNextPage && <ProductCardSkeleton />}
       </div>
     </div>
   );

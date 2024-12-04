@@ -66,7 +66,7 @@ const WishList = ({
         <p>상품이 없습니다.</p>
       )}
       <div ref={intersectionObserverRef}>
-        {isFetchingNextPage && <p>추가 데이터를 로딩 중...</p>}
+        {isFetchingNextPage && <ProductCardSkeleton />}
       </div>
     </div>
   );
