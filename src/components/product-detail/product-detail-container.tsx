@@ -10,9 +10,10 @@ import { useProductDetail } from "@/hooks/useProductDetail";
 import { useEffect, useState } from "react";
 import { getExchangeLatest } from "@/api/exchange/apis";
 import { isNull, isUndefined } from "@/utils/type-guard";
+import ProductDetailContentSkeleton from "../skeletons/product-detail-content-skeleton";
 
 const ProductDetailContainer = ({ params }: { params: { id: string } }) => {
-  const { data: product } = useProductDetail(params.id);
+  const { data: product, isLoading } = useProductDetail(params.id);
 
   const [exchangeRate, setExchangeRate] = useState<GetExchangeRateResponse>({
     usdToKrw: 1350,
@@ -35,7 +36,11 @@ const ProductDetailContainer = ({ params }: { params: { id: string } }) => {
     <>
       <div className="mb-3">
         <ProductDetailHeader {...product} />
-        <ProductDetailContent product={product} exchangeRate={exchangeRate} />
+        {isLoading ? (
+          <ProductDetailContentSkeleton />
+        ) : (
+          <ProductDetailContent product={product} exchangeRate={exchangeRate} />
+        )}
         {/* TODO: 그래프 추후 개발 */}
         {/* <ProductPriceGraph /> */}
         <ProductPriceInfo productId={params.id} exchangeRate={exchangeRate} />
