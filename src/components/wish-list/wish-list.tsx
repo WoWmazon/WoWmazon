@@ -65,7 +65,7 @@ const WishList = ({
       ) : (
         <p>상품이 없습니다.</p>
       )}
-      <div ref={intersectionObserverRef}>
+      <div ref={intersectionObserverRef} className="w-full">
         {isFetchingNextPage && <ProductCardSkeleton />}
       </div>
     </div>

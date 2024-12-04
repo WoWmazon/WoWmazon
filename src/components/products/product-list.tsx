@@ -43,7 +43,7 @@ const ProductList = ({
       ) : (
         <p>상품이 없습니다.</p>
       )}
-      <div ref={productIntersectionObserverRef}>
+      <div ref={productIntersectionObserverRef} className="w-full">
         {isFetchingNextPage && <ProductCardSkeleton />}
       </div>
     </div>
