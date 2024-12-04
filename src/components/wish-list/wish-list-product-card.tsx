@@ -8,7 +8,7 @@ const WishListProductCard = ({
   onCheck,
 }: WishListProductCardPros) => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {isEditing && (
         <div className="absolute size-full bg-SYSTEM-white bg-opacity-70">
           <div

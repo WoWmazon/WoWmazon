@@ -7,13 +7,6 @@
     text-wrap: balance;
   }
 
-  .bg-signin {
-    background-image: url("../assets//images/nito-big.svg");
-    background-repeat: no-repeat;
-    background-position-x: right;
-    background-position-y: top;
-  }
-
   .bi-check-sm {
     background-image: url("../assets/icons/check-sm.svg");
   }

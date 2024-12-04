@@ -33,9 +33,9 @@ const ProductDetailContent = ({
   return (
     <div className="bg-SYSTEM-white">
       {image ? (
-        <Image src={image} alt="product-image" width={375} height={295} />
+        <Image src={image} alt="product-image" width={500} height={295} />
       ) : (
-        <div className="bg-ELSE-EC h-[295px] w-[375px] content-center justify-items-center">
+        <div className="bg-ELSE-EC h-[295px] max-w-[500px] w-full content-center justify-items-center">
           <Image src={noImage} alt="no-image" />
         </div>
       )}

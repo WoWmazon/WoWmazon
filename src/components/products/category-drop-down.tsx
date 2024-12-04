@@ -56,7 +56,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
       {/* 드롭다운 버튼 */}
       <div
         onClick={toggleDropdown}
-        className="bg-SYSTEM-white w-[343px] h-10 px-4 py-2 flex items-center justify-between cursor-pointer border border-ELSE-EC"
+        className="bg-SYSTEM-white h-10 px-4 py-2 flex items-center justify-between cursor-pointer border border-ELSE-EC"
       >
         <span className="text-md text-ELSE-33">{activeCategory || "All"}</span>
         <div className={`transform  ${isOpen ? "rotate-180" : "rotate-0"}`}>
@@ -70,7 +70,7 @@ const CategoryDropDown = ({ categories, onSelect }: DropdownProps) => {
       </div>
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute  w-[343px] max-h-[352px] overflow-y-auto shadow-lg rounded-sm z-10 bg-SYSTEM-white">
+        <div className="absolute  w-full max-h-[352px] overflow-y-auto shadow-lg rounded-sm z-10 bg-SYSTEM-white">
           {categories.map((category, idx) => (
             <div
               key={category}

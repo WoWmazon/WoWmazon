@@ -38,7 +38,7 @@ const ProductDetailHeader = (product: GetProductDetailResponse) => {
   };
 
   return (
-    <div className="fixed top-0 w-full max-w-[375px] h-[66px] p-4 border border-ELSE-EC bg-SYSTEM-white">
+    <div className="fixed top-0 w-full max-w-[500px] h-[66px] p-4 border border-ELSE-EC bg-SYSTEM-white">
       <div className="grid grid-cols-[32px_auto_80px] items-center h-8 gap-[6px]">
         <IconButton
           icon={headerArrow}

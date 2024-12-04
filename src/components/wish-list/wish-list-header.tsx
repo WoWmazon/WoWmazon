@@ -17,7 +17,7 @@ const WishListHeader = ({ wishListNumber, openEdit }: WishListHeaderProps) => {
   };
 
   return (
-    <div className="px-4 pt-4">
+    <div className="px-4 pt-5">
       <div className="grid grid-cols-[1fr_auto] items-center h-8">
         <p className="text-xxl">
           {t("wishList")}({wishListNumber})
