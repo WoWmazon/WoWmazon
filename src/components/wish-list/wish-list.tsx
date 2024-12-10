@@ -40,14 +40,16 @@ const WishList = ({
 
   return (
     <div className="flex flex-col justify-center items-center">
-      {products.length > 0 ? (
+      {isLoading ? (
+        Array.from({ length: 5 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))
+      ) : products.length > 0 ? (
         products
           .filter((product) => product.presentPrice !== null)
           .map((product, index) => {
             const checked = isChecked(product.favoriteId);
-            return isLoading ? (
-              <ProductCardSkeleton />
-            ) : (
+            return (
               <WishListProductCard
                 key={`${product.id}-${index}`}
                 isEditing={isEditing}

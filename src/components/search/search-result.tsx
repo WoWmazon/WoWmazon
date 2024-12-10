@@ -31,25 +31,25 @@ const SearchResult = ({
     return <p>상품을 불러올 수 없습니다.</p>;
   }
 
-  if (data.length === 0) {
-    return <SearchNoneProduct />;
-  }
-
   return (
     <>
-      {data
-        .filter((product) => product.presentPrice !== null)
-        .map((product: ProductResultType) =>
-          isLoading ? (
-            <ProductCardSkeleton />
-          ) : (
+      {isLoading ? (
+        Array.from({ length: 5 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))
+      ) : data.length > 0 ? (
+        data
+          .filter((product) => product.presentPrice !== null)
+          .map((product: ProductResultType) => (
             <ProductCard
               key={product.id}
               product={product}
               exchangeRate={exchangeRate}
             />
-          )
-        )}
+          ))
+      ) : (
+        <SearchNoneProduct />
+      )}
       {hasNextPage && (
         <div ref={observerRef}>
           <ProductCardSkeleton />

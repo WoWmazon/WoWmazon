@@ -26,20 +26,20 @@ const ProductList = ({
 
   return (
     <div className="flex flex-col justify-center items-center px-4">
-      {products.length > 0 ? (
+      {isLoading ? (
+        Array.from({ length: 4 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))
+      ) : products.length > 0 ? (
         products
           .filter((product) => product.presentPrice !== null)
-          .map((product, index) =>
-            isLoading ? (
-              <ProductCardSkeleton />
-            ) : (
-              <ProductCard
-                key={`${product.id}-${index}`}
-                product={product}
-                exchangeRate={exchangeRate}
-              />
-            )
-          )
+          .map((product, index) => (
+            <ProductCard
+              key={`${product.id}-${index}`}
+              product={product}
+              exchangeRate={exchangeRate}
+            />
+          ))
       ) : (
         <p>상품이 없습니다.</p>
       )}
