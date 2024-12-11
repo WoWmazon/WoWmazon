@@ -4,6 +4,7 @@ import { getProductPriceInfo } from "@/api/product/apis";
 import { format } from "date-fns";
 import { convertToKrw } from "@/utils/exchange";
 import { useEffect, useState } from "react";
+import ProductPriceInfoSkeleton from "../skeletons/product-price-info-skeleton";
 
 const ProductPriceInfo = ({
   productId,
@@ -24,7 +25,7 @@ const ProductPriceInfo = ({
     getProductInfo();
   }, [productId]);
 
-  if (!productInfo) return null;
+  if (!productInfo) return <ProductPriceInfoSkeleton />;
 
   return (
     <div className="px-4 py-5 bg-SYSTEM-white">

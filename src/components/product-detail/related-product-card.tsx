@@ -48,7 +48,7 @@ const RelatedProductCard = ({
   };
 
   const wishAddButton = () => (
-    <div className="absolute bottom-2 right-3 z-10">
+    <div className="absolute bottom-2 right-3">
       <IconButton
         icon={isFavorite ? addProductGray : addProduct}
         size={32}
