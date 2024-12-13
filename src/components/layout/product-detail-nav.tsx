@@ -23,7 +23,7 @@ const ProductDetailNav = (product: GetProductDetailResponse) => {
   };
 
   return (
-    <div className="fixed bottom-0 w-full max-w-[500px] h-24 border-t border-ELSE-EC bg-SYSTEM-white px-4 pl-5 content-center">
+    <div className="fixed bottom-0 w-full max-w-[500px] lg:w-[375px] h-24 border-t border-ELSE-EC bg-SYSTEM-white px-4 pl-5 content-center z-30">
       <div className="flex gap-4">
         <CustomButton variant="filled">구매하러 가기</CustomButton>
         {!isFavorite && (

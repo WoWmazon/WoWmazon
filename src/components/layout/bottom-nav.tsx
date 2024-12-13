@@ -44,7 +44,7 @@ const BottomNav = () => {
   };
 
   return (
-    <div className="fixed bottom-0 w-full min-w-[375px] max-w-[500px] h-16 border-t justify-items-center border-ELSE-EC bg-SYSTEM-white px-4">
+    <div className="fixed bottom-0 w-full min-w-[375px] max-w-[500px] lg:w-[375px] h-16 border-t justify-items-center border-ELSE-EC bg-SYSTEM-white px-4">
       <div className="grid grid-cols-5 gap-5 w-full h-14 items-end">
         {/* 전체 5칸의 grid 생성 */}
         {iconButtons.map(({ icon, activeIcon, label, path, action }, index) => {

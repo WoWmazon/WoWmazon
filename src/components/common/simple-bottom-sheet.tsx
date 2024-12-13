@@ -37,7 +37,7 @@ const SimpleBottomSheet = () => {
     >
       <div
         className={twMerge(
-          "fixed bottom-0 px-4 py-6 max-w-[500px] w-full text-center content-center max-h-full bg-SYSTEM-white rounded-t-lg text-md z-30",
+          "fixed bottom-0 px-4 py-6 max-w-[500px] w-full lg:w-[375px] text-center content-center max-h-full bg-SYSTEM-white rounded-t-lg text-md z-30",
           isShow && "animate-slideUp",
           !isShow && "animate-slideDown"
         )}
