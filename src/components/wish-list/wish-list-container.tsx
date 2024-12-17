@@ -90,7 +90,7 @@ const WishListContainer = () => {
         )}
       </div>
       {isEditing && (
-        <div className="fixed w-full max-w-[500px] bottom-0 py-5 px-4 mt-auto bg-SYSTEM-white z-30">
+        <div className="fixed w-full max-w-[500px] lg:w-[375px] bottom-0 py-5 px-4 mt-auto bg-SYSTEM-white z-30">
           <CustomButton
             variant={editList.length > 0 ? "filled" : "disabled"}
             disabled={!editList.length}

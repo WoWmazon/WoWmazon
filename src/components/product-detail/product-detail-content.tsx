@@ -8,6 +8,7 @@ import CustomButton from "../common/custom-button";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { convertToKrw, getFormattedExchangeText } from "@/utils/exchange";
+import { twMerge } from "tailwind-merge";
 
 const ProductDetailContent = ({
   product,
@@ -32,13 +33,28 @@ const ProductDetailContent = ({
 
   return (
     <div className="bg-SYSTEM-white">
-      {image ? (
-        <Image src={image} alt="product-image" width={500} height={295} />
-      ) : (
-        <div className="bg-ELSE-EC h-[295px] max-w-[500px] w-full content-center justify-items-center">
-          <Image src={noImage} alt="no-image" />
-        </div>
-      )}
+      <div
+        className={twMerge(
+          "relative w-full justify-items-center content-center aspect-square",
+          image ?? "bg-ELSE-EC"
+        )}
+      >
+        {image ? (
+          <Image
+            className="object-contain"
+            src={image}
+            alt="product-image"
+            fill
+            sizes="100%"
+          />
+        ) : (
+          <Image
+            src={noImage}
+            alt="no-image"
+            style={{ width: "50%", height: "50%" }}
+          />
+        )}
+      </div>
       <div className="p-4 border border-ELSE-EC">
         <p className="mb-2.5">{title}</p>
         <div className="flex gap-1.5 mb-1">
