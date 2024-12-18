@@ -4,16 +4,12 @@ import { useEffect, useState } from "react";
 import { iconButtons } from "@/constants/bottom-nav-button";
 import BottomNavIconButton from "./bottom-nav-iconButton";
 import add from "@/assets/icons/addProduct.svg";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSimpleBottomSheetStore } from "@/stores/common/stores";
 import BottomSheetAddProducts from "./bottom-sheet-add-products";
-import { useTranslation } from "@/utils/localization/client";
-import { LocaleTypes, locales } from "@/utils/localization/settings";
 
 const BottomNav = () => {
   const pathName = usePathname();
-  const { locale }: { locale: LocaleTypes } = useParams();
-  const { t } = useTranslation(locale, "common");
   const router = useRouter();
   const { handleSimpleBottomSheet, handleClose } = useSimpleBottomSheetStore();
 
