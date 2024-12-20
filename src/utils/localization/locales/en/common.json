@@ -17,5 +17,8 @@
   "wishLostNoContentsDescription": "Click the + button below to include the product you want to be notified of the lowest price!",
   "no": "No",
   "yesPlease": "Yes, please",
-  "check": "Check"
+  "check": "Check",
+  "productList": "Productlist",
+  "search": "Search",
+  "myPage": "MyPage"
 }
