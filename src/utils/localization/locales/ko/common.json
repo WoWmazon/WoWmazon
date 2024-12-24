@@ -17,5 +17,8 @@
   "wishLostNoContentsDescription": "아래 + 버튼을 눌러 최저가 알림 받고싶은 상품을 담아보세요!",
   "no": "괜찮아요",
   "yesPlease": "네, 알려주세요",
-  "check": "확인"
+  "check": "확인",
+  "productList": "상품",
+  "search": "검색",
+  "myPage": "마이페이지"
 }
